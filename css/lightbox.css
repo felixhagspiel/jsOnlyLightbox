@@ -49,7 +49,7 @@
   .lightbox-contentwrapper.active {
     visibility: visible; }
 
-.thumbnail {
+.lightbox-thmb {
   padding: .4em;
   border: 2px solid #547c85;
   max-width: 100%;
@@ -61,10 +61,10 @@
   -ms-transition: border-color 0.3s ease-in-out;
   transition: border-color 0.3s ease-in-out; }
   @media screen and (min-width: 451px) {
-    .thumbnail {
+    .lightbox-thmb {
       margin: 1em; } }
   @media screen and (max-width: 450px) {
-    .thumbnail {
+    .lightbox-thmb {
       margin: 1em 0; } }
-  .thumbnail:hover {
+  .lightbox-thmb:hover {
     border: 2px solid #f1c15c; }

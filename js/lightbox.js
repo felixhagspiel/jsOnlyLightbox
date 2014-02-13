@@ -1,11 +1,10 @@
+
 function Lightbox () {
 	this.opt;
 	this.box;
-	this.wrapper;
-
+	this.wrapper
 	var that = this,
 		template = '<span class="lightbox-close" id="lightbox-close">X</span><div class="lightbox-contentwrapper" id="lightbox-contentwrapper" ></div>';
-
 	/* Helpers */
 	var addEvent  = function(el,e,callback,val){
 		callback.bind(this,val);
@@ -58,10 +57,8 @@ function Lightbox () {
 			});
 		}
 		if(opt.responsive) {
-			console.info('set');
 			addEvent(window,'resize',function(e){
 				that.resize();
-				console.info('resized');
 			});
 		}
 		/* Find all thumbnails & add clickhandlers */
@@ -131,6 +128,5 @@ function Lightbox () {
 			}
 		},10);
 	};
-
 };
 
