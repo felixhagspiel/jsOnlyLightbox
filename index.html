@@ -20,13 +20,19 @@
 	<span id="close">close</span>
 	<img class="thumbnail" src="img/projects/meisterlampe-desktop.jpg" alt="">
 	<img class="thumbnail" src="img/projects/meisterlampe-desktop.jpg" alt="" data-lightbox>
+	<img class="thumbnail" src="img/projects/meisterlampe-desktop.jpg" alt="" data-lightbox>
+	<img class="thumbnail" src="img/projects/meisterlampe-desktop.jpg" alt="" data-lightbox>
+	<img class="thumbnail" src="img/projects/meisterlampe-desktop.jpg" alt="" data-lightbox>
+	<img class="thumbnail" src="img/projects/meisterlampe-desktop.jpg" alt="" data-lightbox>
+	<img class="thumbnail" src="img/projects/meisterlampe-desktop.jpg" alt="" data-lightbox>
+	<img class="thumbnail" src="img/projects/meisterlampe-desktop.jpg" alt="" data-lightbox>
 	<img class="thumbnail" src="img/projects/meisterlampe-mobile.jpg" alt="" data-lightbox="img/projects/meisterlampe-mobile.jpg">
 
 	<script src="js/lightbox.js" type="text/javascript"></script>
 	<script>
-	 var test = new Lightbox();
-	 test.load({closeId:'close'});
-	 console.log(test.box);
+	 var lightbox = new Lightbox();
+	 lightbox.load({closeId:'close', responsive:true});
+	 lightbox.refresh();
 	</script>
 </body>
 </html>
