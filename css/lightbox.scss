@@ -27,8 +27,9 @@ $darkblue: #3F658B;
 	transition: $var;
 }
 
-.lightbox {
+.jslghtbx {
 	font-family: sans-serif;
+	overflow: hidden;
 	display: none;
 	position: fixed;
 	z-index: 2;
@@ -44,12 +45,12 @@ $darkblue: #3F658B;
 		background: #fff;
 		padding: .5em;
 		display: block;
+		width: 100%;
 		max-width: 100%;
-		max-height: 100%;
 		margin: auto;
 	}
 }
-.lightbox-close {
+.jslghtbx-close {
 	position: fixed;
 	right: 1em;
 	top: 1em;
@@ -66,16 +67,16 @@ $darkblue: #3F658B;
 		background-color: $def-color-1;
 	}
 }
-.lightbox-contentwrapper {
-	max-width: 80%;
-	max-height: 80%;
+.jslghtbx-contentwrapper {
 	margin: auto;
+	max-height: 80%;
+	max-width: 80%;
 	visibility: hidden;
 	&.active {
 		visibility: visible;
 	}
 }
-.lightbox-thmb {
+.jslghtbx-thmb {
 	@media screen and(min-width: 451px) {
 		margin: 1em;
 	}
