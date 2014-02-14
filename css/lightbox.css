@@ -18,8 +18,8 @@
     background: #fff;
     padding: .5em;
     display: block;
-    width: 100%;
     max-width: 100%;
+    max-height: 100%;
     margin: auto; }
 
 .jslghtbx-close {
