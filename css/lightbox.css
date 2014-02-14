@@ -3,17 +3,23 @@
 **/
 .jslghtbx {
   font-family: sans-serif;
-  overflow: hidden;
-  display: none;
+  overflow: auto;
+  visibility: hidden;
   position: fixed;
   z-index: 2;
   left: 0;
   top: 0;
   width: 100%;
   height: 100%;
-  background: rgba(0, 0, 0, 0.8); }
+  background-color: none;
+  -webkit-transition: background-color 0.3s ease-in;
+  -moz-transition: background-color 0.3s ease-in;
+  -o-transition: background-color 0.3s ease-in;
+  -ms-transition: background-color 0.3s ease-in;
+  transition: background-color 0.3s ease-in; }
   .jslghtbx.active {
-    display: block; }
+    visibility: visible;
+    background-color: rgba(0, 0, 0, 0.8); }
   .jslghtbx img {
     background: #fff;
     padding: .5em;
