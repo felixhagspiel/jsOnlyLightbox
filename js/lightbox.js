@@ -1,9 +1,9 @@
-
 function Lightbox () {
 	this.opt = false;
 	this.box = false;
 	this.wrapper = false;
 	var that = this,
+		body = document.getElementsByTagName('body')[0],
 		template = '<span class="jslghtbx-close" id="jslghtbx-close">X</span><div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>';
 	/* Helpers */
 	var getHeight = function(){
@@ -34,9 +34,6 @@ function Lightbox () {
 		if(typeof obj != 'undefined'){return true;}
 		return false;
 	};
-	var objClone = function(obj){
-	    return eval(uneval(this));
-	};
 	var getAttr = function(obj,attr) {
 		if(!obj || typeof obj == undefined){return false;}
 		var ret;
@@ -53,32 +50,42 @@ function Lightbox () {
 		if(typeof ret != undefined){return true;}
 		return false;
 	};
+	var exists = function(id){
+		if(document.getElementById(id)) {
+			return true;
+		}
+		return false;
+	};
 	/* Methods */
 	this.load = function(opt) {
 		if(opt){this.opt = opt;}
-		if(opt && opt.boxId && !this.box) {
+		if(opt && opt.boxId) {
 			// init lightbox on given element
 			this.box = document.getElementById(opt.boxId);
 			this.box.innerHTML = template;
 		}
-		else if(!this.box) {
+		else if(!this.box && !exists('jslghtbx')) {
 			// create lightbox if no ID is given
 			var newEl = document.createElement('div');
+			newEl.setAttribute('id','jslghtbx');
 			newEl.setAttribute('class','jslghtbx');
 			this.box = newEl;
 			this.box.innerHTML = template;
-			document.getElementsByTagName('body')[0].appendChild(this.box);
+			body.appendChild(this.box);
 			this.wrapper = document.getElementById('jslghtbx-contentwrapper');
+		}
+		else {
+			this.box = document.getElementById('jslghtbx');
 		}
 		if(opt && opt.closeId) {
 			// close lightbox on click on given element
 			addEvent(document.getElementById(opt.closeId),'click',function(){
-				that.closeLightbox();
+				that.close();
 			});
 		}
-		if(opt && !opt.closeOnClick) {
+		if(opt && opt.closeOnClick || !opt) {
 			addEvent(this.box,'click',function(e){
-				that.closeLightbox();
+				that.close();
 			});
 		}
 		if(opt && (opt.responsive || !isset(opt.responsive)) ) {
@@ -92,11 +99,11 @@ function Lightbox () {
 			addEvent(i,'click',function(e) {
 				if(getAttr(i,'data-jslghtbx')) {
 					// image-source given
-					that.openLightbox(getAttr(i,'data-jslghtbx'));
+					that.open(getAttr(i,'data-jslghtbx'));
 				}
 				else {
 					// no image-source given
-					that.openLightbox(getAttr(i,'src'));
+					that.open(getAttr(i,'src'));
 				}
 			});
 		};
@@ -107,10 +114,10 @@ function Lightbox () {
 			}
 		}
 	};
-	this.closeLightbox = function() {
+	this.close = function() {
 		removeClass(that.box,'active');
 		removeClass(that.wrapper,'active');
-		document.getElementsByTagName('body')[0].setAttribute('style','overflow = auto');
+		body.setAttribute('style','overflow = auto');
 	};
 	this.resize = function() {
 		that.box.setAttribute('style','padding-top:'+((getHeight() - that.wrapper.offsetHeight) /2)+'px');
@@ -121,11 +128,11 @@ function Lightbox () {
 		}
 		this.load(this.opt);
 	}
-	this.openLightbox = function(src) {
+	this.open = function(src) {
 		if(!src){return false;}
 		var img = document.createElement('img');
 		img.setAttribute('src',src);
-		document.getElementsByTagName('body')[0].setAttribute('style','overflow = hidden');
+		body.setAttribute('style','overflow = hidden');
 		this.box.setAttribute('style','padding-top: 0');
 		this.wrapper.innerHTML = '';
 		this.wrapper.appendChild(img);
@@ -133,13 +140,11 @@ function Lightbox () {
 		var checkClassInt = setInterval(function(){
 			if(hasClass(that.box,'active'))
 			{
+				that.resize();
+				// prevent 'popup'-effect of image
 				setTimeout(function(){
-					that.resize();
-					// prevent 'popup'-effect of image
-					setTimeout(function(){
-						addClass(that.wrapper,'active');
-					},1);
-				},100);
+					addClass(that.wrapper,'active');
+				},1);
 				clearInterval(checkClassInt);
 			}
 		},10);
