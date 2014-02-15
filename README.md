@@ -8,6 +8,8 @@
 - Small in Size (< 5Kb)
 - IE8+ Support
 
+Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/). The lightbox is still in development mode, so please post any issues and bugs here.
+
 ## Usage
 
 Add this before the closing body tag ( `</body>` ):
@@ -61,6 +63,12 @@ Default: true
 
 Hides overflow when lightbox is opened.
 
+###	`{hideCloseBtn: bool}`
+
+Default: true
+
+Hides the closebutton inside the lightbox.
+
 ###	`{closeId: 'elementId'}`
 
 Here you can pass your own closebutton-ID if you want to use your own element for closing the box. The regular close-button won't be displayed then.
@@ -88,7 +96,7 @@ Example:
 
 Closes the lightbox.
 
-### `lightbox.resize`
+### `lightbox.resize()`
 
 Repositions the image in the lightbox.
 
