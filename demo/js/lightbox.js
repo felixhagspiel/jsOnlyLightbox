@@ -173,7 +173,8 @@ function Lightbox () {
 		maxHeight = getHeight() * 0.8;
 		wrapperWidth = that.wrapper.offsetWidth;
 		wrapperHeight = that.wrapper.offsetHeight;
-		that.wrapper.setAttribute('style','height:'+maxHeight+'px; width:'+maxWidth+'px');
+		that.wrapper.setAttribute('width',maxWidth);
+		that.wrapper.setAttribute('height',maxHeight);
 		if(!imgRatio) {
 			imgRatio = img.offsetWidth / img.offsetHeight;
 		}
@@ -187,7 +188,8 @@ function Lightbox () {
 			newImgWidth = wrapperWidth;
 			newImgHeight = Math.floor(wrapperWidth/imgRatio);
 		}
-		img.setAttribute('style','width:'+newImgWidth+'px; height:'+newImgHeight+'px;');
+		img.setAttribute('width',newImgWidth);
+		img.setAttribute('height',newImgHeight);
 		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
 	};
 	this.refresh = function(opt) {
@@ -209,25 +211,28 @@ function Lightbox () {
 		this.wrapper.innerHTML = '';
 		this.wrapper.appendChild(img);
 		addClass(this.box,'jslghtbx-active');
+		// already show wrapper due to bug where dimensions are not
+		// correct in IE8
+		if(isIE8) {
+			addClass(that.wrapper,'jslghtbx-active');
+		}
 		var checkClassInt = setInterval(function(){
-			if(hasClass(that.box,'jslghtbx-active'))
+			if(hasClass(that.box,'jslghtbx-active') && img.complete)
 			{
 				// wait few ms to get correct image-offset
 				setTimeout(function(){
 					that.resize();
-					// prevent 'popup'-effect of image
-					setTimeout(function(){
-						addClass(that.wrapper,'jslghtbx-active');
-					},10);
-					clearInterval(checkClassInt);
-				},70);
+					// add active-class for all other browsers
+					addClass(that.wrapper,'jslghtbx-active');
+				},50);
+				clearInterval(checkClassInt);
 			}
 		},10);
 	};
 	this.close = function() {
 		removeClass(that.box,'jslghtbx-active');
 		removeClass(that.wrapper,'jslghtbx-active');
-		that.box.setAttribute('style','padding-top: 0px');
+		that.box.setAttribute('style','padding-top: 0px; display: none;');
 		// show overflow by default / if set
 		if(!this.opt ||  !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
 			body.setAttribute('style','overflow: auto');
