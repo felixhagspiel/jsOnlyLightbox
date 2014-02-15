@@ -4,7 +4,7 @@
 
 - no jQuery needed
 - Fully responsive
-- Highly customizable
+- Customizable Theme
 - Small in Size (< 5Kb)
 - IE8+ Support
 
@@ -43,10 +43,55 @@ Add this before the closing body tag ( `</body>` ):
 
 ## Options
 
-###	responsive
+###	`{responsive: bool}`
 
-###	closeOnClick
+Default: true
 
-###	closeId
+If set to true, the image will be resized according to the viewport on resize-events.
 
-###	boxId
+###	`{closeOnClick: bool}`
+
+Default: true
+
+If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button.
+
+###	`{hideOverflow: bool}`
+
+Default: true
+
+Hides overflow when lightbox is opened.
+
+###	`{closeId: 'elementId'}`
+
+Here you can pass your own closebutton-ID if you want to use your own element for closing the box. The regular close-button won't be displayed then.
+
+###	`{boxId: 'elementId'}`
+
+Here you can pass an ID if you want to use your own box-element. Images will be appended to that element then. The element will receive a class "jslghtbx-active" when opened, so style this class properly (you need at least to remove visibility by default and add it on active). If you want it to look like the default-box, just add the class "jslghtbx" to the box-element.
+
+## Methods
+
+### `lightbox.load(options)`
+
+The init-function. Here you can pass your option-object. Has to be called once on the box-object.
+
+### `lightbox.open('src-link')`
+
+If you want you can open the box by any element on your page.
+Example:
+
+	document.getElementById('open-lightbox').addEventListener('click',function(){
+		lightbox.open('../img/lightbox/1.jpg');
+	});
+
+### `lightbox.close()`
+
+Closes the lightbox.
+
+### `lightbox.resize`
+
+Repositions the image in the lightbox.
+
+### `lightbox.refresh(options)`
+
+Here you can update the the (already initialized) lightbox with new options.
