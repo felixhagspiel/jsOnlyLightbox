@@ -78,7 +78,7 @@ function Lightbox () {
 		var ret;
 		if(obj.getAttribute){ret=obj.getAttribute(attr);}
 		else if(obj.getAttributeNode){ret=obj.getAttributeNode(attr).value;}
-		if(typeof ret != undefined){return true;}
+		if(typeof ret === 'string'){return true;}
 		return false;
 	};
 	// lookup element in browser
@@ -161,6 +161,7 @@ function Lightbox () {
 		};
 		for(var i = 0; i < images.length; i++)
 		{
+
 			if(hasAttr(images[i],'data-jslghtbx')) {
 				clckHlpr(images[i]);
 			}
