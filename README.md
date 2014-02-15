@@ -18,17 +18,8 @@ Add this before the closing body tag ( `</body>` ):
 
 	<script src="jslightbox.js" type="text/javascript"></script>
 	<script>
-		/* Default options */
-		var options = {
-			responsive: true, 		// add handlers for resize-event
-			closeOnClick: true, 	// close lightbox on background-click
-			hideOverflow: true,		// hide scrolling-bar when lightbox is open
-			hideCloseBtn: false,	// hide the close-button inside the lightbox
-			closeId: false, 		// use your own close-button
-			boxId: false 			// use own box-element
-		};
 		var lightbox = new Lightbox();
-	 	lightbox.load(options);
+	 	lightbox.load();
 	</script>
 
 You just need to add the attribute `data-lightbox` to the image you want to show in the lightbox:
@@ -44,45 +35,48 @@ The CSS-class `jslghtbx-thmb` is optional. You can use your own styling if you w
 ## Options
 
 ###	`{responsive: bool}`
-
 Default: true
-
 If set to true, the image will be resized according to the viewport on resize-events.
 
 ###	`{closeOnClick: bool}`
-
 Default: true
-
 If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button.
 
 ###	`{hideOverflow: bool}`
-
 Default: true
-
 Hides overflow when lightbox is opened.
 
 ###	`{hideCloseBtn: bool}`
-
 Default: false
-
 Hides the closebutton inside the lightbox.
 
 ###	`{closeId: 'elementId'}`
-
 Here you can pass your own closebutton-ID if you want to use your own element for closing the box. The regular close-button won't be displayed then.
 
 ###	`{boxId: 'elementId'}`
-
 Here you can pass an ID if you want to use your own box-element. Images will be appended to that element then. The element will receive a class "jslghtbx-active" when opened, so style this class properly (you need at least to remove visibility by default and add it on active). If you want it to look like the default-box, just add the class "jslghtbx" to the box-element.
 
 ## Methods
 
-### `lightbox.load(options)`
+## `lightbox.load(options)`
 
 The init-function. Here you can pass your option-object. Has to be called once on the box-object.
 
-### `lightbox.open('src-link')`
+Example:
 
+	/* Default options */
+	var options = {
+		responsive: true, 		// add handlers for resize-event
+		closeOnClick: true, 	// close lightbox on background-click
+		hideOverflow: true,		// hide scrolling-bar when lightbox is open
+		hideCloseBtn: false,	// hide the close-button inside the lightbox
+		closeId: false, 		// use your own close-button
+		boxId: false 			// use own box-element
+	};
+	var lightbox = new Lightbox();
+	lightbox.load(options);
+
+## `lightbox.open('src-link')`
 If you want you can open the box by any element on your page.
 Example:
 
@@ -91,13 +85,10 @@ Example:
 	});
 
 ### `lightbox.close()`
-
 Closes the lightbox.
 
 ### `lightbox.resize()`
-
 Repositions the image in the lightbox. Is called on every resize-event unless you set the `responsive`-option to false.
 
 ### `lightbox.refresh(options)`
-
 Here you can update the the (already initialized) lightbox with new options.
