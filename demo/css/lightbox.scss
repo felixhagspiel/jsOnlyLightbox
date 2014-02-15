@@ -1,0 +1,99 @@
+/**
+*   VARS
+**/
+
+// font-sizes
+$font-size-huge: 2.8em;
+$font-size-big: 2em;
+$font-size-medium: 1.4em;
+
+// colors929DC7  66A0C4
+
+$def-color-1: #547C85;
+$def-color-2: #B9CED2;
+
+$border-color-1: #9C9FA5;
+
+$def-font-color: #6c7176;
+$font-color-highlight: #A99929;
+$font-color-hover-1: #F1C15C;
+
+$darkblue: #3F658B;
+@mixin trans($var) {
+	-webkit-transition: $var;
+	-moz-transition: $var;
+	-o-transition: $var;
+	-ms-transition: $var;
+	transition: $var;
+}
+
+.jslghtbx {
+	font-family: sans-serif;
+	overflow: auto;
+	visibility: hidden;
+	position: fixed;
+	z-index: 2;
+	left: 0;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	background-color: none;
+	@include trans(background-color .3s ease-in);
+	&.jslghtbx-active {
+		visibility: visible;
+		background-color: rgba(0,0,0,0.85);
+	}
+	&.ie8 {
+		background-image: url('../img/trans-bck.png');
+	}
+	img {
+		background: #fff;
+		padding: .5em;
+		display: block;
+		height: auto;
+		margin: auto;
+	}
+}
+.jslghtbx-close {
+	position: fixed;
+	right: 1em;
+	top: 1em;
+	margin-top: -4px;
+	padding: 0em .3em;
+	font-size: 1.3em;
+	color: $def-color-1;
+	border-radius: 4px;
+	border: 2px solid $def-color-1;
+	cursor: pointer;
+	@include trans(all .3s ease-in-out);
+	&:hover {
+		color: #fff;
+		background-color: $def-color-1;
+	}
+}
+.jslghtbx-contentwrapper {
+	margin: auto;
+	max-height: 80%;
+	max-width: 80%;
+	visibility: hidden;
+	&.jslghtbx-active {
+		visibility: visible;
+	}
+}
+.jslghtbx-thmb {
+	@media screen and(min-width: 451px) {
+		margin: 1em;
+	}
+	@media screen and(max-width: 450px) {
+		margin: 1em 0;
+	}
+	padding: .4em;
+	border: 2px solid $def-color-1;
+	max-width: 100%;
+	max-height: 10em;
+	cursor: pointer;
+	@include trans(border-color .3s ease-in-out);
+	&:hover {
+		border: 2px solid $font-color-hover-1;
+	}
+}
