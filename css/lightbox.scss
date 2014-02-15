@@ -43,12 +43,14 @@ $darkblue: #3F658B;
 		visibility: visible;
 		background-color: rgba(0,0,0,0.8);
 	}
+	&.ie8 {
+		background-image: url('../img/trans-bck.png');
+	}
 	img {
 		background: #fff;
 		padding: .5em;
 		display: block;
-		max-width: 100%;
-		max-height: 100%;
+		height: auto;
 		margin: auto;
 	}
 }
