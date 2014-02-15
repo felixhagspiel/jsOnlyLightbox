@@ -8,6 +8,8 @@
 - Small in Size (< 5Kb)
 - IE8+ Support
 
+## Download
+
 Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/). The lightbox is still in development mode, so please post any issues and bugs here.
 
 ## Usage
@@ -20,28 +22,24 @@ Add this before the closing body tag ( `</body>` ):
 		var options = {
 			responsive: true, 		// add handlers for resize-event
 			closeOnClick: true, 	// close lightbox on background-click
+			hideOverflow: true,		// hide scrolling-bar when lightbox is open
+			hideCloseBtn: false,	// hide the close-button inside the lightbox
 			closeId: false, 		// use your own close-button
 			boxId: false 			// use own box-element
 		};
-		var lightbox = new Lightbox(options);
-	 	lightbox.load();
+		var lightbox = new Lightbox();
+	 	lightbox.load(options);
 	</script>
 
-### Load the images of the thumbnails in Lightbox:
+You just need to add the attribute `data-lightbox` to the image you want to show in the lightbox:
 
-	<img class="lightbox-thmb" src="img/lightbox/1.jpg" alt="" data-lightbox>
-	<img class="lightbox-thmb" src="img/lightbox/2.jpg" alt="" data-lightbox>
-	<img class="lightbox-thmb" src="img/lightbox/3.jpg" alt="" data-lightbox>
-	<img class="lightbox-thmb" src="img/lightbox/4.jpg" alt="" data-lightbox>
-	<img class="lightbox-thmb" src="img/lightbox/5.jpg" alt="" data-lightbox>
+	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-lightbox>
 
-### Load specified images in Lightbox:
+You can also pass an link to another image, i.e. `data-lightbox='img/lightbox/apple.jpg'`:
 
-	<img class="lightbox-thmb" src="img/lightbox/1.jpg" alt="" data-lightbox="img/1-big.jpg">
-	<img class="lightbox-thmb" src="img/lightbox/2.jpg" alt="" data-lightbox="img/2-big.jpg">
-	<img class="lightbox-thmb" src="img/lightbox/3.jpg" alt="" data-lightbox="img/3-big.jpg">
-	<img class="lightbox-thmb" src="img/lightbox/4.jpg" alt="" data-lightbox="img/4-big.jpg">
-	<img class="lightbox-thmb" src="img/lightbox/5.jpg" alt="" data-lightbox="img/5-big.jpg">
+	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-lightbox="img/1-big.jpg">
+
+The CSS-class `jslghtbx-thmb` is optional. You can use your own styling if you want.
 
 ## Options
 
@@ -65,7 +63,7 @@ Hides overflow when lightbox is opened.
 
 ###	`{hideCloseBtn: bool}`
 
-Default: true
+Default: false
 
 Hides the closebutton inside the lightbox.
 
@@ -98,7 +96,7 @@ Closes the lightbox.
 
 ### `lightbox.resize()`
 
-Repositions the image in the lightbox.
+Repositions the image in the lightbox. Is called on every resize-event unless you set the `responsive`-option to false.
 
 ### `lightbox.refresh(options)`
 
