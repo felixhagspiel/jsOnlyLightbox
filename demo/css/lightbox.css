@@ -11,15 +11,15 @@
   top: 0;
   width: 100%;
   height: 100%;
-  background-color: none;
-  -webkit-transition: background-color 0.3s ease-in;
-  -moz-transition: background-color 0.3s ease-in;
-  -o-transition: background-color 0.3s ease-in;
-  -ms-transition: background-color 0.3s ease-in;
-  transition: background-color 0.3s ease-in; }
+  background: rgba(0, 0, 0, 0);
+  -webkit-transition: background 0.3s ease-in;
+  -moz-transition: background 0.3s ease-in;
+  -o-transition: background 0.3s ease-in;
+  -ms-transition: background 0.3s ease-in;
+  transition: background 0.3s ease-in; }
   .jslghtbx.jslghtbx-active {
     visibility: visible;
-    background-color: rgba(0, 0, 0, 0.85); }
+    background: rgba(0, 0, 0, 0.85); }
   .jslghtbx.ie8 {
     background-image: url("../img/trans-bck.png"); }
   .jslghtbx img {
@@ -28,6 +28,22 @@
     display: block;
     height: auto;
     margin: auto; }
+
+.jslghtbx-contentwrapper {
+  margin: auto;
+  max-height: 80%;
+  max-width: 80%;
+  visibility: hidden; }
+  .jslghtbx-contentwrapper.jslghtbx-active {
+    visibility: visible; }
+
+/* IE8 Fix */
+.ie8.jslghtbx,
+.ie8 .jslghtbx-contentwrapper {
+  display: none; }
+  .ie8.jslghtbx.jslghtbx-active,
+  .ie8 .jslghtbx-contentwrapper.jslghtbx-active {
+    display: block; }
 
 .jslghtbx-close {
   position: fixed;
@@ -48,14 +64,6 @@
   .jslghtbx-close:hover {
     color: #fff;
     background-color: #547c85; }
-
-.jslghtbx-contentwrapper {
-  margin: auto;
-  max-height: 80%;
-  max-width: 80%;
-  visibility: hidden; }
-  .jslghtbx-contentwrapper.jslghtbx-active {
-    visibility: visible; }
 
 .jslghtbx-thmb {
   padding: .4em;
