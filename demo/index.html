@@ -3,17 +3,51 @@
 <head>
 	<meta charset="utf-8">
 	<title>jsOnlyLightbox</title>
-	<meta name="keywords" content="">
-	<meta name="description" content="Felix Hagspiel is a Webdeveloper from Germany who studied computer science with a major focus on media at the Hochule der Medien in Stuttgart.">
+	<meta name="keywords" content="lightbox showbox picture box javascript js only">
+	<meta name="description" content="Responsive Lightbox written in plain JavaScript. No jQuery needed, fully responsive, customizable, lightweight, IE8+ supported.">
 	<meta name="author" content="Felix Hagspiel">
 	<meta name="viewport" content="width=device-width,initial-scale=1.0">
 	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/lightbox.css">
+	<link rel="stylesheet" href="css/lightbox.min.css">
 	<link rel="stylesheet" href="css/demo.css">
-	<!--[if lt IE 9]>
-	    <script src="js/html5shiv.min.js"></script>
-	    <script src="js/respond.min.js"></script>
-	<![endif]-->
+	<style>
+		body {
+			font-family: 'Open Sans', sans-serif;
+			font-weight: light;
+			color: #6c7176;
+		}
+		a {
+			text-decoration: none;
+		}
+		.section {
+			max-width: 50em;
+			margin: auto;
+			text-align: center;
+		}
+		.u-list {
+			list-style-type: none;
+			margin: 0;
+			padding: 0;
+			li {
+				margin: 0.6em 0;
+			}
+		}
+		.btn {
+			background-color: #547C85;
+			color: #fff;
+			padding: .15em .4em;
+			display: inline-block;
+			border-radius: 4px;
+			-webkit-transition: all 0.3s ease-in-out;
+			-moz-transition: all 0.3s ease-in-out;
+			-o-transition: all 0.3s ease-in-out;
+			-ms-transition: all 0.3s ease-in-out;
+			transition: all 0.3s ease-in-out;
+			&:hover {
+				color: #F1C15C;
+			}
+		}
+	</style>
 </head>
 <body id="body">
 	<div class="section">
@@ -42,10 +76,10 @@
 		<img class="jslghtbx-thmb" src="img/lightbox/4-small.jpg" alt="" data-jslghtbx="img/lightbox/4-big.jpg">
 	</div>
 
-	<script src="js/lightbox.js" type="text/javascript"></script>
+	<script src="js/lightbox.min.js" type="text/javascript"></script>
 	<script>
 		var lightbox = new Lightbox();
-		lightbox.load({hideCloseBtn:true});
+		lightbox.load();
 	</script>
 </body>
 </html>
