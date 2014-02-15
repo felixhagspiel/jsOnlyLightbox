@@ -122,8 +122,8 @@ function Lightbox () {
 				that.close();
 			});
 		}
-		// else init regular closebutton
-		else {
+		// init regular closebutton
+		if(!opt || opt && !opt.hideCloseBtn) {
 			var closeBtn = document.createElement('span');
 			closeBtn.setAttribute('id','jslghtbx-close');
 			closeBtn.setAttribute('class','jslghtbx-close');
@@ -134,7 +134,7 @@ function Lightbox () {
 			});
 		}
 		// close lightbox on background-click by default / if true
-		if(!opt || opt && opt.closeOnClick) {
+		if(!opt || opt && opt.closeOnClick || opt && !isset(opt.closeOnClick)) {
 			addEvent(this.box,'click',function(e){
 				that.close();
 			});
