@@ -39,7 +39,7 @@ $darkblue: #3F658B;
 	height: 100%;
 	background-color: none;
 	@include trans(background-color .3s ease-in);
-	&.active {
+	&.jslghtbx-active {
 		visibility: visible;
 		background-color: rgba(0,0,0,0.8);
 	}
@@ -74,7 +74,7 @@ $darkblue: #3F658B;
 	max-height: 80%;
 	max-width: 80%;
 	visibility: hidden;
-	&.active {
+	&.jslghtbx-active {
 		visibility: visible;
 	}
 }
