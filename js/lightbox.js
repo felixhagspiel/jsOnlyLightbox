@@ -2,21 +2,36 @@ function Lightbox () {
 	/*
 	* 	Attributes
 	*/
+
 	// public
 	this.opt = false;
 	this.box = false;
 	this.wrapper = false;
+	var isIE8 = false;
 	// private
 	var that = this;
 	var body = document.getElementsByTagName('body')[0];
 	var template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>';
+	var imgRatio = false;
+	// resize-vars
+	var maxWidth;
+	var maxHeight;
+	var wrapperWidth;
+	var wrapperHeight;
+	var newImgWidth;
+	var newImgHeight;
 
 	/*
-	* 	private helpers
+	* 	Private methods
 	*/
+
 	// get correct height in IE8
 	var getHeight = function(){
 		return window.innerHeight || document.documentElement.offsetHeight;
+	};
+	// get correct width in IE8
+	var getWidth = function(){
+		return window.innerWidth || document.documentElement.offsetWidth;
 	};
 	// cross browser eventhandler
 	var addEvent  = function(el,e,callback,val){
@@ -73,13 +88,17 @@ function Lightbox () {
 	};
 
 	/*
-	* 	public methods
+	* 	Public methods
 	*/
 
 	// init-function
 	this.load = function(opt) {
 		// set options
 		if(opt){this.opt = opt;}
+		// check for IE8
+		if(document.attachEvent && ! document.addEventListener) {
+			isIE8 = true;
+		}
 		// load box in custom element
 		if(opt && opt.boxId) {
 			this.box = document.getElementById(opt.boxId);
@@ -93,6 +112,9 @@ function Lightbox () {
 			body.appendChild(this.box);
 		}
 		this.box.innerHTML = template;
+		if(isIE8) {
+			addClass(this.box,'ie8');
+		}
 		this.wrapper = document.getElementById('jslghtbx-contentwrapper');
 		// close lightbox on click on given element
 		if(opt && opt.closeId) {
@@ -145,7 +167,27 @@ function Lightbox () {
 		}
 	};
 	this.resize = function() {
-		that.box.setAttribute('style','padding-top:'+((getHeight() - that.wrapper.offsetHeight) /2)+'px');
+		var img = that.wrapper.getElementsByTagName('img')[0];
+		maxWidth = getWidth() * 0.8;
+		maxHeight = getHeight() * 0.8;
+		wrapperWidth = that.wrapper.offsetWidth;
+		wrapperHeight = that.wrapper.offsetHeight;
+		that.wrapper.setAttribute('style','height:'+maxHeight+'px; width:'+maxWidth+'px');
+		if(!imgRatio) {
+			imgRatio = img.offsetWidth / img.offsetHeight;
+		}
+		// Height of image is too big to fit in viewport
+		if( Math.floor(wrapperWidth/imgRatio) > that.wrapper.offsetHeight ) {
+			newImgWidth = Math.floor(wrapperHeight*imgRatio);
+			newImgHeight = wrapperHeight;
+		}
+		// Width of image is too big to fit in viewport
+		else {
+			newImgWidth = wrapperWidth;
+			newImgHeight = Math.floor(wrapperWidth/imgRatio);
+		}
+		img.setAttribute('style','width:'+newImgWidth+'px; height:'+newImgHeight+'px;');
+		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
 	};
 	this.refresh = function(opt) {
 		if(opt) {
@@ -155,6 +197,7 @@ function Lightbox () {
 	};
 	this.open = function(src) {
 		if(!src){return false;}
+		imgRatio = false; // clear old image ratio for proper resize-values
 		var img = document.createElement('img');
 		img.setAttribute('src',src);
 		// hide overflow by default / if set
