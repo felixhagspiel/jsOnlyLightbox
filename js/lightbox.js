@@ -1,14 +1,24 @@
 function Lightbox () {
+	/*
+	* 	Attributes
+	*/
+	// public
 	this.opt = false;
 	this.box = false;
 	this.wrapper = false;
-	var that = this,
-		body = document.getElementsByTagName('body')[0],
-		template = '<span class="jslghtbx-close" id="jslghtbx-close">X</span><div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>';
-	/* Helpers */
+	// private
+	var that = this;
+	var body = document.getElementsByTagName('body')[0];
+	var template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>';
+
+	/*
+	* 	private helpers
+	*/
+	// get correct height in IE8
 	var getHeight = function(){
 		return window.innerHeight || document.documentElement.offsetHeight;
-	}
+	};
+	// cross browser eventhandler
 	var addEvent  = function(el,e,callback,val){
 	    if (el.addEventListener) {
 	        el.addEventListener(e,callback, false);
@@ -16,24 +26,29 @@ function Lightbox () {
 	        el.attachEvent("on" + e, callback);
 	    }
 	};
+	// check if element has a specific class
 	var hasClass  = function(el,className) {
 		if(!el || !className){return;}
 	    return (new RegExp("(^|\\s)" + className + "(\\s|$)").test(el.className));
 	};
+	// remove class from element
 	var removeClass = function(el,className) {
 		if(!el || !className){return;}
 	    el.className = el.className.replace(new RegExp('(?:^|\\s)'+className+'(?!\\S)'),'' );
 	    return el;
 	};
+	// add class to element
 	var addClass = function(el,className) {
 		if(!el || !className){return;}
 	    if(!hasClass(el,className)) { el.className += ' '+className; }
 	    return el;
 	};
+	// check if obj is set
 	var isset = function(obj) {
 		if(typeof obj != 'undefined'){return true;}
 		return false;
 	};
+	// get attributes, cross-browser
 	var getAttr = function(obj,attr) {
 		if(!obj || typeof obj == undefined){return false;}
 		var ret;
@@ -42,6 +57,7 @@ function Lightbox () {
 		if(typeof ret != undefined && ret != ''){return ret;}
 		return false;
 	};
+	// check attribute, cross-browser
 	var hasAttr = function(obj,attr) {
 		if(!obj || typeof obj == undefined){return false;}
 		var ret;
@@ -50,50 +66,64 @@ function Lightbox () {
 		if(typeof ret != undefined){return true;}
 		return false;
 	};
+	// lookup element in browser
 	var exists = function(id){
-		if(document.getElementById(id)) {
-			return true;
-		}
+		if(document.getElementById(id)) {return true;}
 		return false;
 	};
-	/* Methods */
+
+	/*
+	* 	public methods
+	*/
+
+	// init-function
 	this.load = function(opt) {
+		// set options
 		if(opt){this.opt = opt;}
+		// load box in custom element
 		if(opt && opt.boxId) {
-			// init lightbox on given element
 			this.box = document.getElementById(opt.boxId);
-			this.box.innerHTML = template;
 		}
+		// load box in default element if no ID is given
 		else if(!this.box && !exists('jslghtbx')) {
-			// create lightbox if no ID is given
 			var newEl = document.createElement('div');
 			newEl.setAttribute('id','jslghtbx');
 			newEl.setAttribute('class','jslghtbx');
 			this.box = newEl;
-			this.box.innerHTML = template;
 			body.appendChild(this.box);
-			this.wrapper = document.getElementById('jslghtbx-contentwrapper');
 		}
-		else {
-			this.box = document.getElementById('jslghtbx');
-		}
+		this.box.innerHTML = template;
+		this.wrapper = document.getElementById('jslghtbx-contentwrapper');
+		// close lightbox on click on given element
 		if(opt && opt.closeId) {
-			// close lightbox on click on given element
 			addEvent(document.getElementById(opt.closeId),'click',function(){
 				that.close();
 			});
 		}
-		if(opt && opt.closeOnClick || !opt) {
+		// else init regular closebutton
+		else {
+			var closeBtn = document.createElement('span');
+			closeBtn.setAttribute('id','jslghtbx-close');
+			closeBtn.setAttribute('class','jslghtbx-close');
+			closeBtn.innerHTML = 'X';
+			this.box.appendChild(closeBtn);
+			addEvent(closeBtn,'click',function(){
+				that.close();
+			});
+		}
+		// close lightbox on background-click by default / if true
+		if(!opt || opt && opt.closeOnClick) {
 			addEvent(this.box,'click',function(e){
 				that.close();
 			});
 		}
-		if(opt && (opt.responsive || !isset(opt.responsive)) ) {
+		// add resize-eventhandlers by default / if true
+		if(!opt || opt && opt.responsive ) {
 			addEvent(window,'resize',function(e){
 				that.resize();
 			});
 		}
-		/* Find all thumbnails & add clickhandlers */
+		// Find all thumbnails & add clickhandlers
 		var images = document.getElementsByTagName('img');
 		var clckHlpr = function(i) {
 			addEvent(i,'click',function(e) {
@@ -114,40 +144,50 @@ function Lightbox () {
 			}
 		}
 	};
-	this.close = function() {
-		removeClass(that.box,'active');
-		removeClass(that.wrapper,'active');
-		body.setAttribute('style','overflow = auto');
-	};
 	this.resize = function() {
 		that.box.setAttribute('style','padding-top:'+((getHeight() - that.wrapper.offsetHeight) /2)+'px');
-	}
+	};
 	this.refresh = function(opt) {
 		if(opt) {
 			this.opt = opt;
 		}
 		this.load(this.opt);
-	}
+	};
 	this.open = function(src) {
 		if(!src){return false;}
 		var img = document.createElement('img');
 		img.setAttribute('src',src);
-		body.setAttribute('style','overflow = hidden');
+		// hide overflow by default / if set
+		if(!this.opt || !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
+			body.setAttribute('style','overflow: hidden');
+		}
 		this.box.setAttribute('style','padding-top: 0');
 		this.wrapper.innerHTML = '';
 		this.wrapper.appendChild(img);
-		addClass(this.box,'active');
+		addClass(this.box,'jslghtbx-active');
 		var checkClassInt = setInterval(function(){
-			if(hasClass(that.box,'active'))
+			if(hasClass(that.box,'jslghtbx-active'))
 			{
-				that.resize();
-				// prevent 'popup'-effect of image
+				// wait few ms to get correct image-offset
 				setTimeout(function(){
-					addClass(that.wrapper,'active');
-				},1);
-				clearInterval(checkClassInt);
+					that.resize();
+					// prevent 'popup'-effect of image
+					setTimeout(function(){
+						addClass(that.wrapper,'jslghtbx-active');
+					},10);
+					clearInterval(checkClassInt);
+				},10);
 			}
 		},10);
 	};
-};
+	this.close = function() {
+		removeClass(that.box,'jslghtbx-active');
+		removeClass(that.wrapper,'jslghtbx-active');
+		that.box.setAttribute('style','padding-top: 0px');
+		// show overflow by default / if set
+		if(!this.opt ||  !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
+			body.setAttribute('style','overflow: auto');
+		}
+	};
+}
 
