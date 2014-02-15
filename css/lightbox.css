@@ -19,7 +19,7 @@
   transition: background-color 0.3s ease-in; }
   .jslghtbx.jslghtbx-active {
     visibility: visible;
-    background-color: rgba(0, 0, 0, 0.8); }
+    background-color: rgba(0, 0, 0, 0.85); }
   .jslghtbx.ie8 {
     background-image: url("../img/trans-bck.png"); }
   .jslghtbx img {
@@ -35,7 +35,7 @@
   top: 1em;
   margin-top: -4px;
   padding: 0em .3em;
-  font-size: 1.7em;
+  font-size: 1.3em;
   color: #547c85;
   border-radius: 4px;
   border: 2px solid #547c85;
