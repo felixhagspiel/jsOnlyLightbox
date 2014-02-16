@@ -20,16 +20,21 @@
 		}
 		.section {
 			max-width: 50em;
-			margin: auto;
-			text-align: center;
+			margin: 4em auto;
+			text-align: left;
 		}
 		.u-list {
-			list-style-type: none;
 			margin: 0;
+		}
+		.u-list.nostyle {
+			list-style-type: none;
 			padding: 0;
 		}
 		.u-list	li {
 			margin: 0.6em 0;
+		}
+		.u-margin-bottom--big {
+			margin-bottom: 2em;
 		}
 		.btn {
 			background-color: #547C85;
@@ -47,6 +52,16 @@
 		.btn:hover {
 			color: #F1C15C;
 		}
+		code {
+			background-color: #E1F1F7;
+		}
+		code.block {
+			padding: 1em;
+			display: inline-block;
+			border: 1px solid #547C85;
+			border-radius: 4px;
+			text-align: left;
+		}
 	</style>
 </head>
 <body id="body">
@@ -55,16 +70,12 @@
 		<h1>jsOnlyLightbox v0.1</h1>
 		<h2>Responsive Lightbox written in plain JavaScript</h2>
 		<ul class="u-list">
-			<li><h4>No jQuery needed</h4></li>
-			<li><h4>Fully responsive</h4></li>
-			<li><h4>Customizable</h4></li>
-			<li><h4>Lightweight (< 5Kb)</h4></li>
-			<li><h4>IE8+ supported</h4></li>
-			<li><a href="http://jslightbox.felixhagspiel.de/jsonlylightbox-src.zip" class="btn">Download minified version</a></li>
-			<li><a href="http://jslightbox.felixhagspiel.de/jsonlylightbox-dev.zip" class="btn">Download developer version</a></li>
-			<li><a href="http://jslightbox.felixhagspiel.de/jsonlylightbox-demo.zip" class="btn">Download demo version with examples</a></li>
-			<li><a href="https://github.com/felixhagspiel/jsOnlyLightbox" class="btn">View on Github</a></li>
-			<li><a href="http://felixhagspiel.de" class="btn">Visit my Website</a></li>
+			<li>No jQuery needed</li>
+			<li>Fully responsive</li>
+			<li>Customizable</li>
+			<li>Lightweight (< 5Kb)</li>
+			<li>IE8+ supported</li>
+			<li>Licensed under MIT, free for commercial &amp; personal use</li>
 		</ul>
 	</div>
 	<div class="section">
@@ -73,10 +84,43 @@
 		<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx>
 	</div>
 	<div class="section">
-		<h2>Using smallsized pictures for thumbnails and bigsized pictures for lightbox-pictures to reduce traffic</h2>
+		<h2>Using smallsized pictures for thumbnails and bigsized pictures for lightbox to reduce traffic</h2>
 		<img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/lightbox/3-big.jpg">
 		<img class="jslghtbx-thmb" src="img/lightbox/4-small.jpg" alt="" data-jslghtbx="img/lightbox/4-big.jpg">
 	</div>
+	<div class="section">
+		<h2>Usage</h2>
+		<p>Add the link to the CSS-File to the head of your html-file:</p>
+		<code class="block">
+			&lt;link rel=&quot;stylesheet&quot; href=&quot;css/lightbox.css&quot;&gt;<br/>
+		</code>
+		<p>Add this before the closing body tag:</p>
+		<code class="block">
+			&lt;script src=&quot;jslightbox.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;<br/>    &lt;script&gt;<br/>        var lightbox = new Lightbox();<br/>        lightbox.load();<br/>    &lt;/script&gt;
+		</code>
+		<p>Then you just have to add the attribute <code>data-lightbox</code> to all the images you want to show in the lightbox:</p>
+		<code class="block">
+			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-lightbox&gt;
+		</code>
+		<p>You can also pass an link to another image, i.e. <code>data-lightbox='img/lightbox/apple.jpg'</code>:</p>
+		<code class="block">
+			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-lightbox=&quot;img/1-big.jpg&quot;&gt;
+		</code>
+		<p>Note: The CSS-class <code>jslghtbx-thmb</code> is optional. You can use your own styling if you want.</p>
+		<h3>For full documentation of options &amp; API please visit my <a href="https://github.com/felixhagspiel/jsOnlyLightbox" class="btn">Github-Profile</a> </h3>
+	</div>
+	<div class="section">
+		<h2>Download latest version</h2>
+		<ul class="u-list nostyle">
+			<li><a href="http://jslightbox.felixhagspiel.de/jsonlylightbox-src.zip" class="btn">Download minified version</a></li>
+			<li><a href="http://jslightbox.felixhagspiel.de/jsonlylightbox-dev.zip" class="btn">Download developer version</a></li>
+			<li><a href="http://jslightbox.felixhagspiel.de/jsonlylightbox-demo.zip" class="btn">Download demo version with examples</a></li>
+		</ul>
+	</div>
+	<div class="section">
+		<a href="http://felixhagspiel.de" class="u-margin-bottom--big">Copyright &copy; 2014 Felix Hagspiel www.felixhagspiel.de</a>
+	</div>
+
 
 	<script src="js/lightbox.js" type="text/javascript"></script>
 	<script>
