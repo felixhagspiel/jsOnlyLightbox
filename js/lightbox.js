@@ -218,13 +218,15 @@ function Lightbox () {
 		var checkClassInt = setInterval(function(){
 			if(hasClass(that.box,'jslghtbx-active') && img.complete)
 			{
-				// wait few ms to get correct image-offset
-				that.resize();
-				// add active-class for all other browsers
+				// wait few ms to get correct image-dimensions
 				setTimeout(function(){
-					addClass(that.wrapper,'jslghtbx-active');
-				},10);
-				clearInterval(checkClassInt);
+					that.resize();
+					// add active-class for all other browsers
+					setTimeout(function(){
+						addClass(that.wrapper,'jslghtbx-active');
+					},10);
+					clearInterval(checkClassInt);
+				},40);
 			}
 		},10);
 	};
