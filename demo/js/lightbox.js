@@ -161,7 +161,6 @@ function Lightbox () {
 		};
 		for(var i = 0; i < images.length; i++)
 		{
-
 			if(hasAttr(images[i],'data-jslghtbx')) {
 				clckHlpr(images[i]);
 			}
@@ -223,7 +222,9 @@ function Lightbox () {
 				setTimeout(function(){
 					that.resize();
 					// add active-class for all other browsers
-					addClass(that.wrapper,'jslghtbx-active');
+					setTimeout(function(){
+						addClass(that.wrapper,'jslghtbx-active');
+					},10);
 				},50);
 				clearInterval(checkClassInt);
 			}
@@ -232,7 +233,11 @@ function Lightbox () {
 	this.close = function() {
 		removeClass(that.box,'jslghtbx-active');
 		removeClass(that.wrapper,'jslghtbx-active');
-		that.box.setAttribute('style','padding-top: 0px; display: none;');
+		that.box.setAttribute('style','padding-top: 0px;');
+		// Hide Lightbox if iE8
+		if(isIE8) {
+			that.box.setAttribute('style','display: none;');
+		}
 		// show overflow by default / if set
 		if(!this.opt ||  !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
 			body.setAttribute('style','overflow: auto');

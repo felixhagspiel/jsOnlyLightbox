@@ -37,11 +37,11 @@ $darkblue: #3F658B;
 	top: 0;
 	width: 100%;
 	height: 100%;
-	background: rgba(0,0,0,0);
-	@include trans(background .3s ease-in);
+	background-color: rgba(0,0,0,0);
+	@include trans(all .4s ease-in);
 	&.jslghtbx-active {
 		visibility: visible;
-		background: rgba(0,0,0,0.85);
+		background-color: rgba(0,0,0,0.85);
 	}
 	&.ie8 {
 		background-image: url('../img/trans-bck.png');
