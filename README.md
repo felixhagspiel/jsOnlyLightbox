@@ -13,6 +13,10 @@
 
 Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/). The lightbox is still in development mode, so please post any issues and bugs here.
 
+## Demo
+
+You can watch it live at [jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/) or on [felixhagspiel.de](http://felixhagspiel.de/)
+
 ## Usage
 
 Add the CSS-File to the head of your html-file:
