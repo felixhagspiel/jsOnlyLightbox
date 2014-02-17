@@ -168,27 +168,25 @@ function Lightbox () {
 	};
 	this.resize = function() {
 		var img = that.wrapper.getElementsByTagName('img')[0];
-		maxWidth = getWidth() * 0.8;
-		maxHeight = getHeight() * 0.8;
-		wrapperWidth = that.wrapper.offsetWidth;
-		wrapperHeight = that.wrapper.offsetHeight;
-		that.wrapper.setAttribute('width',maxWidth);
-		that.wrapper.setAttribute('height',maxHeight);
+		maxWidth = getWidth();
+		maxHeight = getHeight();
+		boxWidth = that.box.offsetWidth;
+		boxHeight = that.box.offsetHeight;
 		if(!imgRatio) {
 			imgRatio = img.offsetWidth / img.offsetHeight;
 		}
 		// Height of image is too big to fit in viewport
-		if( Math.floor(wrapperWidth/imgRatio) > that.wrapper.offsetHeight ) {
-			newImgWidth = Math.floor(wrapperHeight*imgRatio);
-			newImgHeight = wrapperHeight;
+		if( Math.floor(boxWidth/imgRatio) > boxHeight ) {
+			newImgWidth = boxHeight*imgRatio*0.8;
+			newImgHeight = boxHeight*0.8;
 		}
 		// Width of image is too big to fit in viewport
 		else {
-			newImgWidth = wrapperWidth;
-			newImgHeight = Math.floor(wrapperWidth/imgRatio);
+			newImgWidth = boxWidth*0.8;
+			newImgHeight = boxWidth/imgRatio*0.8;
 		}
-		img.setAttribute('width',newImgWidth);
-		img.setAttribute('height',newImgHeight);
+		img.setAttribute('width',Math.floor(newImgWidth));
+		img.setAttribute('height',Math.floor(newImgHeight));
 		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
 	};
 	this.refresh = function(opt) {
