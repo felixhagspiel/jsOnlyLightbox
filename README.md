@@ -31,13 +31,13 @@ Add this before the closing body tag:
 	 	lightbox.load();
 	</script>
 
-You just need to add the attribute `data-lightbox` to all the images you want to show in the lightbox:
+You just need to add the attribute `data-jslghtbx` to all the images you want to show in the lightbox:
 
-	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-lightbox>
+	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx>
 
 You can also pass an link to another image:
 
-	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-lightbox="img/1-big.jpg">
+	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx="img/1-big.jpg">
 
 Note: The CSS-class `jslghtbx-thmb` is optional. You can use your own styling if you want.
 
