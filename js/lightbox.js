@@ -13,6 +13,10 @@ function Lightbox () {
 	var body = document.getElementsByTagName('body')[0];
 	var template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>';
 	var imgRatio = false;
+	var currGroup = false; // current group
+	var currThumbnail = false; // first clicked thumbnail
+	var currImages = []; // images belonging to current group
+	var thumbnails = [];
 	// resize-vars
 	var maxWidth;
 	var maxHeight;
@@ -86,6 +90,34 @@ function Lightbox () {
 		if(document.getElementById(id)) {return true;}
 		return false;
 	};
+	// add clickhandlers to thumbnails
+	var clckHlpr = function(i) {
+		addEvent(i,'click',function(e) {
+			currGroup = getAttr(this, 'data-jslghtbx-group') || false;
+			currThumbnail = this;
+			that.open(this);
+		});
+	};
+	// get thumbnails by group
+	var getByGroup = function(group) {
+		var arr = [];
+		for (var i = 0; i < thumbnails.length; i++) {
+			if(getAttr(thumbnails[i],'data-jslghtbx-group') === group) {
+				arr.push(thumbnails[i]);
+			}
+		}
+		return arr;
+	};
+	// get position of thumbnail in group-array
+	var getPos = function(thumbnail, group) {
+		var arr = getByGroup(group);
+		for (var i = 0; i < arr.length; i++) {
+			if(getAttr(thumbnail,'src') === getAttr(arr[i],'src') &&
+				getAttr(thumbnail,'data-jslghtbx') === getAttr(arr[i],'data-jslghtbx') ){
+				return i;
+			}
+		}
+	};
 
 	/*
 	* 	Public methods
@@ -146,23 +178,12 @@ function Lightbox () {
 			});
 		}
 		// Find all thumbnails & add clickhandlers
-		var images = document.getElementsByTagName('img');
-		var clckHlpr = function(i) {
-			addEvent(i,'click',function(e) {
-				if(getAttr(i,'data-jslghtbx')) {
-					// image-source given
-					that.open(getAttr(i,'data-jslghtbx'));
-				}
-				else {
-					// no image-source given
-					that.open(getAttr(i,'src'));
-				}
-			});
-		};
-		for(var i = 0; i < images.length; i++)
+		var arr = document.getElementsByTagName('img');
+		for(var i = 0; i < arr.length; i++)
 		{
-			if(hasAttr(images[i],'data-jslghtbx')) {
-				clckHlpr(images[i]);
+			if(hasAttr(arr[i],'data-jslghtbx')) {
+				thumbnails.push(arr[i]);
+				clckHlpr(arr[i]);
 			}
 		}
 	};
@@ -195,8 +216,44 @@ function Lightbox () {
 		}
 		this.load(this.opt);
 	};
-	this.open = function(src) {
-		if(!src){return false;}
+	this.next = function() {
+		if(!currGroup){return};
+		var pos = getPos(currThumbnail,currGroup) + 1;  
+		if(currImages[pos]) {
+			currThumbnail = currImages[pos];	
+		} 
+		else {
+			return;
+		}
+		that.open(currThumbnail);
+	};
+	this.prev = function() {
+		if(!currGroup){return};
+		var pos = getPos(currThumbnail,currGroup) - 1; 
+		if(currImages[pos]) {
+			currThumbnail = currImages[pos];	
+		}
+		else {
+			return;
+		}
+		that.open(currThumbnail);
+	};
+	this.open = function(el,group) {
+		if(!el){return false;}
+		var src;
+		if(getAttr(el,'data-jslghtbx')) {
+			// image-source given
+			src =  getAttr(el,'data-jslghtbx');
+		}
+		else {
+			// no image-source given
+			src =  getAttr(el,'src');
+		}
+		// save images if group is given or currGroup exists
+		group = currGroup || group;
+		if(group) {
+			currImages = getByGroup(group);
+		}
 		imgRatio = false; // clear old image ratio for proper resize-values
 		var img = document.createElement('img');
 		img.setAttribute('src',src);
@@ -229,6 +286,9 @@ function Lightbox () {
 		},10);
 	};
 	this.close = function() {
+		currGroup = false;
+		currThumbnail = false;
+		currImages = [];
 		removeClass(that.box,'jslghtbx-active');
 		removeClass(that.wrapper,'jslghtbx-active');
 		that.box.setAttribute('style','padding-top: 0px;');
