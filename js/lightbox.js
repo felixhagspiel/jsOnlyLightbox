@@ -276,13 +276,6 @@ function Lightbox () {
 			prevBtn.style.marginTop = btnMargin;
 		}
 	};
-	// reload lightbox with new options
-	this.refresh = function(opt) {
-		if(opt) {
-			this.opt = opt;
-		}
-		this.load(this.opt);
-	};
 	// show next image
 	this.next = function() {
 		if(!currGroup){return};

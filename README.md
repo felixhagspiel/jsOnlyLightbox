@@ -133,6 +133,3 @@ Closes the lightbox.
 
 ### `lightbox.resize()`
 Repositions the image in the lightbox. Is called on every resize-event unless you set the `responsive`-option to false.
-
-### `lightbox.refresh(options)`
-Here you can update the the (already initialized) lightbox with new options.
