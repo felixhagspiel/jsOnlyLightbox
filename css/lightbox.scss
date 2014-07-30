@@ -52,17 +52,20 @@ $darkblue: #3F658B;
 .jslghtbx-contentwrapper {
 	margin: auto;
 	visibility: hidden;
-	&.jslghtbx-active {
-		visibility: visible;
-	}
 	&> img {
 		background: #fff;
 		padding: .5em;
-		display: block;
+		display: none;
 		height: auto;
 		margin-left: auto;
 		margin-right: auto;
 		opacity: 0;
+	}
+}
+.jslghtbx-contentwrapper.jslghtbx-wrapper-active {
+	visibility: visible;
+	&> img {
+		display: block;
 	}
 }
 /* Animation Stuff */

@@ -397,7 +397,7 @@ function Lightbox () {
 					that.resize();
 					// add active-class for all other browsers
 					setTimeout(function(){
-						addClass(that.wrapper,'jslghtbx-active');
+						addClass(that.wrapper,'jslghtbx-wrapper-active');
 					},10);
 					clearInterval(checkClassInt);
 				},40);
@@ -412,7 +412,7 @@ function Lightbox () {
 		currImages = [];
 		isOpen = false;
 		removeClass(that.box,'jslghtbx-active');
-		removeClass(that.wrapper,'jslghtbx-active');
+		removeClass(that.wrapper,'jslghtbx-wrapper-active');
 		removeClass(nextBtn,'jslghtbx-active');
 		removeClass(prevBtn,'jslghtbx-active');
 		that.box.setAttribute('style','padding-top: 0px;');
