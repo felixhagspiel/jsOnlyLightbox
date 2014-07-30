@@ -267,7 +267,7 @@ function Lightbox () {
 		img.setAttribute('height',Math.floor(newImgHeight));
 		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
 		// move controls to correct position
-		if(this.opt.responsive) {
+		if(this.opt.responsive && nextBtn && prevBtn) {
 			var btnTop = (boxHeight/2) + 'px';
 			var btnMargin = '-'+(nextBtn.offsetHeight / 2) + 'px';
 			nextBtn.style.top = top;
