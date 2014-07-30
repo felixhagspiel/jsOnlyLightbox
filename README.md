@@ -47,6 +47,10 @@ Note: The CSS-class `jslghtbx-thmb` is optional. You can use your own styling if
 Default: true
 If set to true, the image will be resized according to the viewport on resize-events.
 
+###	`{carousel: bool}`
+Default: true
+If set to true, you can infinitely loop through all the images by clicking the next/prev button or calling the `next()` / `prev()`-functions.  
+
 ###	`{closeOnClick: bool}`
 Default: true
 If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button.
@@ -86,12 +90,21 @@ Example:
 	lightbox.load(options);
 
 ### `lightbox.open('src-link')`
-If you want you can open the box by any element on your page.
+If you want you can open the box by click on any element on your page.
 Example:
 
 	document.getElementById('open-lightbox').addEventListener('click',function(){
 		lightbox.open('../img/lightbox/1.jpg');
 	});
+
+You can also just pass a reference to an image rather than a src-URL.
+Example:
+
+	var myImg = document.getElementById('myImg');
+	document.getElementById('open-lightbox').addEventListener('click',function(){
+		lightbox.open(myImg);
+	});
+
 
 ### `lightbox.close()`
 Closes the lightbox.
