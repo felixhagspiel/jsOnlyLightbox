@@ -46,19 +46,19 @@ $darkblue: #3F658B;
 	&.ie8 {
 		background-image: url('../img/trans-bck.png');
 	}
-	img {
-		background: #fff;
-		padding: .5em;
-		display: block;
-		height: auto;
-		margin: auto;
-	}
 }
 .jslghtbx-contentwrapper {
 	margin: auto;
 	visibility: hidden;
 	&.jslghtbx-active {
 		visibility: visible;
+	}
+	img {
+		background: #fff;
+		padding: .5em;
+		display: block;
+		height: auto;
+		margin: auto;
 	}
 }
 /* IE8 Fix */
@@ -87,7 +87,24 @@ $darkblue: #3F658B;
 		background-color: $def-color-1;
 	}
 }
-
+.jslghtbx-next,
+.jslghtbx-prev {
+	position: fixed;
+	margin-top: -150px;
+	top: 50%;
+	max-width: 6%;
+	max-height: 250px;
+	cursor: pointer;
+	&> img {
+		width: 100%;
+	}
+}
+.jslghtbx-next {
+	right: .3em;
+}
+.jslghtbx-prev {
+	left: .3em;
+}
 .jslghtbx-thmb {
 	@media screen and(min-width: 451px) {
 		margin: 1em;

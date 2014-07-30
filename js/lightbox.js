@@ -12,11 +12,14 @@ function Lightbox () {
 	var that = this;
 	var body = document.getElementsByTagName('body')[0];
 	var template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>';
-	var imgRatio = false;
+	var imgRatio = false; // ratio of current image
 	var currGroup = false; // current group
 	var currThumbnail = false; // first clicked thumbnail
 	var currImages = []; // images belonging to current group
-	var thumbnails = [];
+	var thumbnails = []; // thumbnails
+	// controls
+	var nextBtn = false;
+	var prevBtn = false;
 	// resize-vars
 	var maxWidth;
 	var maxHeight;
@@ -118,6 +121,35 @@ function Lightbox () {
 			}
 		}
 	};
+	// init controls
+	var initControls = function() {
+		if(!nextBtn) {
+			// create & append next-btn
+			nextBtn = document.createElement('span');
+			addClass(nextBtn,'jslghtbx-next');
+			var nextBtnImg = document.createElement('img');
+			nextBtnImg.setAttribute('src', 'img/jslghtbx-next.png');
+			nextBtn.appendChild(nextBtnImg);
+			addEvent(nextBtn,'click',function(e){
+				e.stopPropagation(); // prevent closing of lightbox
+				that.next();
+			});
+			that.box.appendChild(nextBtn);
+		}
+		if(!prevBtn) {
+			// create & append next-btn
+			prevBtn = document.createElement('span');
+			addClass(prevBtn,'jslghtbx-prev');
+			var prevBtnImg = document.createElement('img');
+			prevBtnImg.setAttribute('src', 'img/jslghtbx-prev.png');
+			prevBtn.appendChild(prevBtnImg);
+			addEvent(prevBtn,'click',function(e){
+				e.stopPropagation(); // prevent closing of lightbox
+				that.next();
+			});
+			that.box.appendChild(prevBtn);			
+		}
+	};
 
 	/*
 	* 	Public methods
@@ -148,6 +180,22 @@ function Lightbox () {
 			addClass(this.box,'ie8');
 		}
 		this.wrapper = document.getElementById('jslghtbx-contentwrapper');
+		// initiate default controls
+		if(!opt || opt && opt.controls) {
+			that.opt['controls'] = true;
+		}		
+		// add clickhandlers for custom next-button
+		if(opt && opt.nextBtn) {
+			addEvent(document.getElementById(opt.nextBtn),'click',function(){
+				that.next();
+			});
+		}
+		// add clickhandlers for custom prev-button
+		if(opt && opt.prevBtn) {
+			addEvent(document.getElementById(opt.prevBtn),'click',function(){
+				that.prev();
+			});
+		}
 		// close lightbox on click on given element
 		if(opt && opt.closeId) {
 			addEvent(document.getElementById(opt.closeId),'click',function(){
@@ -274,6 +322,9 @@ function Lightbox () {
 		group = group || currGroup;
 		if(group) {
 			currImages = getByGroup(group);
+			if(this.opt.controls) {
+				initControls();
+			}
 		}
 		imgRatio = false; // clear old image ratio for proper resize-values
 		// create new img-element
