@@ -181,18 +181,18 @@ function Lightbox () {
 		}
 		this.wrapper = document.getElementById('jslghtbx-contentwrapper');
 		// initiate default controls
-		if(!opt || opt && opt.controls) {
+		if(!opt || opt && opt.controls || opt && !isset(opt.controls)) {
 			that.opt['controls'] = true;
 		}		
 		// add clickhandlers for custom next-button
-		if(opt && opt.nextBtn) {
-			addEvent(document.getElementById(opt.nextBtn),'click',function(){
+		if(opt && opt.nextId) {
+			addEvent(document.getElementById(opt.nextId),'click',function(){
 				that.next();
 			});
 		}
 		// add clickhandlers for custom prev-button
-		if(opt && opt.prevBtn) {
-			addEvent(document.getElementById(opt.prevBtn),'click',function(){
+		if(opt && opt.prevId) {
+		addEvent(document.getElementById(opt.prevId),'click',function(){
 				that.prev();
 			});
 		}
@@ -220,7 +220,7 @@ function Lightbox () {
 			});
 		}
 		// add resize-eventhandlers by default / if true
-		if(!opt || opt && opt.responsive ) {
+		if(!opt || opt && opt.responsive  || !isset(opt.responsive)) {
 			this.opt['responsive'] = true;
 			addEvent(window,'resize',function(e){
 				that.resize();
@@ -231,7 +231,7 @@ function Lightbox () {
 			removeClass(this.box,'jslghtbx-nooverflow');
 		}
 		// set carousel-function for prev/next
-		if(!opt || opt && opt.carousel ) {
+		if(!opt || opt && opt.carousel || opt && !isset(opt.carousel)) {
 			this.opt['carousel'] = true;
 		}
 		// Find all thumbnails & add clickhandlers
