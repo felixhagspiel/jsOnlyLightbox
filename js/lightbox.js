@@ -278,9 +278,16 @@ function Lightbox () {
 		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
 		// move controls to correct position
 		if(this.opt.responsive && nextBtn && prevBtn) {
-			var cssString = "top: "+(boxHeight/2)+"px; margin-top: "+(nextBtn.offsetHeight / 2)+"px";
-			nextBtn.cssText = cssString;
-			prevBtn.cssText= cssString;
+			var btnTop = (getHeight() / 2) - (nextBtn.offsetHeight / 2);
+			if(isIE8) {
+				var cssString = "top: "+btnTop+"px;";
+				nextBtn.cssText = cssString;
+				prevBtn.cssText= cssString;
+			}
+			else {
+				nextBtn.style.top = btnTop+"px";
+				prevBtn.style.top = btnTop+"px";
+			}
 		}
 	};
 	// show next image
