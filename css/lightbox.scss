@@ -62,15 +62,21 @@ $darkblue: #3F658B;
 		height: auto;
 		margin-left: auto;
 		margin-right: auto;
-		
+		opacity: 0;
 	}
 }
 /* Animation Stuff */
-.jslghtbx-contentwrapper > img.jslghtbx-animate-next  {
-	@include prefixr(transition, all .6s ease-in-out);
+.jslghtbx-contentwrapper > img.jslghtbx-animate-transition  {
+	@include prefixr(transition, all .2s ease-in-out);
 }
 .jslghtbx-contentwrapper > img.jslghtbx-animating-next  {
-	margin-left: -100%;
+	opacity: 1;
+}
+.jslghtbx-contentwrapper > img.jslghtbx-animating-prev  {
+	opacity: 1;
+}
+.jslghtbx-contentwrapper > img.jslghtbx-animate-init {
+	opacity: 1;
 }
 /* IE8 Fix */
 .ie8.jslghtbx,

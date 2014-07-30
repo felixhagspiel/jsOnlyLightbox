@@ -15,8 +15,10 @@ function Lightbox () {
 	var imgRatio = false; // ratio of current image
 	var currGroup = false; // current group
 	var currThumbnail = false; // first clicked thumbnail
+	var currImage = false;
 	var currImages = []; // images belonging to current group
 	var thumbnails = []; // thumbnails
+	var isOpen = false; // check if box is open
 	// controls
 	var nextBtn = false;
 	var prevBtn = false;
@@ -146,7 +148,7 @@ function Lightbox () {
 			prevBtn.appendChild(prevBtnImg);
 			addEvent(prevBtn,'click',function(e){
 				e.stopPropagation(); // prevent closing of lightbox
-				that.next();
+				that.prev();
 			});
 			that.box.appendChild(prevBtn);			
 		}
@@ -236,6 +238,10 @@ function Lightbox () {
 		if(!opt || opt && opt.carousel || opt && !isset(opt.carousel)) {
 			this.opt['carousel'] = true;
 		}
+		// set animation-params
+		if(!opt || opt && !isset(opt.animation) || opt && isset(opt.animation) && opt.animation === true) {
+			that.opt['animation'] = 400; // set default animation time
+		}
 		// Find all thumbnails & add clickhandlers
 		var arr = document.getElementsByTagName('img');
 		for(var i = 0; i < arr.length; i++)
@@ -292,7 +298,19 @@ function Lightbox () {
 		else {
 			return;
 		}
-		that.open(currThumbnail);
+		if(typeof this.opt.animation === 'number') {
+			removeClass(currImage,'jslghtbx-animating-next');
+			setTimeout(function(){
+				that.open(currThumbnail);
+				setTimeout(function(){
+					addClass(currImage,'jslghtbx-animating-next');
+				},that.opt.animation / 2)
+				
+			},this.opt.animation / 2);
+		}
+		else {
+			that.open(currThumbnail);
+		}
 	};
 	// show prev image
 	this.prev = function() {
@@ -308,7 +326,19 @@ function Lightbox () {
 		else {
 			return;
 		}
-		that.open(currThumbnail);
+		if(typeof this.opt.animation === 'number') {
+			removeClass(currImage,'jslghtbx-animating-prev');
+			setTimeout(function(){
+				that.open(currThumbnail);
+				setTimeout(function(){
+					addClass(currImage,'jslghtbx-animating-prev');
+				},that.opt.animation / 2)
+				
+			},this.opt.animation / 2);
+		}
+		else {
+			that.open(currThumbnail);
+		}
 	};
 	// open the lightbox and show image
 	this.open = function(el,group) {
@@ -337,15 +367,22 @@ function Lightbox () {
 		}
 		imgRatio = false; // clear old image ratio for proper resize-values
 		// create new img-element
-		var imgEl = document.createElement('img');
-		imgEl.setAttribute('src',src);
+		currImage = document.createElement('img');
+
+		addClass(currImage,'jslghtbx-animate-transition');
+		// add init-class on opening, but not at prev/next
+		if(!isOpen) {
+			addClass(currImage,'jslghtbx-animate-transition jslghtbx-animate-init');
+			isOpen = true;
+		}
+		currImage.setAttribute('src',src);
 		// hide overflow by default / if set
 		if(!this.opt || !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
 			body.setAttribute('style','overflow: hidden');
 		}
 		this.box.setAttribute('style','padding-top: 0');
 		this.wrapper.innerHTML = '';
-		this.wrapper.appendChild(imgEl);
+		this.wrapper.appendChild(currImage);
 		addClass(this.box,'jslghtbx-active');
 		// already show wrapper due to bug where dimensions are not
 		// correct in IE8
@@ -353,7 +390,7 @@ function Lightbox () {
 			addClass(that.wrapper,'jslghtbx-active');
 		}
 		var checkClassInt = setInterval(function(){
-			if(hasClass(that.box,'jslghtbx-active') && imgEl.complete)
+			if(hasClass(that.box,'jslghtbx-active') && currImage.complete)
 			{
 				// wait few ms to get correct image-dimensions
 				setTimeout(function(){
@@ -368,9 +405,12 @@ function Lightbox () {
 		},10);
 	};
 	this.close = function() {
+		// restore Defaults
 		currGroup = false;
 		currThumbnail = false;
+		currImage = false;
 		currImages = [];
+		isOpen = false;
 		removeClass(that.box,'jslghtbx-active');
 		removeClass(that.wrapper,'jslghtbx-active');
 		removeClass(nextBtn,'jslghtbx-active');
