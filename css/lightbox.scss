@@ -47,6 +47,9 @@ $darkblue: #3F658B;
 		background-image: url('../img/trans-bck.png');
 	}
 }
+.jslghtbx-nooverflow {
+	overflow: hidden !important; // prevent showing of scrollbars on prev/next
+}
 .jslghtbx-contentwrapper {
 	margin: auto;
 	visibility: hidden;
@@ -94,16 +97,28 @@ $darkblue: #3F658B;
 	top: 50%;
 	max-width: 6%;
 	max-height: 250px;
-	cursor: pointer;
+	cursor: pointer;	
+	@include trans(all .3s ease-in-out);
 	&> img {
 		width: 100%;
 	}
 }
 .jslghtbx-next {
-	right: .3em;
+	@media screen and(min-width: 451px) {
+		right: .6em;
+	}
+	@media screen and(max-width: 450px) {
+		right: .2em;
+	}
 }
 .jslghtbx-prev {
-	left: .3em;
+	left: .6em;
+	@media screen and(min-width: 451px) {
+		left: .6em;
+	}
+	@media screen and(max-width: 450px) {
+		left: .2em;
+	}
 }
 .jslghtbx-thmb {
 	@media screen and(min-width: 451px) {
