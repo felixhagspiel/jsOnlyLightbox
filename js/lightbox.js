@@ -221,9 +221,14 @@ function Lightbox () {
 		}
 		// add resize-eventhandlers by default / if true
 		if(!opt || opt && opt.responsive ) {
+			this.opt['responsive'] = true;
 			addEvent(window,'resize',function(e){
 				that.resize();
 			});
+			addClass(this.box,'jslghtbx-nooverflow'); // hide scrollbars on prev/next
+		} 
+		else {
+			removeClass(this.box,'jslghtbx-nooverflow');
 		}
 		// set carousel-function for prev/next
 		if(!opt || opt && opt.carousel ) {
@@ -261,6 +266,15 @@ function Lightbox () {
 		img.setAttribute('width',Math.floor(newImgWidth));
 		img.setAttribute('height',Math.floor(newImgHeight));
 		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
+		// move controls to correct position
+		if(this.opt.responsive) {
+			var btnTop = (boxHeight/2) + 'px';
+			var btnMargin = '-'+(nextBtn.offsetHeight / 2) + 'px';
+			nextBtn.style.top = top;
+			prevBtn.style.top = top;
+			nextBtn.style.marginTop = btnMargin;
+			prevBtn.style.marginTop = btnMargin;
+		}
 	};
 	// reload lightbox with new options
 	this.refresh = function(opt) {
