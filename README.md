@@ -5,7 +5,8 @@
 - no jQuery needed
 - Fully responsive
 - Customizable Theme
-- Small in Size (< 5Kb)
+- Small in Size (< 10Kb)
+- CSS3-Animation
 - IE8+ Support
 - Licensed under MIT, free for commercial &amp; personal use
 
@@ -48,6 +49,12 @@ If you want to use multiple images, set the `data-jslghtbx-group`-attribute:
 
 You can use different groups on one website. The default control-arrows will be loaded when using groups. You can also use your own control-buttons by providing an ID via the options (see options-reference).
 
+## CSS Animations
+
+When the lightbox is opened first, the image inside gets the class `jslghtbx-animate-init`. This is useful if you want to animate opacity. 
+If you are showing multiple images inside the box via the group-param, the classes `jslghtbx-animating-next` and `jslghtbx-animating-prev` are added and removed, each for half of the durationtime given by the option `animation` (defaults to 400 milliseconds).
+The box receives the class `jslghtbx-active` when opened, and the wrapper gets `jslghtbx-wrapper-active` when all calculations are done. Feel free to edit those styles.
+
 ## Options
 
 ###	`{responsive: bool}`
@@ -85,6 +92,10 @@ Show or hide the default next- & prev-buttons.
 
 ###	`{boxId: 'elementId'}`
 Here you can pass an ID if you want to use your own box-element. Images will be appended to that element then. The element will receive a class "jslghtbx-active" when opened, so style this class properly (you need at least to remove visibility by default and add it on active). If you want it to look like the default-box, just add the class "jslghtbx" to the box-element.
+
+###	`{animation: number | bool}`
+Default: 400
+This options defines wether the next/prev-switch should be animated. If you pass an integer-value, it defines the milliseconds for the animation. Passing `false` disables the animation. Note that all animations are done via CSS3-transitions, so if you want to alter them you have to do it via the CSS-file. 
 
 ## Methods
 
