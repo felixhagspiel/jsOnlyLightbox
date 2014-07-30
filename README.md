@@ -41,6 +41,13 @@ You can also pass an link to another image:
 
 Note: The CSS-class `jslghtbx-thmb` is optional. You can use your own styling if you want.
 
+If you want to use multiple images, set the `data-jslghtbx-group`-attribute:
+
+	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx data-jslghtbx-group="group1">
+	<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx data-jslghtbx-group="group1">
+
+You can use different groups on one website. The default control-arrows will be loaded when using groups. You can also use your own control-buttons by providing an ID via the options (see options-reference).
+
 ## Options
 
 ###	`{responsive: bool}`
@@ -65,6 +72,16 @@ Hides the closebutton inside the lightbox.
 
 ###	`{closeId: 'elementId'}`
 Here you can pass your own closebutton-ID if you want to use your own element for closing the box. The regular close-button won't be displayed then.
+
+###	`{nextId: 'elementId'}`
+Here you can pass your own next-button-ID if you want to use your own element for showing the next image. If you want to hide the default controls set the controls-option to `false`.
+
+###	`{prevId: 'elementId'}`
+Here you can pass your own prev-button-ID if you want to use your own element for showing the previous image. If you want to hide the default controls set the controls-option to `false`.
+
+###	`{controls: bool}`
+Default: true
+Show or hide the default next- & prev-buttons.
 
 ###	`{boxId: 'elementId'}`
 Here you can pass an ID if you want to use your own box-element. Images will be appended to that element then. The element will receive a class "jslghtbx-active" when opened, so style this class properly (you need at least to remove visibility by default and add it on active). If you want it to look like the default-box, just add the class "jslghtbx" to the box-element.
@@ -105,6 +122,11 @@ Example:
 		lightbox.open(myImg);
 	});
 
+### `lightbox.next()`
+Shows the next image of current group
+
+### `lightbox.prev()`
+Shows the previous image of current group
 
 ### `lightbox.close()`
 Closes the lightbox.
