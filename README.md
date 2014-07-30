@@ -7,7 +7,7 @@
 - Customizable Theme
 - Small in Size (< 10Kb)
 - CSS3-Animation
-- IE8+ Support
+- IE8+ Support (dont forget to add [respondjs](https://github.com/scottjehl/Respond) to support mediaqueries!)
 - Licensed under MIT, free for commercial &amp; personal use
 
 ## Download

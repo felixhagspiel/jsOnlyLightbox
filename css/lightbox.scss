@@ -42,7 +42,7 @@ $darkblue: #3F658B;
 		visibility: visible;
 		background-color: rgba(0,0,0,0.85);
 	}
-	&.ie8 {
+	&.jslghtbx-ie8 {
 		background-image: url('../img/trans-bck.png');
 	}
 }
@@ -60,7 +60,11 @@ $darkblue: #3F658B;
 		margin-left: auto;
 		margin-right: auto;
 		opacity: 0;
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 	}
+}
+.jslghtbx-ie8 .jslghtbx-contentwrapper > img {
+	display: block;
 }
 .jslghtbx-contentwrapper.jslghtbx-wrapper-active {
 	visibility: visible;
@@ -74,16 +78,19 @@ $darkblue: #3F658B;
 }
 .jslghtbx-contentwrapper > img.jslghtbx-animating-next  {
 	opacity: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 .jslghtbx-contentwrapper > img.jslghtbx-animating-prev  {
 	opacity: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 .jslghtbx-contentwrapper > img.jslghtbx-animate-init {
 	opacity: 1;
+	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
 /* IE8 Fix */
-.ie8.jslghtbx,
-.ie8 .jslghtbx-contentwrapper
+.jslghtbx-ie8.jslghtbx,
+.jslghtbx-ie8 .jslghtbx-contentwrapper
 {
 	display: none;
 	&.jslghtbx-active {

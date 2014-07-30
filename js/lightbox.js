@@ -98,9 +98,9 @@ function Lightbox () {
 	// add clickhandlers to thumbnails
 	var clckHlpr = function(i) {
 		addEvent(i,'click',function(e) {
-			currGroup = getAttr(this, 'data-jslghtbx-group') || false;
-			currThumbnail = this;
-			that.open(this);
+			currGroup = getAttr(i, 'data-jslghtbx-group') || false;
+			currThumbnail = i;
+			that.open(i);
 		});
 	};
 	// get thumbnails by group
@@ -133,7 +133,8 @@ function Lightbox () {
 			nextBtnImg.setAttribute('src', 'img/jslghtbx-next.png');
 			nextBtn.appendChild(nextBtnImg);
 			addEvent(nextBtn,'click',function(e){
-				e.stopPropagation(); // prevent closing of lightbox
+				if(e.stopPropagation) {e.stopPropagation();}
+				else {e.returnValue=false;} // prevent closing of lightbox
 				that.next();
 			});
 			that.box.appendChild(nextBtn);
@@ -147,7 +148,8 @@ function Lightbox () {
 			prevBtnImg.setAttribute('src', 'img/jslghtbx-prev.png');
 			prevBtn.appendChild(prevBtnImg);
 			addEvent(prevBtn,'click',function(e){
-				e.stopPropagation(); // prevent closing of lightbox
+				if(e.stopPropagation) {e.stopPropagation();}
+				else {e.returnValue=false;} // prevent closing of lightbox
 				that.prev();
 			});
 			that.box.appendChild(prevBtn);			
@@ -181,7 +183,7 @@ function Lightbox () {
 		}
 		this.box.innerHTML = template;
 		if(isIE8) {
-			addClass(this.box,'ie8');
+			addClass(that.box,'jslghtbx-ie8');
 		}
 		this.wrapper = document.getElementById('jslghtbx-contentwrapper');
 		// initiate default controls
@@ -218,7 +220,7 @@ function Lightbox () {
 			});
 		}
 		// close lightbox on background-click by default / if true
-		if(!opt || opt && opt.closeOnClick || opt && !isset(opt.closeOnClick)) {
+		if( !isIE8 && (!opt || opt && opt.closeOnClick || opt && !isset(opt.closeOnClick))) {
 			addEvent(this.box,'click',function(e){
 				that.close();
 			});
@@ -276,12 +278,9 @@ function Lightbox () {
 		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
 		// move controls to correct position
 		if(this.opt.responsive && nextBtn && prevBtn) {
-			var btnTop = (boxHeight/2) + 'px';
-			var btnMargin = '-'+(nextBtn.offsetHeight / 2) + 'px';
-			nextBtn.style.top = top;
-			prevBtn.style.top = top;
-			nextBtn.style.marginTop = btnMargin;
-			prevBtn.style.marginTop = btnMargin;
+			var cssString = "top: "+(boxHeight/2)+"px; margin-top: "+(nextBtn.offsetHeight / 2)+"px";
+			nextBtn.cssText = cssString;
+			prevBtn.cssText= cssString;
 		}
 	};
 	// show next image
@@ -361,7 +360,7 @@ function Lightbox () {
 		group = group || currGroup;
 		if(group) {
 			currImages = getByGroup(group);
-			if(this.opt.controls) {
+			if(that.opt.controls) {
 				initControls();
 			}
 		}
