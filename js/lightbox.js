@@ -221,8 +221,10 @@ function Lightbox () {
 		}
 		this.load(this.opt);
 	};
+	// show next image
 	this.next = function() {
 		if(!currGroup){return};
+		// get position of next image
 		var pos = getPos(currThumbnail,currGroup) + 1;  
 		if(currImages[pos]) {
 			currThumbnail = currImages[pos];	
@@ -235,8 +237,10 @@ function Lightbox () {
 		}
 		that.open(currThumbnail);
 	};
+	// show prev image
 	this.prev = function() {
 		if(!currGroup){return};
+		// get position of prev image
 		var pos = getPos(currThumbnail,currGroup) - 1; 
 		if(currImages[pos]) {
 			currThumbnail = currImages[pos];	
@@ -249,10 +253,16 @@ function Lightbox () {
 		}
 		that.open(currThumbnail);
 	};
+	// open the lightbox and show image
 	this.open = function(el,group) {
 		if(!el){return false;}
+		// get correct image-source
 		var src;
-		if(getAttr(el,'data-jslghtbx')) {
+		if(typeof el === 'string') {
+			// string with img-src given
+			src = el;
+		}
+		else if(getAttr(el,'data-jslghtbx')) {
 			// image-source given
 			src =  getAttr(el,'data-jslghtbx');
 		}
@@ -260,21 +270,22 @@ function Lightbox () {
 			// no image-source given
 			src =  getAttr(el,'src');
 		}
-		// save images if group is given or currGroup exists
-		group = currGroup || group;
+		// save images if group param was passed or currGroup exists
+		group = group || currGroup;
 		if(group) {
 			currImages = getByGroup(group);
 		}
 		imgRatio = false; // clear old image ratio for proper resize-values
-		var img = document.createElement('img');
-		img.setAttribute('src',src);
+		// create new img-element
+		var imgEl = document.createElement('img');
+		imgEl.setAttribute('src',src);
 		// hide overflow by default / if set
 		if(!this.opt || !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
 			body.setAttribute('style','overflow: hidden');
 		}
 		this.box.setAttribute('style','padding-top: 0');
 		this.wrapper.innerHTML = '';
-		this.wrapper.appendChild(img);
+		this.wrapper.appendChild(imgEl);
 		addClass(this.box,'jslghtbx-active');
 		// already show wrapper due to bug where dimensions are not
 		// correct in IE8
@@ -282,7 +293,7 @@ function Lightbox () {
 			addClass(that.wrapper,'jslghtbx-active');
 		}
 		var checkClassInt = setInterval(function(){
-			if(hasClass(that.box,'jslghtbx-active') && img.complete)
+			if(hasClass(that.box,'jslghtbx-active') && imgEl.complete)
 			{
 				// wait few ms to get correct image-dimensions
 				setTimeout(function(){
