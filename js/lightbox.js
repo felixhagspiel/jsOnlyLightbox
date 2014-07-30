@@ -4,7 +4,7 @@ function Lightbox () {
 	*/
 
 	// public
-	this.opt = false;
+	this.opt = {};
 	this.box = false;
 	this.wrapper = false;
 	var isIE8 = false;
@@ -177,6 +177,10 @@ function Lightbox () {
 				that.resize();
 			});
 		}
+		// set carousel-function for prev/next
+		if(!opt || opt && opt.carousel ) {
+			this.opt['carousel'] = true;
+		}
 		// Find all thumbnails & add clickhandlers
 		var arr = document.getElementsByTagName('img');
 		for(var i = 0; i < arr.length; i++)
@@ -210,6 +214,7 @@ function Lightbox () {
 		img.setAttribute('height',Math.floor(newImgHeight));
 		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
 	};
+	// reload lightbox with new options
 	this.refresh = function(opt) {
 		if(opt) {
 			this.opt = opt;
@@ -222,6 +227,9 @@ function Lightbox () {
 		if(currImages[pos]) {
 			currThumbnail = currImages[pos];	
 		} 
+		else if(that.opt.carousel) {
+			currThumbnail = currImages[0];
+		}
 		else {
 			return;
 		}
@@ -232,6 +240,9 @@ function Lightbox () {
 		var pos = getPos(currThumbnail,currGroup) - 1; 
 		if(currImages[pos]) {
 			currThumbnail = currImages[pos];	
+		}
+		else if(that.opt.carousel) {
+			currThumbnail = currImages[currImages.length - 1];
 		}
 		else {
 			return;
