@@ -92,6 +92,7 @@ $darkblue: #3F658B;
 }
 .jslghtbx-next,
 .jslghtbx-prev {
+	display: none;
 	position: fixed;
 	margin-top: -150px;
 	top: 50%;
@@ -99,6 +100,9 @@ $darkblue: #3F658B;
 	max-height: 250px;
 	cursor: pointer;	
 	@include trans(all .3s ease-in-out);
+	&.jslghtbx-active {
+		display: block;
+	}
 	&> img {
 		width: 100%;
 	}

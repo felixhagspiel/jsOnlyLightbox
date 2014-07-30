@@ -136,6 +136,7 @@ function Lightbox () {
 			});
 			that.box.appendChild(nextBtn);
 		}
+		addClass(nextBtn,'jslghtbx-active');
 		if(!prevBtn) {
 			// create & append next-btn
 			prevBtn = document.createElement('span');
@@ -149,6 +150,7 @@ function Lightbox () {
 			});
 			that.box.appendChild(prevBtn);			
 		}
+		addClass(prevBtn,'jslghtbx-active');
 	};
 
 	/*
@@ -371,6 +373,8 @@ function Lightbox () {
 		currImages = [];
 		removeClass(that.box,'jslghtbx-active');
 		removeClass(that.wrapper,'jslghtbx-active');
+		removeClass(nextBtn,'jslghtbx-active');
+		removeClass(prevBtn,'jslghtbx-active');
 		that.box.setAttribute('style','padding-top: 0px;');
 		// Hide Lightbox if iE8
 		if(isIE8) {
