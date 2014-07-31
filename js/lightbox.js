@@ -363,14 +363,6 @@ function Lightbox () {
 			// no image-source given
 			src =  getAttr(el,'src');
 		}
-		// save images if group param was passed or currGroup exists
-		group = group || currGroup;
-		if(group) {
-			currImages = getByGroup(group);
-			if(that.opt.controls) {
-				initControls();
-			}
-		}
 		imgRatio = false; // clear old image ratio for proper resize-values
 		// create new img-element
 		currImage = document.createElement('img');
@@ -409,6 +401,14 @@ function Lightbox () {
 				},40);
 			}
 		},10);
+		// save images if group param was passed or currGroup exists
+		group = group || currGroup;
+		if(group) {
+			currImages = getByGroup(group);
+			if(that.opt.controls) {
+				initControls();
+			}
+		}
 	};
 	this.close = function() {
 		// restore Defaults
