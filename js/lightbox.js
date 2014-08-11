@@ -15,7 +15,7 @@ function Lightbox () {
 	var imgRatio = false; // ratio of current image
 	var currGroup = false; // current group
 	var currThumbnail = false; // first clicked thumbnail
-	var currImage = false;
+	var currImage = {}; // currently shown image
 	var currImages = []; // images belonging to current group
 	var thumbnails = []; // thumbnails
 	var isOpen = false; // check if box is open
@@ -38,10 +38,12 @@ function Lightbox () {
 	var getHeight = function(){
 		return window.innerHeight || document.documentElement.offsetHeight;
 	};
+
 	// get correct width in IE8
 	var getWidth = function(){
 		return window.innerWidth || document.documentElement.offsetWidth;
 	};
+
 	// cross browser eventhandler
 	var addEvent  = function(el,e,callback,val){
 	    if (el.addEventListener) {
@@ -50,28 +52,33 @@ function Lightbox () {
 	        el.attachEvent("on" + e, callback);
 	    }
 	};
+
 	// check if element has a specific class
 	var hasClass  = function(el,className) {
 		if(!el || !className){return;}
 	    return (new RegExp("(^|\\s)" + className + "(\\s|$)").test(el.className));
 	};
+
 	// remove class from element
 	var removeClass = function(el,className) {
 		if(!el || !className){return;}
 	    el.className = el.className.replace(new RegExp('(?:^|\\s)'+className+'(?!\\S)'),'' );
 	    return el;
 	};
+
 	// add class to element
 	var addClass = function(el,className) {
 		if(!el || !className){return;}
 	    if(!hasClass(el,className)) { el.className += ' '+className; }
 	    return el;
 	};
+
 	// check if obj is set
 	var isset = function(obj) {
 		if(typeof obj != 'undefined'){return true;}
 		return false;
 	};
+
 	// get attributes, cross-browser
 	var getAttr = function(obj,attr) {
 		if(!obj || typeof obj == undefined){return false;}
@@ -81,6 +88,7 @@ function Lightbox () {
 		if(typeof ret != undefined && ret != ''){return ret;}
 		return false;
 	};
+
 	// check attribute, cross-browser
 	var hasAttr = function(obj,attr) {
 		if(!obj || typeof obj == undefined){return false;}
@@ -90,11 +98,13 @@ function Lightbox () {
 		if(typeof ret === 'string'){return true;}
 		return false;
 	};
+
 	// lookup element in browser
 	var exists = function(id){
 		if(document.getElementById(id)) {return true;}
 		return false;
 	};
+
 	// add clickhandlers to thumbnails
 	var clckHlpr = function(i) {
 		addEvent(i,'click',function(e) {
@@ -103,6 +113,7 @@ function Lightbox () {
 			that.open(i);
 		});
 	};
+
 	// get thumbnails by group
 	var getByGroup = function(group) {
 		var arr = [];
@@ -113,6 +124,7 @@ function Lightbox () {
 		}
 		return arr;
 	};
+
 	// get position of thumbnail in group-array
 	var getPos = function(thumbnail, group) {
 		var arr = getByGroup(group);
@@ -123,6 +135,7 @@ function Lightbox () {
 			}
 		}
 	};
+
 	// init controls
 	var initControls = function() {
 		if(!nextBtn) {
@@ -163,16 +176,20 @@ function Lightbox () {
 
 	// init-function
 	this.load = function(opt) {
+
 		// set options
 		if(opt){this.opt = opt;}
+
 		// check for IE8
 		if(document.attachEvent && ! document.addEventListener) {
 			isIE8 = true;
 		}
+
 		// load box in custom element
 		if(opt && opt.boxId) {
 			this.box = document.getElementById(opt.boxId);
 		}
+
 		// load box in default element if no ID is given
 		else if(!this.box && !exists('jslghtbx')) {
 			var newEl = document.createElement('div');
@@ -186,28 +203,38 @@ function Lightbox () {
 			addClass(that.box,'jslghtbx-ie8');
 		}
 		this.wrapper = document.getElementById('jslghtbx-contentwrapper');
+
 		// initiate default controls
 		if(!opt || opt && opt.controls || opt && !isset(opt.controls)) {
 			that.opt['controls'] = true;
-		}		
+		}
+
+		// keep dimensions
+		if(!opt || opt && opt.dimensions || opt && !isset(opt.dimensions)) {
+			that.opt['dimensions'] = true;
+		}	
+
 		// add clickhandlers for custom next-button
 		if(opt && opt.nextId) {
 			addEvent(document.getElementById(opt.nextId),'click',function(){
 				that.next();
 			});
 		}
+
 		// add clickhandlers for custom prev-button
 		if(opt && opt.prevId) {
 		addEvent(document.getElementById(opt.prevId),'click',function(){
 				that.prev();
 			});
 		}
+
 		// close lightbox on click on given element
 		if(opt && opt.closeId) {
 			addEvent(document.getElementById(opt.closeId),'click',function(){
 				that.close();
 			});
 		}
+
 		// init regular closebutton
 		if(!opt || opt && !opt.hideCloseBtn) {
 			var closeBtn = document.createElement('span');
@@ -219,12 +246,14 @@ function Lightbox () {
 				that.close();
 			});
 		}
+
 		// close lightbox on background-click by default / if true
 		if( !isIE8 && (!opt || opt && opt.closeOnClick || opt && !isset(opt.closeOnClick))) {
 			addEvent(this.box,'click',function(e){
 				that.close();
 			});
 		}
+
 		// add resize-eventhandlers by default / if true
 		if(!opt || opt && opt.responsive  || !isset(opt.responsive)) {
 			this.opt['responsive'] = true;
@@ -236,14 +265,17 @@ function Lightbox () {
 		else {
 			removeClass(this.box,'jslghtbx-nooverflow');
 		}
+
 		// set carousel-function for prev/next
 		if(!opt || opt && opt.carousel || opt && !isset(opt.carousel)) {
 			this.opt['carousel'] = true;
 		}
+
 		// set animation-params
 		if(!opt || opt && !isset(opt.animation) || opt && isset(opt.animation) && opt.animation === true) {
 			that.opt['animation'] = 400; // set default animation time
 		}
+
 		// Find all thumbnails & add clickhandlers
 		var arr = document.getElementsByTagName('img');
 		for(var i = 0; i < arr.length; i++)
@@ -254,15 +286,17 @@ function Lightbox () {
 			}
 		}
 	};
+
 	this.resize = function() {
-		var img = that.wrapper.getElementsByTagName('img')[0];
+		if(!currImage.img){return;}
 		maxWidth = getWidth();
 		maxHeight = getHeight();
 		boxWidth = that.box.offsetWidth;
 		boxHeight = that.box.offsetHeight;
-		if(!imgRatio) {
-			imgRatio = img.offsetWidth / img.offsetHeight;
+		if(!imgRatio && currImage.img && currImage.img.offsetWidth && currImage.img.offsetHeight) {
+			imgRatio = currImage.img.offsetWidth / currImage.img.offsetHeight;
 		}
+
 		// Height of image is too big to fit in viewport
 		if( Math.floor(boxWidth/imgRatio) > boxHeight ) {
 			newImgWidth = boxHeight*imgRatio*0.8;
@@ -273,9 +307,20 @@ function Lightbox () {
 			newImgWidth = boxWidth*0.8;
 			newImgHeight = boxWidth/imgRatio*0.8;
 		}
-		img.setAttribute('width',Math.floor(newImgWidth));
-		img.setAttribute('height',Math.floor(newImgHeight));
+		newImgWidth = Math.floor(newImgWidth);
+		newImgHeight = Math.floor(newImgHeight);
+
+		// check if image exceeds maximum size
+		if( this.opt.dimensions && newImgHeight > currImage.originalHeight ||
+			this.opt.dimensions && newImgWidth > currImage.originalWidth) {
+
+			newImgHeight = currImage.originalHeight;
+			newImgWidth = currImage.originalWidth;
+		}
+		currImage.img.setAttribute('width',newImgWidth);
+		currImage.img.setAttribute('height',newImgHeight);
 		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
+
 		// move controls to correct position
 		if(this.opt.responsive && nextBtn && prevBtn) {
 			var btnTop = (getHeight() / 2) - (nextBtn.offsetHeight / 2);
@@ -290,6 +335,7 @@ function Lightbox () {
 			}
 		}
 	};
+
 	// show next image
 	this.next = function() {
 		if(!currGroup){return};
@@ -305,11 +351,11 @@ function Lightbox () {
 			return;
 		}
 		if(typeof this.opt.animation === 'number') {
-			removeClass(currImage,'jslghtbx-animating-next');
+			removeClass(currImage.img,'jslghtbx-animating-next');
 			setTimeout(function(){
 				that.open(currThumbnail);
 				setTimeout(function(){
-					addClass(currImage,'jslghtbx-animating-next');
+					addClass(currImage.img,'jslghtbx-animating-next');
 				},that.opt.animation / 2)
 				
 			},this.opt.animation / 2);
@@ -318,6 +364,7 @@ function Lightbox () {
 			that.open(currThumbnail);
 		}
 	};
+
 	// show prev image
 	this.prev = function() {
 		if(!currGroup){return};
@@ -333,11 +380,11 @@ function Lightbox () {
 			return;
 		}
 		if(typeof this.opt.animation === 'number') {
-			removeClass(currImage,'jslghtbx-animating-prev');
+			removeClass(currImage.img,'jslghtbx-animating-prev');
 			setTimeout(function(){
 				that.open(currThumbnail);
 				setTimeout(function(){
-					addClass(currImage,'jslghtbx-animating-prev');
+					addClass(currImage.img,'jslghtbx-animating-prev');
 				},that.opt.animation / 2)
 				
 			},this.opt.animation / 2);
@@ -346,9 +393,14 @@ function Lightbox () {
 			that.open(currThumbnail);
 		}
 	};
+
 	// open the lightbox and show image
 	this.open = function(el,group) {
 		if(!el){return false;}
+
+		// create new img-element
+		currImage.img = new Image();
+
 		// get correct image-source
 		var src;
 		if(typeof el === 'string') {
@@ -364,43 +416,28 @@ function Lightbox () {
 			src =  getAttr(el,'src');
 		}
 		imgRatio = false; // clear old image ratio for proper resize-values
-		// create new img-element
-		currImage = document.createElement('img');
 
-		addClass(currImage,'jslghtbx-animate-transition');
 		// add init-class on opening, but not at prev/next
 		if(!isOpen) {
-			addClass(currImage,'jslghtbx-animate-transition jslghtbx-animate-init');
+			addClass(currImage.img,'jslghtbx-animate-transition jslghtbx-animate-init');
 			isOpen = true;
 		}
-		currImage.setAttribute('src',src);
+
 		// hide overflow by default / if set
 		if(!this.opt || !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
 			body.setAttribute('style','overflow: hidden');
 		}
 		this.box.setAttribute('style','padding-top: 0');
 		this.wrapper.innerHTML = '';
-		this.wrapper.appendChild(currImage);
+		this.wrapper.appendChild(currImage.img);
 		addClass(this.box,'jslghtbx-active');
-		// already show wrapper due to bug where dimensions are not
+
+		// show wrapper early to avoid bug where dimensions are not
 		// correct in IE8
 		if(isIE8) {
 			addClass(that.wrapper,'jslghtbx-active');
 		}
-		var checkClassInt = setInterval(function(){
-			if(hasClass(that.box,'jslghtbx-active') && currImage.complete)
-			{
-				// wait few ms to get correct image-dimensions
-				setTimeout(function(){
-					that.resize();
-					// add active-class for all other browsers
-					setTimeout(function(){
-						addClass(that.wrapper,'jslghtbx-wrapper-active');
-					},10);
-					clearInterval(checkClassInt);
-				},40);
-			}
-		},10);
+
 		// save images if group param was passed or currGroup exists
 		group = group || currGroup;
 		if(group) {
@@ -409,12 +446,34 @@ function Lightbox () {
 				initControls();
 			}
 		}
+
+		// show wrapper when image is loaded
+		currImage.img.onload = function(){
+			// store original width here
+			var dummyImg = new Image();
+			dummyImg.setAttribute('src',src);
+			currImage.originalWidth = dummyImg.width;
+			currImage.originalHeight = dummyImg.height;	
+			addClass(that.wrapper,'jslghtbx-wrapper-active');
+			var checkClassInt = setInterval(function(){
+				if(hasClass(that.box,'jslghtbx-active') && hasClass(that.wrapper,'jslghtbx-wrapper-active'))
+				{
+					that.resize();
+					addClass(currImage.img,'jslghtbx-animate-transition');
+					clearInterval(checkClassInt);
+				}
+			},10);
+		};
+
+		// set src 
+		currImage.img.setAttribute('src',src);
 	};
+
 	this.close = function() {
 		// restore Defaults
 		currGroup = false;
 		currThumbnail = false;
-		currImage = false;
+		currImage = {};
 		currImages = [];
 		isOpen = false;
 		removeClass(that.box,'jslghtbx-active');
@@ -422,10 +481,12 @@ function Lightbox () {
 		removeClass(nextBtn,'jslghtbx-active');
 		removeClass(prevBtn,'jslghtbx-active');
 		that.box.setAttribute('style','padding-top: 0px;');
+
 		// Hide Lightbox if iE8
 		if(isIE8) {
 			that.box.setAttribute('style','display: none;');
 		}
+
 		// show overflow by default / if set
 		if(!this.opt ||  !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
 			body.setAttribute('style','overflow: auto');

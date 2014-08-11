@@ -7,10 +7,19 @@
 - Customizable Theme
 - Small in Size (< 10Kb)
 - CSS3-Animation
-- IE8+ Support (dont forget to add [respondjs](https://github.com/scottjehl/Respond) to support mediaqueries!)
 - Licensed under MIT, free for commercial &amp; personal use
+- IE8+ supported. Dont`t forget to add those lines inside your `<head></head>`:
+
+Do not forget to add those lines inside your `<head></head>` if you want to support IE8:
+
+		<!--[if lt IE 9]>
+		    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" type="text/javascript"></script>
+		    <link rel="stylesheet" href="css/lightbox-ie8.css">
+		<![endif]-->
 
 ## Download
+
+	ASDASD
 
 Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/). The lightbox is still in development mode, so please post any issues and bugs here.
 
@@ -21,7 +30,7 @@ You can watch it live at [jslightbox.felixhagspiel.de](http://jslightbox.felixha
 ## Usage
 
 Add the CSS-File to the head of your html-file:
-
+	
 	<link rel="stylesheet" href="css/lightbox.css">
 
 Add this before the closing body tag:
@@ -58,24 +67,39 @@ The box receives the class `jslghtbx-active` when opened, and the wrapper gets `
 ## Options
 
 ###	`{responsive: bool}`
-Default: true
+__Default: true__
+
 If set to true, the image will be resized according to the viewport on resize-events.
 
 ###	`{carousel: bool}`
-Default: true
+__Default: true__
+
 If set to true, you can infinitely loop through all the images by clicking the next/prev button or calling the `next()` / `prev()`-functions.  
 
 ###	`{closeOnClick: bool}`
-Default: true
+__Default: true__
+
 If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button.
 
 ###	`{hideOverflow: bool}`
-Default: true
-Hides overflow when lightbox is opened.
+__Default: true__
+
+Hides scrollbars when lightbox is opened.
 
 ###	`{hideCloseBtn: bool}`
-Default: false
+__Default: false__
+
 Hides the closebutton inside the lightbox.
+
+###	`{dimensions: bool}`
+__Default: true__
+
+Only resize image to original dimensions. If set to false, images are always scaled to fullscreen.
+
+###	`{controls: bool}`
+__Default: true__
+
+Show or hide the default next- & prev-buttons.
 
 ###	`{closeId: 'elementId'}`
 Here you can pass your own closebutton-ID if you want to use your own element for closing the box. The regular close-button won't be displayed then.
@@ -85,10 +109,6 @@ Here you can pass your own next-button-ID if you want to use your own element fo
 
 ###	`{prevId: 'elementId'}`
 Here you can pass your own prev-button-ID if you want to use your own element for showing the previous image. If you want to hide the default controls set the controls-option to `false`.
-
-###	`{controls: bool}`
-Default: true
-Show or hide the default next- & prev-buttons.
 
 ###	`{boxId: 'elementId'}`
 Here you can pass an ID if you want to use your own box-element. Images will be appended to that element then. The element will receive a class "jslghtbx-active" when opened, so style this class properly (you need at least to remove visibility by default and add it on active). If you want it to look like the default-box, just add the class "jslghtbx" to the box-element.
