@@ -8,7 +8,7 @@
 - Small in Size (< 10Kb)
 - CSS3-Animation
 - Licensed under MIT, free for commercial &amp; personal use
-- IE8+ supported. Dont`t forget to add those lines inside your `<head></head>`:
+- IE8+ supported. Dont forget to add those lines inside your `<head></head>`:
 
 Do not forget to add those lines inside your `<head></head>` if you want to support IE8:
 
@@ -18,8 +18,6 @@ Do not forget to add those lines inside your `<head></head>` if you want to supp
 		<![endif]-->
 
 ## Download
-
-	ASDASD
 
 Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/). The lightbox is still in development mode, so please post any issues and bugs here.
 
