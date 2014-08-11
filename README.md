@@ -8,7 +8,7 @@
 - Small in Size (< 10Kb)
 - CSS3-Animation
 - Licensed under MIT, free for commercial &amp; personal use
-- IE8+ supported. Dont forget to add those lines inside your `<head></head>`:
+- IE8+ support:
 
 Do not forget to add those lines inside your `<head></head>` if you want to support IE8:
 
