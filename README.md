@@ -64,48 +64,48 @@ The box receives the class `jslghtbx-active` when opened, and the wrapper gets `
 
 ## Options
 
-###	`{responsive: bool}`
-__Default: true__
+###	`{responsive: bool}` 
+_Default: true_
 
 If set to true, the image will be resized according to the viewport on resize-events.
 
 ###	`{preload: bool}`
-__Default: true__
+_Default: true_
 
 If set to true, the previous and the next image of the currently shown image will be preloaded if not already in cache.
 
 ###	`{loadingGif: bool}`
-__Default: true__
+_Default: true_
 
 If set to true, the loading-gif will be shown until the image is loaded. Feel free to replace the GIF inside the img-folder. Note: This is disabled for IE8 due to bugs with transparent backgrounds and performance issues.
 
 ###	`{carousel: bool}`
-__Default: true__
+_Default: true_
 
 If set to true, you can infinitely loop through all the images by clicking the next/prev button or calling the `next()` / `prev()`-functions.  
 
 ###	`{closeOnClick: bool}`
-__Default: true__
+_Default: true_
 
 If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button.
 
 ###	`{hideOverflow: bool}`
-__Default: true__
+_Default: true_
 
 Hides scrollbars when lightbox is opened.
 
 ###	`{hideCloseBtn: bool}`
-__Default: false__
+_Default: false_
 
 Hides the closebutton inside the lightbox.
 
 ###	`{dimensions: bool}`
-__Default: true__
+_Default: true_
 
 Only resize image to original dimensions. If set to false, images are always scaled to fullscreen.
 
 ###	`{controls: bool}`
-__Default: true__
+_Default: true_
 
 Show or hide the default next- & prev-buttons.
 
@@ -122,7 +122,8 @@ Here you can pass your own prev-button-ID if you want to use your own element fo
 Here you can pass an ID if you want to use your own box-element. Images will be appended to that element then. The element will receive a class "jslghtbx-active" when opened, so style this class properly (you need at least to remove visibility by default and add it on active). If you want it to look like the default-box, just add the class "jslghtbx" to the box-element.
 
 ###	`{animation: number | bool}`
-Default: 400
+_Default: 400_
+
 This options defines wether the next/prev-switch should be animated. If you pass an integer-value, it defines the milliseconds for the animation. Passing `false` disables the animation. Note that all animations are done via CSS3-transitions, so if you want to alter them you have to do it via the CSS-file. 
 
 ## Methods
