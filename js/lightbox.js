@@ -105,6 +105,23 @@ function Lightbox () {
 		return false;
 	};
 
+	// preload next and prev images
+	function preload(){
+		var prev = new Image();
+		var next = new Image();
+		var pos = getPos(currThumbnail,currGroup);
+		if(pos === currImages.length) {
+			prev.src = currImages[currImages.length - 1].src;
+			next.src = currImages[0].src;
+		} else if(pos === 0) {
+			prev.src = currImages[currImages.length - 1].src;
+			next.src = currImages[1].src;
+		} else {
+			prev.src = currImages[pos - 1].src;
+			next.src = currImages[pos + 1].src;
+		}
+	}
+
 	// add clickhandlers to thumbnails
 	var clckHlpr = function(i) {
 		addEvent(i,'click',function(e) {
@@ -269,6 +286,11 @@ function Lightbox () {
 		// set loading-gif
 		if(!opt || opt && opt.loadingGif || opt && !isset(opt.loadingGif)) {
 			this.opt['loadingGif'] = true;
+		}
+
+		// set preload-option
+		if(!opt || opt && opt.preload || opt && !isset(opt.preload)) {
+			this.opt['preload'] = true;
 		}
 
 		// set carousel-function for prev/next
@@ -465,8 +487,14 @@ function Lightbox () {
 				{
 					that.resize();
 					addClass(currImage.img,'jslghtbx-animate-transition');
+
 					// remove loading-gif
 					removeClass(that.box,'jslghtbx-loading');
+
+					// preload previous and next image
+					if(that.opt.preload) {
+						preload();
+					}
 					clearInterval(checkClassInt);
 				}
 			},10);

@@ -69,6 +69,11 @@ __Default: true__
 
 If set to true, the image will be resized according to the viewport on resize-events.
 
+###	`{preload: bool}`
+__Default: true__
+
+If set to true, the previous and the next image of the currently shown image will be preloaded if not already in cache.
+
 ###	`{loadingGif: bool}`
 __Default: true__
 
