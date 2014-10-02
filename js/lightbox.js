@@ -266,6 +266,11 @@ function Lightbox () {
 			removeClass(this.box,'jslghtbx-nooverflow');
 		}
 
+		// set loading-gif
+		if(!opt || opt && opt.loadingGif || opt && !isset(opt.loadingGif)) {
+			this.opt['loadingGif'] = true;
+		}
+
 		// set carousel-function for prev/next
 		if(!opt || opt && opt.carousel || opt && !isset(opt.carousel)) {
 			this.opt['carousel'] = true;
@@ -422,7 +427,7 @@ function Lightbox () {
 			addClass(currImage.img,'jslghtbx-animate-transition jslghtbx-animate-init');
 			isOpen = true;
 		}
-
+		
 		// hide overflow by default / if set
 		if(!this.opt || !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
 			body.setAttribute('style','overflow: hidden');
@@ -460,6 +465,8 @@ function Lightbox () {
 				{
 					that.resize();
 					addClass(currImage.img,'jslghtbx-animate-transition');
+					// remove loading-gif
+					removeClass(that.box,'jslghtbx-loading');
 					clearInterval(checkClassInt);
 				}
 			},10);
@@ -467,6 +474,11 @@ function Lightbox () {
 
 		// set src 
 		currImage.img.setAttribute('src',src);
+
+		// add loading-gif if set and if not IE8
+		if(this.opt.loadingGif && !isIE8) {
+			addClass(this.box,'jslghtbx-loading');
+		}
 	};
 
 	this.close = function() {

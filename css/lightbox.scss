@@ -46,6 +46,11 @@ $darkblue: #3F658B;
 		background-image: url('../img/trans-bck.png');
 	}
 }
+.jslghtbx.jslghtbx-loading {
+	background-image: url(../img/jslghtbx-loading.gif);
+	background-repeat: no-repeat;
+	background-position: center;
+}
 .jslghtbx-nooverflow {
 	overflow: hidden !important; // prevent showing of scrollbars on prev/next
 }
@@ -72,6 +77,7 @@ $darkblue: #3F658B;
 		display: block;
 	}
 }
+
 /* Animation Stuff */
 .jslghtbx-contentwrapper > img.jslghtbx-animate-transition  {
 	@include prefixr(transition, all .2s ease-in-out);

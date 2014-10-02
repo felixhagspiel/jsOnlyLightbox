@@ -69,6 +69,11 @@ __Default: true__
 
 If set to true, the image will be resized according to the viewport on resize-events.
 
+###	`{loadingGif: bool}`
+__Default: true__
+
+If set to true, the loading-gif will be shown until the image is loaded. Feel free to replace the GIF inside the img-folder. Note: This is disabled for IE8 due to bugs with transparent backgrounds and performance issues.
+
 ###	`{carousel: bool}`
 __Default: true__
 
