@@ -163,7 +163,7 @@ You can also just pass a reference to an image rather than a src-URL.
 Example:
 
 	var myImg = document.getElementById('myImg');
-	document.getElementById('open-lightbox').addEventListener('click',function(){
+	document.getElementById('open-lightbox-button').addEventListener('click',function(){
 		lightbox.open(myImg);
 	});
 
