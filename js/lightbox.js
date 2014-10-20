@@ -110,7 +110,7 @@ function Lightbox () {
 		var prev = new Image();
 		var next = new Image();
 		var pos = getPos(currThumbnail,currGroup);
-		if(pos === currImages.length) {
+		if(pos === (currImages.length - 1)) {
 			prev.src = currImages[currImages.length - 1].src;
 			next.src = currImages[0].src;
 		} else if(pos === 0) {
