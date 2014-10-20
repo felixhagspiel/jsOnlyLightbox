@@ -7,9 +7,10 @@ function Lightbox () {
 	this.opt = {};
 	this.box = false;
 	this.wrapper = false;
-	var isIE8 = false;
+	
 	// private
 	var that = this;
+	var isIE8 = false;
 	var body = document.getElementsByTagName('body')[0];
 	var template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>';
 	var imgRatio = false; // ratio of current image
@@ -19,6 +20,7 @@ function Lightbox () {
 	var currImages = []; // images belonging to current group
 	var thumbnails = []; // thumbnails
 	var isOpen = false; // check if box is open
+	var loadingImgSrc; // path to loading image
 	// controls
 	var nextBtn = false;
 	var prevBtn = false;
@@ -283,9 +285,18 @@ function Lightbox () {
 			removeClass(this.box,'jslghtbx-nooverflow');
 		}
 
-		// set loading-gif
-		if(!opt || opt && opt.loadingGif || opt && !isset(opt.loadingGif)) {
-			this.opt['loadingGif'] = true;
+		// set loading-image
+		if(!opt || opt && !isset(opt.loadingImgSrc)) {
+			loadingImgSrc = 'img/jslghtbx-loading.gif';
+		} else {
+			loadingImgSrc = opt.loadingImgSrc;
+		}
+		if(!opt || opt && opt.loadingImg || opt && !isset(opt.loadingImg)) {
+			this.opt['loadingImg'] = true;
+			var el = document.createElement('img');
+			el.setAttribute('src',loadingImgSrc);
+			addClass(el,'jslghtbx-loading-img');
+			this.box.appendChild(el);
 		}
 
 		// set preload-option
@@ -504,7 +515,7 @@ function Lightbox () {
 		currImage.img.setAttribute('src',src);
 
 		// add loading-gif if set and if not IE8
-		if(this.opt.loadingGif && !isIE8) {
+		if(this.opt.loadingImg && !isIE8) {
 			addClass(this.box,'jslghtbx-loading');
 		}
 	};

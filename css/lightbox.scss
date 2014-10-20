@@ -46,10 +46,19 @@ $darkblue: #3F658B;
 		background-image: url('../img/trans-bck.png');
 	}
 }
-.jslghtbx.jslghtbx-loading {
-	background-image: url(../img/jslghtbx-loading.gif);
-	background-repeat: no-repeat;
-	background-position: center;
+/* loading-image */
+.jslghtbx-loading-img {
+	margin-top: -60px;
+	margin-left: -60px;	
+	width: 120px;
+	height: 120px;
+	top: 50%;
+	left: 50%;
+	display: none;
+	position: absolute;
+}
+.jslghtbx.jslghtbx-loading .jslghtbx-loading-img {
+	display: block;
 }
 .jslghtbx-nooverflow {
 	overflow: hidden !important; // prevent showing of scrollbars on prev/next

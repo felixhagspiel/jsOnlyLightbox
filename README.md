@@ -74,10 +74,15 @@ _Default: true_
 
 If set to true, the previous and the next image of the currently shown image will be preloaded if not already in cache.
 
-###	`{loadingGif: bool}`
+###	`{loadingImg: bool}`
 _Default: true_
 
 If set to true, the loading-gif will be shown until the image is loaded. Feel free to replace the GIF inside the img-folder. Note: This is disabled for IE8 due to bugs with transparent backgrounds and performance issues.
+
+###	`{loadingImgSrc: bool}`
+_Default: 'img/jslghtbx-loading.gif'
+
+Here you can set another image-URL for the loading animation.
 
 ###	`{carousel: bool}`
 _Default: true_
