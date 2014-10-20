@@ -105,7 +105,7 @@ function Lightbox () {
 	var exists = function(id){
 		if(document.getElementById(id)) {return true;}
 		return false;
-	};
+	}
 
 	// preload next and prev images
 	function preload(){
@@ -121,6 +121,22 @@ function Lightbox () {
 		} else {
 			prev.src = currImages[pos - 1].src;
 			next.src = currImages[pos + 1].src;
+		}
+	}
+
+	// move controls to correct position
+	function repositionControls() {
+		if(that.opt.responsive && nextBtn && prevBtn) {
+			var btnTop = (getHeight() / 2) - (nextBtn.offsetHeight / 2);
+			if(isIE8) {
+				var cssString = "top: "+btnTop+"px;";
+				nextBtn.cssText = cssString;
+				prevBtn.cssText= cssString;
+			}
+			else {
+				nextBtn.style.top = btnTop+"px";
+				prevBtn.style.top = btnTop+"px";
+			}
 		}
 	}
 
@@ -359,19 +375,7 @@ function Lightbox () {
 		currImage.img.setAttribute('height',newImgHeight);
 		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
 
-		// move controls to correct position
-		if(this.opt.responsive && nextBtn && prevBtn) {
-			var btnTop = (getHeight() / 2) - (nextBtn.offsetHeight / 2);
-			if(isIE8) {
-				var cssString = "top: "+btnTop+"px;";
-				nextBtn.cssText = cssString;
-				prevBtn.cssText= cssString;
-			}
-			else {
-				nextBtn.style.top = btnTop+"px";
-				prevBtn.style.top = btnTop+"px";
-			}
-		}
+		repositionControls();
 	};
 
 	// show next image
@@ -484,7 +488,6 @@ function Lightbox () {
 				initControls();
 			}
 		}
-
 		// show wrapper when image is loaded
 		currImage.img.onload = function(){
 			// store original width here
@@ -498,10 +501,8 @@ function Lightbox () {
 				{
 					that.resize();
 					addClass(currImage.img,'jslghtbx-animate-transition');
-
 					// remove loading-gif
 					removeClass(that.box,'jslghtbx-loading');
-
 					// preload previous and next image
 					if(that.opt.preload) {
 						preload();
@@ -516,6 +517,7 @@ function Lightbox () {
 
 		// add loading-gif if set and if not IE8
 		if(this.opt.loadingImg && !isIE8) {
+			console.log('LOADING')
 			addClass(this.box,'jslghtbx-loading');
 		}
 	};
