@@ -1,3 +1,5 @@
+"use strict";
+
 function Lightbox () {
 	/*
 	* 	Attributes
@@ -37,17 +39,17 @@ function Lightbox () {
 	*/
 
 	// get correct height in IE8
-	var getHeight = function(){
+	function getHeight(){
 		return window.innerHeight || document.documentElement.offsetHeight;
 	};
 
 	// get correct width in IE8
-	var getWidth = function(){
+	function getWidth(){
 		return window.innerWidth || document.documentElement.offsetWidth;
 	};
 
 	// cross browser eventhandler
-	var addEvent  = function(el,e,callback,val){
+	function addEvent(el,e,callback,val){
 	    if (el.addEventListener) {
 	        el.addEventListener(e,callback, false);
 	    } else if (el.attachEvent) {
@@ -56,33 +58,33 @@ function Lightbox () {
 	};
 
 	// check if element has a specific class
-	var hasClass  = function(el,className) {
+	function hasClass(el,className) {
 		if(!el || !className){return;}
 	    return (new RegExp("(^|\\s)" + className + "(\\s|$)").test(el.className));
 	};
 
 	// remove class from element
-	var removeClass = function(el,className) {
+	function removeClass(el,className) {
 		if(!el || !className){return;}
 	    el.className = el.className.replace(new RegExp('(?:^|\\s)'+className+'(?!\\S)'),'' );
 	    return el;
 	};
 
 	// add class to element
-	var addClass = function(el,className) {
+	function addClass(el,className) {
 		if(!el || !className){return;}
 	    if(!hasClass(el,className)) { el.className += ' '+className; }
 	    return el;
 	};
 
 	// check if obj is set
-	var isset = function(obj) {
+	function isset(obj) {
 		if(typeof obj != 'undefined'){return true;}
 		return false;
 	};
 
 	// get attributes, cross-browser
-	var getAttr = function(obj,attr) {
+	function getAttr(obj,attr) {
 		if(!obj || typeof obj == undefined){return false;}
 		var ret;
 		if(obj.getAttribute){ret=obj.getAttribute(attr);}
@@ -92,7 +94,7 @@ function Lightbox () {
 	};
 
 	// check attribute, cross-browser
-	var hasAttr = function(obj,attr) {
+	function hasAttr(obj,attr) {
 		if(!obj || typeof obj == undefined){return false;}
 		var ret;
 		if(obj.getAttribute){ret=obj.getAttribute(attr);}
@@ -102,7 +104,7 @@ function Lightbox () {
 	};
 
 	// lookup element in browser
-	var exists = function(id){
+	function exists(id){
 		if(document.getElementById(id)) {return true;}
 		return false;
 	}
@@ -141,7 +143,7 @@ function Lightbox () {
 	}
 
 	// add clickhandlers to thumbnails
-	var clckHlpr = function(i) {
+	function clckHlpr(i) {
 		addEvent(i,'click',function(e) {
 			currGroup = getAttr(i, 'data-jslghtbx-group') || false;
 			currThumbnail = i;
@@ -150,7 +152,7 @@ function Lightbox () {
 	};
 
 	// get thumbnails by group
-	var getByGroup = function(group) {
+	function getByGroup(group) {
 		var arr = [];
 		for (var i = 0; i < thumbnails.length; i++) {
 			if(getAttr(thumbnails[i],'data-jslghtbx-group') === group) {
@@ -161,7 +163,7 @@ function Lightbox () {
 	};
 
 	// get position of thumbnail in group-array
-	var getPos = function(thumbnail, group) {
+	function getPos(thumbnail, group) {
 		var arr = getByGroup(group);
 		for (var i = 0; i < arr.length; i++) {
 			if(getAttr(thumbnail,'src') === getAttr(arr[i],'src') &&
@@ -172,7 +174,7 @@ function Lightbox () {
 	};
 
 	// init controls
-	var initControls = function() {
+	function initControls() {
 		if(!nextBtn) {
 			// create & append next-btn
 			nextBtn = document.createElement('span');
@@ -345,8 +347,8 @@ function Lightbox () {
 		if(!currImage.img){return;}
 		maxWidth = getWidth();
 		maxHeight = getHeight();
-		boxWidth = that.box.offsetWidth;
-		boxHeight = that.box.offsetHeight;
+		var boxWidth = that.box.offsetWidth;
+		var boxHeight = that.box.offsetHeight;
 		if(!imgRatio && currImage.img && currImage.img.offsetWidth && currImage.img.offsetHeight) {
 			imgRatio = currImage.img.offsetWidth / currImage.img.offsetHeight;
 		}
