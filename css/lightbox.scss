@@ -56,6 +56,7 @@ $darkblue: #3F658B;
 	left: 50%;
 	display: none;
 	position: absolute;
+	z-index: -1;
 }
 .jslghtbx.jslghtbx-loading .jslghtbx-loading-img {
 	display: block;

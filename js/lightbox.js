@@ -519,7 +519,6 @@ function Lightbox () {
 
 		// add loading-gif if set and if not IE8
 		if(this.opt.loadingImg && !isIE8) {
-			console.log('LOADING')
 			addClass(this.box,'jslghtbx-loading');
 		}
 	};
