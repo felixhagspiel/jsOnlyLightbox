@@ -536,7 +536,7 @@ function Lightbox () {
 					if(that.opt.preload) {
 						preload();
 					}
-					// execute close callback
+					// execute onload callback
 					if(that.opt.onload) that.opt.onload();
 
 					clearInterval(checkClassInt);
