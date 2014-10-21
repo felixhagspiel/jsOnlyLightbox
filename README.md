@@ -131,6 +131,15 @@ _Default: 400_
 
 This options defines wether the next/prev-switch should be animated. If you pass an integer-value, it defines the milliseconds for the animation. Passing `false` disables the animation. Note that all animations are done via CSS3-transitions, so if you want to alter them you have to do it via the CSS-file. 
 
+###	`{onopen: function}`
+Function that is executed when the lightbox is opened.
+
+###	`{onclose: function}`
+Function that is executed when the lightbox is closed.
+
+###	`{onresize: function}`
+Function that is executed when the lightbox is resized.
+
 ## Methods
 
 ### `lightbox.load(options)`

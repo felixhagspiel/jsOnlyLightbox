@@ -9,7 +9,7 @@ function Lightbox () {
 	this.opt = {};
 	this.box = false;
 	this.wrapper = false;
-	
+
 	// private
 	var that = this;
 	var isIE8 = false;
@@ -279,7 +279,8 @@ function Lightbox () {
 			closeBtn.setAttribute('class','jslghtbx-close');
 			closeBtn.innerHTML = 'X';
 			this.box.appendChild(closeBtn);
-			addEvent(closeBtn,'click',function(){
+			addEvent(closeBtn,'click',function(e){
+				e.stopPropagation();
 				that.close();
 			});
 		}
@@ -320,6 +321,21 @@ function Lightbox () {
 		// set preload-option
 		if(!opt || opt && opt.preload || opt && !isset(opt.preload)) {
 			this.opt['preload'] = true;
+		}
+
+		// set onopen-callback
+		if(opt && opt.onopen && typeof opt.onopen === 'function') {
+			this.opt['onopen'] = opt.onopen;
+		}
+
+		// set onclose-callback
+		if(opt && opt.onclose && typeof opt.onclose === 'function') {
+			this.opt['onclose'] = opt.onclose;
+		}
+
+		// set onresize-callback
+		if(opt && opt.onresize && typeof opt.onresize === 'function') {
+			this.opt['onresize'] = opt.onresize;
 		}
 
 		// set carousel-function for prev/next
@@ -378,6 +394,9 @@ function Lightbox () {
 		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
 
 		repositionControls();
+
+		// execute resize callback
+		if(this.opt.onresize) this.opt.onresize();
 	};
 
 	// show next image
@@ -465,6 +484,9 @@ function Lightbox () {
 		if(!isOpen) {
 			addClass(currImage.img,'jslghtbx-animate-transition jslghtbx-animate-init');
 			isOpen = true;
+			
+			// execute open callback
+			if(this.opt.onopen) this.opt.onopen();
 		}
 		
 		// hide overflow by default / if set
@@ -545,6 +567,9 @@ function Lightbox () {
 		if(!this.opt ||  !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
 			body.setAttribute('style','overflow: auto');
 		}
+
+		// execute close callback
+		if(this.opt.onclose) this.opt.onclose();
 	};
 }
 
