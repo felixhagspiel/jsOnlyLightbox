@@ -126,22 +126,6 @@ function Lightbox () {
 		}
 	}
 
-	// move controls to correct position
-	function repositionControls() {
-		if(that.opt.responsive && nextBtn && prevBtn) {
-			var btnTop = (getHeight() / 2) - (nextBtn.offsetHeight / 2);
-			if(isIE8) {
-				var cssString = "top: "+btnTop+"px;";
-				nextBtn.cssText = cssString;
-				prevBtn.cssText= cssString;
-			}
-			else {
-				nextBtn.style.top = btnTop+"px";
-				prevBtn.style.top = btnTop+"px";
-			}
-		}
-	}
-
 	// add clickhandlers to thumbnails
 	function clckHlpr(i) {
 		addEvent(i,'click',function(e) {
@@ -206,6 +190,22 @@ function Lightbox () {
 		}
 		addClass(prevBtn,'jslghtbx-active');
 	};
+
+	// move controls to correct position
+	function repositionControls() {
+		if(that.opt.responsive && nextBtn && prevBtn) {
+			var btnTop = (getHeight() / 2) - (nextBtn.offsetHeight / 2);
+			if(isIE8) {
+				var cssString = "top: "+btnTop+"px;";
+				nextBtn.cssText = cssString;
+				prevBtn.cssText= cssString;
+			}
+			else {
+				nextBtn.style.top = btnTop+"px";
+				prevBtn.style.top = btnTop+"px";
+			}				
+		}
+	}
 
 	/*
 	* 	Public methods
@@ -292,18 +292,6 @@ function Lightbox () {
 			});
 		}
 
-		// add resize-eventhandlers by default / if true
-		if(!opt || opt && opt.responsive  || !isset(opt.responsive)) {
-			this.opt['responsive'] = true;
-			addEvent(window,'resize',function(e){
-				that.resize();
-			});
-			addClass(this.box,'jslghtbx-nooverflow'); // hide scrollbars on prev/next
-		} 
-		else {
-			removeClass(this.box,'jslghtbx-nooverflow');
-		}
-
 		// set loading-image
 		if(!opt || opt && !isset(opt.loadingImgSrc)) {
 			loadingImgSrc = 'img/jslghtbx-loading.gif';
@@ -346,6 +334,18 @@ function Lightbox () {
 		// set animation-params
 		if(!opt || opt && !isset(opt.animation) || opt && isset(opt.animation) && opt.animation === true) {
 			that.opt['animation'] = 400; // set default animation time
+		}
+
+		// add resize-eventhandlers by default / if true
+		if(!opt || opt && opt.responsive  || !isset(opt.responsive)) {
+			this.opt['responsive'] = true;
+			addEvent(window,'resize',function(e){
+				that.resize();
+			});
+			addClass(this.box,'jslghtbx-nooverflow'); // hide scrollbars on prev/next
+		} 
+		else {
+			removeClass(this.box,'jslghtbx-nooverflow');
 		}
 
 		// Find all thumbnails & add clickhandlers
