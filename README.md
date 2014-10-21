@@ -140,6 +140,9 @@ Function that is executed when the lightbox is closed.
 ###	`{onresize: function}`
 Function that is executed when the lightbox is resized.
 
+###	`{onload: function}`
+Function that is executed once the current image is loaded.
+
 ## Methods
 
 ### `lightbox.load(options)`

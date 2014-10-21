@@ -326,6 +326,11 @@ function Lightbox () {
 			this.opt['onresize'] = opt.onresize;
 		}
 
+		// set onload-callback
+		if(opt && opt.onload && typeof opt.onload === 'function') {
+			this.opt['onload'] = opt.onload;
+		}
+
 		// set carousel-function for prev/next
 		if(!opt || opt && opt.carousel || opt && !isset(opt.carousel)) {
 			this.opt['carousel'] = true;
@@ -531,6 +536,9 @@ function Lightbox () {
 					if(that.opt.preload) {
 						preload();
 					}
+					// execute close callback
+					if(that.opt.onload) that.opt.onload();
+
 					clearInterval(checkClassInt);
 				}
 			},10);
