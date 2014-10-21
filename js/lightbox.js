@@ -157,6 +157,12 @@ function Lightbox () {
 		}
 	};
 
+	// cross-browser stoppropagation
+	function stopPropagation(e) {
+		if(e.stopPropagation) {e.stopPropagation();}
+		else {e.returnValue=false;}	
+	}
+
 	// init controls
 	function initControls() {
 		if(!nextBtn) {
@@ -167,8 +173,7 @@ function Lightbox () {
 			nextBtnImg.setAttribute('src', 'img/jslghtbx-next.png');
 			nextBtn.appendChild(nextBtnImg);
 			addEvent(nextBtn,'click',function(e){
-				if(e.stopPropagation) {e.stopPropagation();}
-				else {e.returnValue=false;} // prevent closing of lightbox
+				stopPropagation(e); // prevent closing of lightbox
 				that.next();
 			});
 			that.box.appendChild(nextBtn);
@@ -182,8 +187,7 @@ function Lightbox () {
 			prevBtnImg.setAttribute('src', 'img/jslghtbx-prev.png');
 			prevBtn.appendChild(prevBtnImg);
 			addEvent(prevBtn,'click',function(e){
-				if(e.stopPropagation) {e.stopPropagation();}
-				else {e.returnValue=false;} // prevent closing of lightbox
+				stopPropagation(e); // prevent closing of lightbox
 				that.prev();
 			});
 			that.box.appendChild(prevBtn);			
@@ -280,7 +284,7 @@ function Lightbox () {
 			closeBtn.innerHTML = 'X';
 			this.box.appendChild(closeBtn);
 			addEvent(closeBtn,'click',function(e){
-				e.stopPropagation();
+				stopPropagation(e);
 				that.close();
 			});
 		}

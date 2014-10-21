@@ -92,7 +92,7 @@ If set to true, you can infinitely loop through all the images by clicking the n
 ###	`{closeOnClick: bool}`
 _Default: true_
 
-If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button.
+If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button. Note: May not work in IE8.
 
 ###	`{hideOverflow: bool}`
 _Default: true_
