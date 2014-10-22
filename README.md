@@ -33,7 +33,7 @@ Add the CSS-File to the head of your html-file:
 
 Add this before the closing body tag:
 
-	<script src="jslightbox.js" type="text/javascript"></script>
+	<script src="lightbox.min.js" type="text/javascript"></script>
 	<script>
 		var lightbox = new Lightbox();
 	 	lightbox.load();
