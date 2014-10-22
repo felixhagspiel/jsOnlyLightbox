@@ -111,6 +111,7 @@ function Lightbox () {
 
 	// preload next and prev images
 	function preload(){
+		if(!currGroup){return;}
 		var prev = new Image();
 		var next = new Image();
 		var pos = getPos(currThumbnail,currGroup);
