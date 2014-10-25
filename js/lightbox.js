@@ -410,7 +410,7 @@ function Lightbox () {
 		}
 		currImage.img.setAttribute('width',newImgWidth);
 		currImage.img.setAttribute('height',newImgHeight);
-		that.box.setAttribute('style','padding-top:'+((getHeight() - newImgHeight) /2)+'px');
+		currImage.img.setAttribute('style','margin-top:'+((getHeight() - newImgHeight) /2)+'px');
 
 		repositionControls();
 
@@ -529,6 +529,7 @@ function Lightbox () {
 			currImages = getByGroup(group);
 			if(that.opt.controls) {
 				initControls();
+				repositionControls();
 			}
 		}
 		// show wrapper when image is loaded
