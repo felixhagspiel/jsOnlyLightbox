@@ -89,6 +89,11 @@ _Default: true_
 
 If set to true, you can infinitely loop through all the images by clicking the next/prev button or calling the `next()` / `prev()`-functions.  
 
+###	`{captions: bool}`
+_Default: true_
+
+If set to true, the caption text inside the `data-jslghtbx-caption` attribute will be shown. Note that the text may not be visible completely if it is very long. Feel free to style the caption class `.jslghtbx-caption` to your needs.
+
 ###	`{closeOnClick: bool}`
 _Default: true_
 

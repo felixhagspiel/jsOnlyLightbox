@@ -115,17 +115,25 @@
 	<div class="section">
 		<h2>Use bigsized pictures for both thumbnail and lightbox</h2>
 		<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx data-jslghtbx-group="group1">
-		<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx data-jslghtbx-group="group1">
 	</div>
 	<div class="section">
 		<h2>Using smallsized pictures for thumbnails and bigsized pictures for lightbox to reduce traffic</h2>
 		<img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/lightbox/3-big.jpg" data-jslghtbx-group="group2">
-		<img class="jslghtbx-thmb" src="img/lightbox/4-small.jpg" alt="" data-jslghtbx="img/lightbox/4-big.jpg" data-jslghtbx-group="group2">
+	</div>
+	<div class="section">
+		<h2>Use captions</h2>
+		<img class="jslghtbx-thmb" src="img/lightbox/7-small.jpg" alt="" data-jslghtbx="img/lightbox/7-big.jpg" data-jslghtbx-group="group3" data-jslghtbx-caption="This picture was taken at Bodensee, Germany.">
+		<img class="jslghtbx-thmb" src="img/lightbox/9-small.jpg" alt="" data-jslghtbx="img/lightbox/9-big.jpg" data-jslghtbx-group="group3" data-jslghtbx-caption="This picture was taken in Miami.">
 	</div>
 	<div class="section">
 		<h2>Use groups to show multiple images</h2>
 		<img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/lightbox/3-big.jpg" data-jslghtbx-group="mygroup">
 		<img class="jslghtbx-thmb" src="img/lightbox/4-small.jpg" alt="" data-jslghtbx="img/lightbox/4-big.jpg" data-jslghtbx-group="mygroup">
+		<img class="jslghtbx-thmb" src="img/lightbox/6-small.jpg" alt="" data-jslghtbx="img/lightbox/6-big.jpg" data-jslghtbx-group="mygroup">
+		<img class="jslghtbx-thmb" src="img/lightbox/7-small.jpg" alt="" data-jslghtbx="img/lightbox/7-big.jpg" data-jslghtbx-group="mygroup">
+		<img class="jslghtbx-thmb" src="img/lightbox/8-small.jpg" alt="" data-jslghtbx="img/lightbox/8-big.jpg" data-jslghtbx-group="mygroup">
+		<img class="jslghtbx-thmb" src="img/lightbox/9-small.jpg" alt="" data-jslghtbx="img/lightbox/9-big.jpg" data-jslghtbx-group="mygroup">
+		<img class="jslghtbx-thmb" src="img/lightbox/10-small.jpg" alt="" data-jslghtbx="img/lightbox/10-big.jpg" data-jslghtbx-group="mygroup">
 		<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx data-jslghtbx-group="mygroup">
 		<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx data-jslghtbx-group="mygroup">
 	</div>
@@ -142,6 +150,10 @@
 		<p>Then you just have to add the attribute <code>data-jslghtbx</code> to all the images you want to show in the lightbox:</p>
 		<code class="block">
 			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx&gt;
+		</code>
+		<p>If you want to use captions add the <code>data-jslghtbx-caption</code> attribute</p>
+		<code class="block">
+			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot;  data-jslghtbx-caption=&quot;This is my caption text.&quot; alt=&quot;&quot; data-jslghtbx&gt;
 		</code>
 		<p>You can also pass an link to another image, i.e. <code>data-jslghtbx='img/lightbox/apple.jpg'</code>:</p>
 		<code class="block">
@@ -180,6 +192,7 @@
 			dimensions: true,
 			controls: true,
 			animation: 400,
+			captions: true,
 			onopen: function(){
 				console.log('opened')
 			},

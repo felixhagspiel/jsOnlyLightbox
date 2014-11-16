@@ -24,6 +24,7 @@ function Lightbox () {
 	var isIE8 = false;
 	var body = document.getElementsByTagName('body')[0];
 	var template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>';
+	var captionTemplate = '<p class="jslghtbx-caption">TEEEEST</p>';
 	var imgRatio = false; // ratio of current image
 	var currGroup = false; // current group
 	var currThumbnail = false; // first clicked thumbnail
@@ -280,6 +281,11 @@ function Lightbox () {
 			that.opt['dimensions'] = true;
 		}	
 
+		// show captions
+		if(chckOpt(opt,'captions') || opt && !isset(opt.captions)) {
+			that.opt['captions'] = true;
+		}
+
 		// add clickhandlers for custom next-button
 		if(opt && opt.nextId) {
 			addEvent(document.getElementById(opt.nextId),'click',function(){
@@ -527,9 +533,20 @@ function Lightbox () {
 		if(!this.opt || !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
 			body.setAttribute('style','overflow: hidden');
 		}
+
 		this.box.setAttribute('style','padding-top: 0');
 		this.wrapper.innerHTML = '';
 		this.wrapper.appendChild(currImage.img);
+
+		// set caption
+		var captionText = getAttr(el,'data-jslghtbx-caption');
+		if(captionText && this.opt.captions) {
+			var caption = document.createElement('p');
+			caption.setAttribute('class','jslghtbx-caption');
+			caption.innerHTML = captionText;
+			this.wrapper.appendChild(caption);			
+		}
+
 		addClass(this.box,'jslghtbx-active');
 
 		// show wrapper early to avoid bug where dimensions are not
