@@ -2,12 +2,12 @@
 
 ## Features
 
-- no jQuery needed
+- no jQuery needed, plain JavaScript
 - Fully responsive
-- Customizable Theme
+- Customizable Theme, SASS-files included
 - Small in Size (< 10Kb)
-- CSS3-Animation
-- Licensed under MIT, free for commercial &amp; personal use
+- CSS3-Animations
+- Licensed under MIT, code is free for commercial &amp; personal use. However, it would be great if you send me an link of your websites using my lightbox so I can see it live in action and post some real-word examples here. I am also happy about backlinks & github-stars :) **The pictures included are NOT free to use!** Please  [contact me first](http://felixhagspiel.de/contact) if you want to use the them!
 - IE8+ support:
 
 Do not forget to add those lines inside your `<head></head>` if you want to support IE8:
