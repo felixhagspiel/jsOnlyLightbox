@@ -112,6 +112,11 @@ function Lightbox () {
 		return false;
 	};
 
+	// check option
+	function optIsSet(opt){
+
+	}
+
 	// lookup element in browser
 	function exists(id){
 		if(document.getElementById(id)) {return true;}
@@ -171,6 +176,16 @@ function Lightbox () {
 	function stopPropagation(e) {
 		if(e.stopPropagation) {e.stopPropagation();}
 		else {e.returnValue=false;}	
+	}
+
+	// check if option is set
+	function chckOpt(opt,name) {
+		return !opt || opt && opt[name];
+	}
+
+	// check if callback is set
+	function chckCb(opt,name) {
+		return opt && opt[name] && typeof opt[name] === 'function';
 	}
 
 	// init controls
@@ -256,12 +271,12 @@ function Lightbox () {
 		this.wrapper = document.getElementById('jslghtbx-contentwrapper');
 
 		// initiate default controls
-		if(!opt || opt && opt.controls || opt && !isset(opt.controls)) {
+		if(chckOpt(opt,'controls') || opt && !isset(opt.controls)) {
 			that.opt['controls'] = true;
 		}
 
 		// keep dimensions
-		if(!opt || opt && opt.dimensions || opt && !isset(opt.dimensions)) {
+		if(chckOpt(opt,'dimensions') || opt && !isset(opt.dimensions)) {
 			that.opt['dimensions'] = true;
 		}	
 
@@ -300,7 +315,7 @@ function Lightbox () {
 		}
 
 		// close lightbox on background-click by default / if true
-		if( !isIE8 && (!opt || opt && opt.closeOnClick || opt && !isset(opt.closeOnClick))) {
+		if( !isIE8 && (chckOpt(opt,'closeOnClick') || opt && !isset(opt.closeOnClick))) {
 			addEvent(this.box,'click',function(e){
 				that.close();
 			});
@@ -312,7 +327,7 @@ function Lightbox () {
 		} else {
 			loadingImgSrc = opt.loadingImgSrc;
 		}
-		if(!opt || opt && opt.loadingImg || opt && !isset(opt.loadingImg)) {
+		if(chckOpt(opt,'loadingImg') || opt && !isset(opt.loadingImg)) {
 			this.opt['loadingImg'] = true;
 			var el = document.createElement('img');
 			el.setAttribute('src',loadingImgSrc);
@@ -321,32 +336,32 @@ function Lightbox () {
 		}
 
 		// set preload-option
-		if(!opt || opt && opt.preload || opt && !isset(opt.preload)) {
+		if(chckOpt(opt,'preload') || opt && !isset(opt.preload)) {
 			this.opt['preload'] = true;
 		}
 
 		// set onopen-callback
-		if(opt && opt.onopen && typeof opt.onopen === 'function') {
+		if(chckCb(opt,'onopen')) {
 			this.opt['onopen'] = opt.onopen;
 		}
 
 		// set onclose-callback
-		if(opt && opt.onclose && typeof opt.onclose === 'function') {
+		if(chckCb(opt,'onclose')) {
 			this.opt['onclose'] = opt.onclose;
 		}
 
 		// set onresize-callback
-		if(opt && opt.onresize && typeof opt.onresize === 'function') {
+		if(chckCb(opt,'onresize')) {
 			this.opt['onresize'] = opt.onresize;
 		}
 
 		// set onload-callback
-		if(opt && opt.onload && typeof opt.onload === 'function') {
+		if(chckCb(opt,'onload')) {
 			this.opt['onload'] = opt.onload;
 		}
 
 		// set carousel-function for prev/next
-		if(!opt || opt && opt.carousel || opt && !isset(opt.carousel)) {
+		if(chckOpt(opt,'carousel') || opt && !isset(opt.carousel)) {
 			this.opt['carousel'] = true;
 		}
 
@@ -356,7 +371,7 @@ function Lightbox () {
 		}
 
 		// add resize-eventhandlers by default / if true
-		if(!opt || opt && opt.responsive  || !isset(opt.responsive)) {
+		if(chckOpt(opt,'responsive')  || !isset(opt.responsive)) {
 			this.opt['responsive'] = true;
 			addEvent(window,'resize',function(e){
 				that.resize();
