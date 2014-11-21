@@ -574,6 +574,12 @@ function Lightbox () {
 			// store original width here
 			currImage.originalWidth = this.width;
 			currImage.originalHeight = this.height;	
+			if(isIE8) {
+				var dummyImg = new Image();
+				dummyImg.setAttribute('src',src);
+				currImage.originalWidth = dummyImg.width;
+				currImage.originalHeight = dummyImg.height;	
+			}
 			var checkClassInt = setInterval(function(){
 				if(hasClass(that.box,'jslghtbx-active'))
 				{

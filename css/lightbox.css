@@ -3,17 +3,18 @@
 **/
 /* IE8 Stuff */
 .jslghtbx-ie8.jslghtbx {
-  background-image: url("../img/trans-bck.png"); }
-
-.jslghtbx-ie8.jslghtbx,
-.jslghtbx-ie8 .jslghtbx-contentwrapper {
+  background-image: url("../img/trans-bck.png");
   display: none; }
-  .jslghtbx-ie8.jslghtbx.jslghtbx-active,
-  .jslghtbx-ie8 .jslghtbx-contentwrapper.jslghtbx-active {
+  .jslghtbx-ie8.jslghtbx.jslghtbx-active {
     display: block; }
-
-.jslghtbx-ie8 .jslghtbx-contentwrapper > img {
-  display: block; }
+  .jslghtbx-ie8.jslghtbx .jslghtbx-contentwrapper > img {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+    display: block; }
+  .jslghtbx-ie8.jslghtbx .jslghtbx-contentwrapper.jslghtbx-wrapper-active > img {
+    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)"; }
+  .jslghtbx-ie8.jslghtbx .jslghtbx-next,
+  .jslghtbx-ie8.jslghtbx .jslghtbx-prev {
+    margin-top: -125px; }
 
 /* Main wrapper */
 .jslghtbx {
@@ -59,8 +60,7 @@
     height: auto;
     margin-left: auto;
     margin-right: auto;
-    opacity: 0;
-    -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)"; }
+    opacity: 0; }
 
 .jslghtbx-contentwrapper.jslghtbx-wrapper-active {
   visibility: visible; }

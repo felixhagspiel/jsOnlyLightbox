@@ -30,17 +30,21 @@ $darkblue: #3F658B;
 /* IE8 Stuff */
 .jslghtbx-ie8.jslghtbx {
 	background-image: url('../img/trans-bck.png');
-}
-.jslghtbx-ie8.jslghtbx,
-.jslghtbx-ie8 .jslghtbx-contentwrapper
-{
 	display: none;
 	&.jslghtbx-active {
 		display: block;
 	}
-}
-.jslghtbx-ie8 .jslghtbx-contentwrapper > img {
-	display: block;
+	.jslghtbx-contentwrapper > img {
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+		display: block;
+	}
+	.jslghtbx-contentwrapper.jslghtbx-wrapper-active > img {
+		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
+	}
+	.jslghtbx-next,
+	.jslghtbx-prev {
+		margin-top: -125px;
+	}
 }
 
 /* Main wrapper */
@@ -89,7 +93,6 @@ $darkblue: #3F658B;
 		margin-left: auto;
 		margin-right: auto;
 		opacity: 0;
-		-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
 	}
 }
 .jslghtbx-contentwrapper.jslghtbx-wrapper-active {
