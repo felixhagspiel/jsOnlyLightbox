@@ -425,7 +425,6 @@ function Lightbox () {
 		// check if image exceeds maximum size
 		if( this.opt.dimensions && newImgHeight > currImage.originalHeight ||
 			this.opt.dimensions && newImgWidth > currImage.originalWidth) {
-
 			newImgHeight = currImage.originalHeight;
 			newImgWidth = currImage.originalWidth;
 		}
@@ -567,10 +566,8 @@ function Lightbox () {
 		// show wrapper when image is loaded
 		currImage.img.onload = function(){
 			// store original width here
-			var dummyImg = new Image();
-			dummyImg.setAttribute('src',src);
-			currImage.originalWidth = dummyImg.width;
-			currImage.originalHeight = dummyImg.height;	
+			currImage.originalWidth = this.width;
+			currImage.originalHeight = this.height;	
 			addClass(that.wrapper,'jslghtbx-wrapper-active');
 			var checkClassInt = setInterval(function(){
 				if(hasClass(that.box,'jslghtbx-active') && hasClass(that.wrapper,'jslghtbx-wrapper-active'))
@@ -588,7 +585,8 @@ function Lightbox () {
 
 					clearInterval(checkClassInt);
 				}
-			},10);
+			},10);				
+
 		};
 
 		// set src 
