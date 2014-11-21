@@ -31,6 +31,7 @@
 		}
 		a {
 			text-decoration: none;
+			color: #F1C15C;
 		}
 		.section {
 			max-width: 50em;
@@ -94,7 +95,7 @@
 	</style>
 </head>
 <body id="body">
-<a href="https://github.com/felixhagspiel"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
+<a href="https://github.com/felixhagspiel/jsOnlyLightbox"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
 	<div class="section">
 		<h1>jsOnlyLightbox v0.4</h1>
 		<h2>Responsive Lightbox written in plain JavaScript</h2>
@@ -145,6 +146,36 @@
 		<p>Add this before the closing body tag:</p>
 		<code class="block">
 			&lt;script src=&quot;jslightbox.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;<br/>    &lt;script&gt;<br/>        var lightbox = new Lightbox();<br/>        lightbox.load();<br/>    &lt;/script&gt;
+		</code>
+		<p>A complete init of the lightbox with all options looks like this (<a href="https://github.com/felixhagspiel/jsOnlyLightbox">click here for full API &amp; options</a>):</p>
+		<code class="block">
+		var lightbox = new Lightbox();<br/><br/>
+		var lightBoxOptions = {<br/>
+			&nbsp;responsive: true,<br/>
+			&nbsp;preload: true,<br/>
+			&nbsp;loadingImg: true,<br/>
+			&nbsp;loadingImgSrc: &#39;img/jslghtbx-loading.gif&#39;,<br/>
+			&nbsp;carousel: true,<br/>
+			&nbsp;closeOnClick: true,<br/>
+			&nbsp;hideOverflow: true,<br/>
+			&nbsp;dimensions: true,<br/>
+			&nbsp;controls: true,<br/>
+			&nbsp;animation: 400,<br/>
+			&nbsp;captions: true,<br/>
+			&nbsp;onopen: function(){<br/>
+				&nbsp;&nbsp;console.log(&#39;opened&#39;)<br/>
+			&nbsp;},<br/>
+			&nbsp;onresize: function(){<br/>
+				&nbsp;&nbsp;console.log(&#39;resized&#39;)<br/>
+			&nbsp;},<br/>
+			&nbsp;onclose: function(){<br/>
+				&nbsp;&nbsp;console.log(&#39;closed&#39;)<br/>
+			&nbsp;},<br/>
+			&nbsp;onload: function(){<br/>
+				&nbsp;&nbsp;console.log(&#39;loaded&#39;)<br/>
+			&nbsp;}<br/>		
+		}<br/><br/>
+		lightbox.load(lightBoxOptions);
 		</code>
 		<p>Then you just have to add the attribute <code>data-jslghtbx</code> to all the images you want to show in the lightbox:</p>
 		<code class="block">
