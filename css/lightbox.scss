@@ -96,6 +96,7 @@ $darkblue: #3F658B;
 	visibility: visible;
 	&> img {
 		display: block;
+		opacity: 1;
 	}
 }
 /* Caption */
@@ -111,8 +112,11 @@ $darkblue: #3F658B;
 	font-size: .9em;
 }
 /* Animation Stuff */
+.jslghtbx-contentwrapper.jslghtbx-animate > img {
+	opacity: 0;
+}
 .jslghtbx-contentwrapper > img.jslghtbx-animate-transition  {
-	@include prefixr(transition, all .2s ease-in-out);
+	@include prefixr(transition, opacity .2s ease-in-out);
 }
 .jslghtbx-contentwrapper > img.jslghtbx-animating-next  {
 	opacity: 1;

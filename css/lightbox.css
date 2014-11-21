@@ -65,7 +65,8 @@
 .jslghtbx-contentwrapper.jslghtbx-wrapper-active {
   visibility: visible; }
   .jslghtbx-contentwrapper.jslghtbx-wrapper-active > img {
-    display: block; }
+    display: block;
+    opacity: 1; }
 
 /* Caption */
 .jslghtbx-caption {
@@ -80,11 +81,14 @@
   font-size: .9em; }
 
 /* Animation Stuff */
+.jslghtbx-contentwrapper.jslghtbx-animate > img {
+  opacity: 0; }
+
 .jslghtbx-contentwrapper > img.jslghtbx-animate-transition {
-  -webkit-transition: all 0.2s ease-in-out;
-  -moz-transition: all 0.2s ease-in-out;
-  -o-transition: all 0.2s ease-in-out;
-  -ms-transition: all 0.2s ease-in-out; }
+  -webkit-transition: opacity 0.2s ease-in-out;
+  -moz-transition: opacity 0.2s ease-in-out;
+  -o-transition: opacity 0.2s ease-in-out;
+  -ms-transition: opacity 0.2s ease-in-out; }
 
 .jslghtbx-contentwrapper > img.jslghtbx-animating-next {
   opacity: 1;
