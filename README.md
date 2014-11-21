@@ -14,7 +14,6 @@ Do not forget to add those lines inside your `<head></head>` if you want to supp
 
 		<!--[if lt IE 9]>
 		    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" type="text/javascript"></script>
-		    <link rel="stylesheet" href="css/lightbox-ie8.css">
 		<![endif]-->
 
 ## Download
