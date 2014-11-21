@@ -481,6 +481,7 @@ function Lightbox () {
 		else {
 			return;
 		}
+		// animation stuff
 		if(typeof this.opt.animation === 'number') {
 			removeClass(currImage.img,'jslghtbx-animating-prev');
 			setTimeout(function(){
@@ -488,7 +489,6 @@ function Lightbox () {
 				setTimeout(function(){
 					addClass(currImage.img,'jslghtbx-animating-prev');
 				},that.opt.animation / 2)
-				
 			},this.opt.animation / 2);
 		}
 		else {
@@ -521,6 +521,9 @@ function Lightbox () {
 
 		// add init-class on opening, but not at prev/next
 		if(!isOpen) {
+			if(typeof that.opt.animation === 'number') {
+				addClass(currImage.img,'jslghtbx-animate-transition');
+			}
 			addClass(currImage.img,'jslghtbx-animate-transition jslghtbx-animate-init');
 			isOpen = true;
 			
@@ -572,8 +575,10 @@ function Lightbox () {
 			var checkClassInt = setInterval(function(){
 				if(hasClass(that.box,'jslghtbx-active') && hasClass(that.wrapper,'jslghtbx-wrapper-active'))
 				{
-					that.resize();
-					addClass(currImage.img,'jslghtbx-animate-transition');
+					// set animation
+					if(typeof that.opt.animation === 'number') {
+						addClass(currImage.img,'jslghtbx-animate-transition');
+					}
 					// remove loading-gif
 					removeClass(that.box,'jslghtbx-loading');
 					// preload previous and next image
@@ -582,8 +587,8 @@ function Lightbox () {
 					}
 					// execute onload callback
 					if(that.opt.onload) that.opt.onload();
-
 					clearInterval(checkClassInt);
+					that.resize();
 				}
 			},10);				
 
