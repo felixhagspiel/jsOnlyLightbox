@@ -22,6 +22,7 @@ function Lightbox () {
 	// private
 	var that = this;
 	var isIE8 = false;
+	var isIE9 = false;
 	var body = document.getElementsByTagName('body')[0];
 	var template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>';
 	var captionTemplate = '<p class="jslghtbx-caption">TEEEEST</p>';
@@ -248,8 +249,13 @@ function Lightbox () {
 		if(opt){this.opt = opt;}
 
 		// check for IE8
-		if(document.attachEvent && ! document.addEventListener) {
+		if(navigator.appVersion.indexOf("MSIE 8") > 0) {
 			isIE8 = true;
+		}
+
+		// check for IE9
+		if(navigator.appVersion.indexOf("MSIE 9") > 0) {
+			isIE9 = true;
 		}
 
 		// load box in custom element
@@ -564,7 +570,7 @@ function Lightbox () {
 		group = group || currGroup;
 		if(group) {
 			currImages = getByGroup(group);
-			if(that.opt.controls) {
+			if(that.opt.controls && currImages.length > 1) {
 				initControls();
 				repositionControls();
 			}
@@ -574,7 +580,8 @@ function Lightbox () {
 			// store original width here
 			currImage.originalWidth = this.width;
 			currImage.originalHeight = this.height;	
-			if(isIE8) {
+			// use dummyimage for correct dimension calculating in older IE
+			if(isIE8 || isIE9) {
 				var dummyImg = new Image();
 				dummyImg.setAttribute('src',src);
 				currImage.originalWidth = dummyImg.width;
