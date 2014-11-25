@@ -55,6 +55,10 @@ If you want to use multiple images, set the `data-jslghtbx-group`-attribute:
 
 You can use different groups on one website. The default control-arrows will be loaded when using groups. You can also use your own control-buttons by providing an ID via the options (see options-reference).
 
+For captions, put text or HTML inside the `data-jslghtbx-caption`-attribute:
+	
+	<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx data-jslghtbx-caption="This is my <a href='http://abc.de'>caption.</a>">
+
 ## CSS Animations
 
 When the lightbox is opened first, the image inside gets the class `jslghtbx-animate-init`. This is useful if you want to animate opacity. 
