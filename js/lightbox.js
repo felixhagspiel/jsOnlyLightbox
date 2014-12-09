@@ -1,4 +1,4 @@
-"use strict";
+"use strict"
 
 /**
  * Lightbox v0.4
@@ -15,35 +15,35 @@ function Lightbox () {
 	*/
 
 	// public
-	this.opt = {};
-	this.box = false;
-	this.wrapper = false;
+	this.opt = {}
+	this.box = false
+	this.wrapper = false
 
 	// private
-	var that = this;
-	var isIE8 = false;
-	var isIE9 = false;
-	var body = document.getElementsByTagName('body')[0];
-	var template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>';
-	var captionTemplate = '<p class="jslghtbx-caption">TEEEEST</p>';
-	var imgRatio = false; // ratio of current image
-	var currGroup = false; // current group
-	var currThumbnail = false; // first clicked thumbnail
-	var currImage = {}; // currently shown image
-	var currImages = []; // images belonging to current group
-	var thumbnails = []; // thumbnails
-	var isOpen = false; // check if box is open
-	var loadingImgSrc; // path to loading image
+	var that = this
+	var isIE8 = false
+	var isIE9 = false
+	var body = document.getElementsByTagName('body')[0]
+	var template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>'
+	var captionTemplate = '<p class="jslghtbx-caption">TEEEEST</p>'
+	var imgRatio = false // ratio of current image
+	var currGroup = false // current group
+	var currThumbnail = false // first clicked thumbnail
+	var currImage = {} // currently shown image
+	var currImages = [] // images belonging to current group
+	var thumbnails = [] // thumbnails
+	var isOpen = false // check if box is open
+	var loadingImgSrc // path to loading image
 	// controls
-	var nextBtn = false;
-	var prevBtn = false;
+	var nextBtn = false
+	var prevBtn = false
 	// resize-vars
-	var maxWidth;
-	var maxHeight;
-	var wrapperWidth;
-	var wrapperHeight;
-	var newImgWidth;
-	var newImgHeight;
+	var maxWidth
+	var maxHeight
+	var wrapperWidth
+	var wrapperHeight
+	var newImgWidth
+	var newImgHeight
 
 	/*
 	* 	Private methods
@@ -51,68 +51,68 @@ function Lightbox () {
 
 	// get correct height in IE8
 	function getHeight(){
-		return window.innerHeight || document.documentElement.offsetHeight;
-	};
+		return window.innerHeight || document.documentElement.offsetHeight
+	}
 
 	// get correct width in IE8
 	function getWidth(){
-		return window.innerWidth || document.documentElement.offsetWidth;
-	};
+		return window.innerWidth || document.documentElement.offsetWidth
+	}
 
 	// cross browser eventhandler
 	function addEvent(el,e,callback,val){
 	    if (el.addEventListener) {
-	        el.addEventListener(e,callback, false);
+	        el.addEventListener(e,callback, false)
 	    } else if (el.attachEvent) {
-	        el.attachEvent("on" + e, callback);
+	        el.attachEvent("on" + e, callback)
 	    }
-	};
+	}
 
 	// check if element has a specific class
 	function hasClass(el,className) {
-		if(!el || !className){return;}
-	    return (new RegExp("(^|\\s)" + className + "(\\s|$)").test(el.className));
-	};
+		if(!el || !className){return}
+	    return (new RegExp("(^|\\s)" + className + "(\\s|$)").test(el.className))
+	}
 
 	// remove class from element
 	function removeClass(el,className) {
-		if(!el || !className){return;}
-	    el.className = el.className.replace(new RegExp('(?:^|\\s)'+className+'(?!\\S)'),'' );
-	    return el;
-	};
+		if(!el || !className){return}
+	    el.className = el.className.replace(new RegExp('(?:^|\\s)'+className+'(?!\\S)'),'' )
+	    return el
+	}
 
 	// add class to element
 	function addClass(el,className) {
-		if(!el || !className){return;}
-	    if(!hasClass(el,className)) { el.className += ' '+className; }
-	    return el;
-	};
+		if(!el || !className){return}
+	    if(!hasClass(el,className)) { el.className += ' '+className }
+	    return el
+	}
 
 	// check if obj is set
 	function isset(obj) {
-		if(typeof obj != 'undefined'){return true;}
-		return false;
-	};
+		if(typeof obj != 'undefined'){return true}
+		return false
+	}
 
 	// get attributes, cross-browser
 	function getAttr(obj,attr) {
-		if(!obj || typeof obj == undefined){return false;}
-		var ret;
-		if(obj.getAttribute){ret=obj.getAttribute(attr);}
-		else if(obj.getAttributeNode){ret=obj.getAttributeNode(attr).value;}
-		if(typeof ret != undefined && ret != ''){return ret;}
-		return false;
-	};
+		if(!obj || typeof obj == undefined){return false}
+		var ret
+		if(obj.getAttribute){ret=obj.getAttribute(attr)}
+		else if(obj.getAttributeNode){ret=obj.getAttributeNode(attr).value}
+		if(typeof ret != undefined && ret != ''){return ret}
+		return false
+	}
 
 	// check attribute, cross-browser
 	function hasAttr(obj,attr) {
-		if(!obj || typeof obj == undefined){return false;}
-		var ret;
-		if(obj.getAttribute){ret=obj.getAttribute(attr);}
-		else if(obj.getAttributeNode){ret=obj.getAttributeNode(attr).value;}
-		if(typeof ret === 'string'){return true;}
-		return false;
-	};
+		if(!obj || typeof obj == undefined){return false}
+		var ret
+		if(obj.getAttribute){ret=obj.getAttribute(attr)}
+		else if(obj.getAttributeNode){ret=obj.getAttributeNode(attr).value}
+		if(typeof ret === 'string'){return true}
+		return false
+	}
 
 	// check option
 	function optIsSet(opt){
@@ -121,119 +121,119 @@ function Lightbox () {
 
 	// lookup element in browser
 	function exists(id){
-		if(document.getElementById(id)) {return true;}
-		return false;
+		if(document.getElementById(id)) {return true}
+		return false
 	}
 
 	// preload next and prev images
 	function preload(){
-		if(!currGroup){return;}
-		var prev = new Image();
-		var next = new Image();
-		var pos = getPos(currThumbnail,currGroup);
+		if(!currGroup){return}
+		var prev = new Image()
+		var next = new Image()
+		var pos = getPos(currThumbnail,currGroup)
 		if(pos === (currImages.length - 1)) {
-			prev.src = currImages[currImages.length - 1].src;
-			next.src = currImages[0].src;
+			prev.src = currImages[currImages.length - 1].src
+			next.src = currImages[0].src
 		} else if(pos === 0) {
-			prev.src = currImages[currImages.length - 1].src;
-			next.src = currImages[1].src;
+			prev.src = currImages[currImages.length - 1].src
+			next.src = currImages[1].src
 		} else {
-			prev.src = currImages[pos - 1].src;
-			next.src = currImages[pos + 1].src;
+			prev.src = currImages[pos - 1].src
+			next.src = currImages[pos + 1].src
 		}
 	}
 
 	// add clickhandlers to thumbnails
 	function clckHlpr(i) {
 		addEvent(i,'click',function(e) {
-			currGroup = getAttr(i, 'data-jslghtbx-group') || false;
-			currThumbnail = i;
-			that.open(i);
-		});
-	};
+			currGroup = getAttr(i, 'data-jslghtbx-group') || false
+			currThumbnail = i
+			that.open(i)
+		})
+	}
 
 	// get thumbnails by group
 	function getByGroup(group) {
-		var arr = [];
+		var arr = []
 		for (var i = 0; i < thumbnails.length; i++) {
 			if(getAttr(thumbnails[i],'data-jslghtbx-group') === group) {
-				arr.push(thumbnails[i]);
+				arr.push(thumbnails[i])
 			}
 		}
-		return arr;
-	};
+		return arr
+	}
 
 	// get position of thumbnail in group-array
 	function getPos(thumbnail, group) {
-		var arr = getByGroup(group);
+		var arr = getByGroup(group)
 		for (var i = 0; i < arr.length; i++) {
 			if(getAttr(thumbnail,'src') === getAttr(arr[i],'src') &&
 				getAttr(thumbnail,'data-jslghtbx') === getAttr(arr[i],'data-jslghtbx') ){
-				return i;
+				return i
 			}
 		}
-	};
+	}
 
 	// cross-browser stoppropagation
 	function stopPropagation(e) {
-		if(e.stopPropagation) {e.stopPropagation();}
-		else {e.returnValue=false;}	
+		if(e.stopPropagation) {e.stopPropagation()}
+		else {e.returnValue=false}	
 	}
 
 	// check if option is set
 	function chckOpt(opt,name) {
-		return !opt || opt && opt[name];
+		return !opt || opt && opt[name]
 	}
 
 	// check if callback is set
 	function chckCb(opt,name) {
-		return opt && opt[name] && typeof opt[name] === 'function';
+		return opt && opt[name] && typeof opt[name] === 'function'
 	}
 
 	// init controls
 	function initControls() {
 		if(!nextBtn) {
 			// create & append next-btn
-			nextBtn = document.createElement('span');
-			addClass(nextBtn,'jslghtbx-next');
-			var nextBtnImg = document.createElement('img');
-			nextBtnImg.setAttribute('src', 'img/jslghtbx-next.png');
-			nextBtn.appendChild(nextBtnImg);
+			nextBtn = document.createElement('span')
+			addClass(nextBtn,'jslghtbx-next')
+			var nextBtnImg = document.createElement('img')
+			nextBtnImg.setAttribute('src', 'img/jslghtbx-next.png')
+			nextBtn.appendChild(nextBtnImg)
 			addEvent(nextBtn,'click',function(e){
-				stopPropagation(e); // prevent closing of lightbox
-				that.next();
-			});
-			that.box.appendChild(nextBtn);
+				stopPropagation(e) // prevent closing of lightbox
+				that.next()
+			})
+			that.box.appendChild(nextBtn)
 		}
-		addClass(nextBtn,'jslghtbx-active');
+		addClass(nextBtn,'jslghtbx-active')
 		if(!prevBtn) {
 			// create & append next-btn
-			prevBtn = document.createElement('span');
-			addClass(prevBtn,'jslghtbx-prev');
-			var prevBtnImg = document.createElement('img');
-			prevBtnImg.setAttribute('src', 'img/jslghtbx-prev.png');
-			prevBtn.appendChild(prevBtnImg);
+			prevBtn = document.createElement('span')
+			addClass(prevBtn,'jslghtbx-prev')
+			var prevBtnImg = document.createElement('img')
+			prevBtnImg.setAttribute('src', 'img/jslghtbx-prev.png')
+			prevBtn.appendChild(prevBtnImg)
 			addEvent(prevBtn,'click',function(e){
-				stopPropagation(e); // prevent closing of lightbox
-				that.prev();
-			});
-			that.box.appendChild(prevBtn);			
+				stopPropagation(e) // prevent closing of lightbox
+				that.prev()
+			})
+			that.box.appendChild(prevBtn)			
 		}
-		addClass(prevBtn,'jslghtbx-active');
-	};
+		addClass(prevBtn,'jslghtbx-active')
+	}
 
 	// move controls to correct position
 	function repositionControls() {
 		if(that.opt.responsive && nextBtn && prevBtn) {
-			var btnTop = (getHeight() / 2) - (nextBtn.offsetHeight / 2);
+			var btnTop = (getHeight() / 2) - (nextBtn.offsetHeight / 2)
 			if(isIE8) {
-				var cssString = "top: "+btnTop+"px;";
-				nextBtn.cssText = cssString;
-				prevBtn.cssText= cssString;
+				var cssString = "top: "+btnTop+"px"
+				nextBtn.cssText = cssString
+				prevBtn.cssText= cssString
 			}
 			else {
-				nextBtn.style.top = btnTop+"px";
-				prevBtn.style.top = btnTop+"px";
+				nextBtn.style.top = btnTop+"px"
+				prevBtn.style.top = btnTop+"px"
 			}				
 		}
 	}
@@ -246,405 +246,405 @@ function Lightbox () {
 	this.load = function(opt) {
 
 		// set options
-		if(opt){this.opt = opt;}
+		if(opt){this.opt = opt}
 
 		// check for IE8
 		if(navigator.appVersion.indexOf("MSIE 8") > 0) {
-			isIE8 = true;
+			isIE8 = true
 		}
 
 		// check for IE9
 		if(navigator.appVersion.indexOf("MSIE 9") > 0) {
-			isIE9 = true;
+			isIE9 = true
 		}
 
 		// load box in custom element
 		if(opt && opt.boxId) {
-			this.box = document.getElementById(opt.boxId);
+			this.box = document.getElementById(opt.boxId)
 		}
 
 		// load box in default element if no ID is given
 		else if(!this.box && !exists('jslghtbx')) {
-			var newEl = document.createElement('div');
-			newEl.setAttribute('id','jslghtbx');
-			newEl.setAttribute('class','jslghtbx');
-			this.box = newEl;
-			body.appendChild(this.box);
+			var newEl = document.createElement('div')
+			newEl.setAttribute('id','jslghtbx')
+			newEl.setAttribute('class','jslghtbx')
+			this.box = newEl
+			body.appendChild(this.box)
 		}
-		this.box.innerHTML = template;
+		this.box.innerHTML = template
 		if(isIE8) {
-			addClass(that.box,'jslghtbx-ie8');
+			addClass(that.box,'jslghtbx-ie8')
 		}
-		this.wrapper = document.getElementById('jslghtbx-contentwrapper');
+		this.wrapper = document.getElementById('jslghtbx-contentwrapper')
 
 		// initiate default controls
 		if(chckOpt(opt,'controls') || opt && !isset(opt.controls)) {
-			that.opt['controls'] = true;
+			that.opt['controls'] = true
 		}
 
 		// keep dimensions
 		if(chckOpt(opt,'dimensions') || opt && !isset(opt.dimensions)) {
-			that.opt['dimensions'] = true;
+			that.opt['dimensions'] = true
 		}	
 
 		// show captions
 		if(chckOpt(opt,'captions') || opt && !isset(opt.captions)) {
-			that.opt['captions'] = true;
+			that.opt['captions'] = true
 		}
 
 		// add clickhandlers for custom next-button
 		if(opt && opt.nextId) {
 			addEvent(document.getElementById(opt.nextId),'click',function(){
-				that.next();
-			});
+				that.next()
+			})
 		}
 
 		// add clickhandlers for custom prev-button
 		if(opt && opt.prevId) {
 		addEvent(document.getElementById(opt.prevId),'click',function(){
-				that.prev();
-			});
+				that.prev()
+			})
 		}
 
 		// close lightbox on click on given element
 		if(opt && opt.closeId) {
 			addEvent(document.getElementById(opt.closeId),'click',function(){
-				that.close();
-			});
+				that.close()
+			})
 		}
 
 		// init regular closebutton
 		if(!opt || opt && !opt.hideCloseBtn) {
-			var closeBtn = document.createElement('span');
-			closeBtn.setAttribute('id','jslghtbx-close');
-			closeBtn.setAttribute('class','jslghtbx-close');
-			closeBtn.innerHTML = 'X';
-			this.box.appendChild(closeBtn);
+			var closeBtn = document.createElement('span')
+			closeBtn.setAttribute('id','jslghtbx-close')
+			closeBtn.setAttribute('class','jslghtbx-close')
+			closeBtn.innerHTML = 'X'
+			this.box.appendChild(closeBtn)
 			addEvent(closeBtn,'click',function(e){
-				stopPropagation(e);
-				that.close();
-			});
+				stopPropagation(e)
+				that.close()
+			})
 		}
 
 		// close lightbox on background-click by default / if true
 		if( !isIE8 && (chckOpt(opt,'closeOnClick') || opt && !isset(opt.closeOnClick))) {
 			addEvent(this.box,'click',function(e){
-				that.close();
-			});
+				that.close()
+			})
 		}
 
 		// set loading-image
 		if(!opt || opt && !isset(opt.loadingImgSrc)) {
-			loadingImgSrc = 'img/jslghtbx-loading.gif';
+			loadingImgSrc = 'img/jslghtbx-loading.gif'
 		} else {
-			loadingImgSrc = opt.loadingImgSrc;
+			loadingImgSrc = opt.loadingImgSrc
 		}
 		if(chckOpt(opt,'loadingImg') || opt && !isset(opt.loadingImg)) {
-			this.opt['loadingImg'] = true;
-			var el = document.createElement('img');
-			el.setAttribute('src',loadingImgSrc);
-			addClass(el,'jslghtbx-loading-img');
-			this.box.appendChild(el);
+			this.opt['loadingImg'] = true
+			var el = document.createElement('img')
+			el.setAttribute('src',loadingImgSrc)
+			addClass(el,'jslghtbx-loading-img')
+			this.box.appendChild(el)
 		}
 
 		// set preload-option
 		if(chckOpt(opt,'preload') || opt && !isset(opt.preload)) {
-			this.opt['preload'] = true;
+			this.opt['preload'] = true
 		}
 
 		// set onopen-callback
 		if(chckCb(opt,'onopen')) {
-			this.opt['onopen'] = opt.onopen;
+			this.opt['onopen'] = opt.onopen
 		}
 
 		// set onclose-callback
 		if(chckCb(opt,'onclose')) {
-			this.opt['onclose'] = opt.onclose;
+			this.opt['onclose'] = opt.onclose
 		}
 
 		// set onresize-callback
 		if(chckCb(opt,'onresize')) {
-			this.opt['onresize'] = opt.onresize;
+			this.opt['onresize'] = opt.onresize
 		}
 
 		// set onload-callback
 		if(chckCb(opt,'onload')) {
-			this.opt['onload'] = opt.onload;
+			this.opt['onload'] = opt.onload
 		}
 
 		// set carousel-function for prev/next
 		if(chckOpt(opt,'carousel') || opt && !isset(opt.carousel)) {
-			this.opt['carousel'] = true;
+			this.opt['carousel'] = true
 		}
 
 		// set animation-params
 		if(!opt || opt && !isset(opt.animation) || opt && isset(opt.animation) && opt.animation === true) {
-			that.opt['animation'] = 400; // set default animation time
+			that.opt['animation'] = 400 // set default animation time
 		}
 
 		// add resize-eventhandlers by default / if true
 		if(chckOpt(opt,'responsive')  || !isset(opt.responsive)) {
-			this.opt['responsive'] = true;
+			this.opt['responsive'] = true
 			addEvent(window,'resize',function(e){
-				that.resize();
-			});
-			addClass(this.box,'jslghtbx-nooverflow'); // hide scrollbars on prev/next
+				that.resize()
+			})
+			addClass(this.box,'jslghtbx-nooverflow') // hide scrollbars on prev/next
 		} 
 		else {
-			removeClass(this.box,'jslghtbx-nooverflow');
+			removeClass(this.box,'jslghtbx-nooverflow')
 		}
 
 		// Find all thumbnails & add clickhandlers
-		var arr = document.getElementsByTagName('img');
+		var arr = document.getElementsByTagName('img')
 		for(var i = 0; i < arr.length; i++)
 		{
 			if(hasAttr(arr[i],'data-jslghtbx')) {
-				thumbnails.push(arr[i]);
-				clckHlpr(arr[i]);
+				thumbnails.push(arr[i])
+				clckHlpr(arr[i])
 			}
 		}
-	};
+	}
 
 	this.resize = function() {
-		if(!currImage.img){return;}
-		maxWidth = getWidth();
-		maxHeight = getHeight();
-		var boxWidth = that.box.offsetWidth;
-		var boxHeight = that.box.offsetHeight;
+		if(!currImage.img){return}
+		maxWidth = getWidth()
+		maxHeight = getHeight()
+		var boxWidth = that.box.offsetWidth
+		var boxHeight = that.box.offsetHeight
 		if(!imgRatio && currImage.img && currImage.img.offsetWidth && currImage.img.offsetHeight) {
-			imgRatio = currImage.img.offsetWidth / currImage.img.offsetHeight;
+			imgRatio = currImage.img.offsetWidth / currImage.img.offsetHeight
 		}
 
 		// Height of image is too big to fit in viewport
 		if( Math.floor(boxWidth/imgRatio) > boxHeight ) {
-			newImgWidth = boxHeight*imgRatio*0.8;
-			newImgHeight = boxHeight*0.8;
+			newImgWidth = boxHeight*imgRatio*0.8
+			newImgHeight = boxHeight*0.8
 		}
 		// Width of image is too big to fit in viewport
 		else {
-			newImgWidth = boxWidth*0.8;
-			newImgHeight = boxWidth/imgRatio*0.8;
+			newImgWidth = boxWidth*0.8
+			newImgHeight = boxWidth/imgRatio*0.8
 		}
-		newImgWidth = Math.floor(newImgWidth);
-		newImgHeight = Math.floor(newImgHeight);
+		newImgWidth = Math.floor(newImgWidth)
+		newImgHeight = Math.floor(newImgHeight)
 
 		// check if image exceeds maximum size
 		if( this.opt.dimensions && newImgHeight > currImage.originalHeight ||
 			this.opt.dimensions && newImgWidth > currImage.originalWidth) {
-			newImgHeight = currImage.originalHeight;
-			newImgWidth = currImage.originalWidth;
+			newImgHeight = currImage.originalHeight
+			newImgWidth = currImage.originalWidth
 		}
-		currImage.img.setAttribute('width',newImgWidth);
-		currImage.img.setAttribute('height',newImgHeight);
-		currImage.img.setAttribute('style','margin-top:'+((getHeight() - newImgHeight) /2)+'px');
+		currImage.img.setAttribute('width',newImgWidth)
+		currImage.img.setAttribute('height',newImgHeight)
+		currImage.img.setAttribute('style','margin-top:'+((getHeight() - newImgHeight) /2)+'px')
 
-		repositionControls();
+		repositionControls()
 
 		// execute resize callback
-		if(this.opt.onresize) this.opt.onresize();
-	};
+		if(this.opt.onresize) this.opt.onresize()
+	}
 
 	// show next image
 	this.next = function() {
-		if(!currGroup){return};
+		if(!currGroup){return}
 		// get position of next image
-		var pos = getPos(currThumbnail,currGroup) + 1;  
+		var pos = getPos(currThumbnail,currGroup) + 1  
 		if(currImages[pos]) {
-			currThumbnail = currImages[pos];	
+			currThumbnail = currImages[pos]	
 		} 
 		else if(that.opt.carousel) {
-			currThumbnail = currImages[0];
+			currThumbnail = currImages[0]
 		}
 		else {
-			return;
+			return
 		}
 		if(typeof this.opt.animation === 'number') {
-			removeClass(currImage.img,'jslghtbx-animating-next');
+			removeClass(currImage.img,'jslghtbx-animating-next')
 			setTimeout(function(){
 				var cb = function(){
 					setTimeout(function(){
-						addClass(currImage.img,'jslghtbx-animating-next');
+						addClass(currImage.img,'jslghtbx-animating-next')
 					},that.opt.animation / 2)					
 				}
-				that.open(currThumbnail,false,cb);
-			},this.opt.animation / 2);
+				that.open(currThumbnail,false,cb)
+			},this.opt.animation / 2)
 		}
 		else {
-			that.open(currThumbnail);
+			that.open(currThumbnail)
 		}
-	};
+	}
 
 	// show prev image
 	this.prev = function() {
-		if(!currGroup){return};
+		if(!currGroup){return}
 		// get position of prev image
-		var pos = getPos(currThumbnail,currGroup) - 1; 
+		var pos = getPos(currThumbnail,currGroup) - 1 
 		if(currImages[pos]) {
-			currThumbnail = currImages[pos];	
+			currThumbnail = currImages[pos]	
 		}
 		else if(that.opt.carousel) {
-			currThumbnail = currImages[currImages.length - 1];
+			currThumbnail = currImages[currImages.length - 1]
 		}
 		else {
-			return;
+			return
 		}
 		// animation stuff
 		if(typeof this.opt.animation === 'number') {
-			removeClass(currImage.img,'jslghtbx-animating-prev');
+			removeClass(currImage.img,'jslghtbx-animating-prev')
 			setTimeout(function(){
 				var cb = function(){
 					setTimeout(function(){
-						addClass(currImage.img,'jslghtbx-animating-next');
+						addClass(currImage.img,'jslghtbx-animating-next')
 					},that.opt.animation / 2)					
 				}
-				that.open(currThumbnail,false,cb);
-			},this.opt.animation / 2);
+				that.open(currThumbnail,false,cb)
+			},this.opt.animation / 2)
 		}
 		else {
-			that.open(currThumbnail);
+			that.open(currThumbnail)
 		}
-	};
+	}
 
 	// open the lightbox and show image
 	this.open = function(el,group,cb) {
-		if(!el){return false;}
+		if(!el){return false}
 
 		// create new img-element
-		currImage.img = new Image();
+		currImage.img = new Image()
 
 		// get correct image-source
-		var src;
+		var src
 		if(typeof el === 'string') {
 			// string with img-src given
-			src = el;
+			src = el
 		}
 		else if(getAttr(el,'data-jslghtbx')) {
 			// image-source given
-			src =  getAttr(el,'data-jslghtbx');
+			src =  getAttr(el,'data-jslghtbx')
 		}
 		else {
 			// no image-source given
-			src =  getAttr(el,'src');
+			src =  getAttr(el,'src')
 		}
-		imgRatio = false; // clear old image ratio for proper resize-values
+		imgRatio = false // clear old image ratio for proper resize-values
 
 		// add init-class on opening, but not at prev/next
 		if(!isOpen) {
 			if(typeof that.opt.animation === 'number') {
-				addClass(currImage.img,'jslghtbx-animate-transition jslghtbx-animate-init');
+				addClass(currImage.img,'jslghtbx-animate-transition jslghtbx-animate-init')
 			}
-			isOpen = true;
+			isOpen = true
 			
 			// execute open callback
-			if(this.opt.onopen) this.opt.onopen();
+			if(this.opt.onopen) this.opt.onopen()
 		}
 		
 		// hide overflow by default / if set
 		if(!this.opt || !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
-			body.setAttribute('style','overflow: hidden');
+			body.setAttribute('style','overflow: hidden')
 		}
 
-		this.box.setAttribute('style','padding-top: 0');
-		this.wrapper.innerHTML = '';
-		this.wrapper.appendChild(currImage.img);
+		this.box.setAttribute('style','padding-top: 0')
+		this.wrapper.innerHTML = ''
+		this.wrapper.appendChild(currImage.img)
 		// set animation class
-		if(this.opt['animation']) addClass(this.wrapper,'jslghtbx-animate');
+		if(this.opt['animation']) addClass(this.wrapper,'jslghtbx-animate')
 		// set caption
-		var captionText = getAttr(el,'data-jslghtbx-caption');
+		var captionText = getAttr(el,'data-jslghtbx-caption')
 		if(captionText && this.opt.captions) {
-			var caption = document.createElement('p');
-			caption.setAttribute('class','jslghtbx-caption');
-			caption.innerHTML = captionText;
-			this.wrapper.appendChild(caption);			
+			var caption = document.createElement('p')
+			caption.setAttribute('class','jslghtbx-caption')
+			caption.innerHTML = captionText
+			this.wrapper.appendChild(caption)			
 		}
 
-		addClass(this.box,'jslghtbx-active');
+		addClass(this.box,'jslghtbx-active')
 
 		// show wrapper early to avoid bug where dimensions are not
 		// correct in IE8
 		if(isIE8) {
-			addClass(that.wrapper,'jslghtbx-active');
+			addClass(that.wrapper,'jslghtbx-active')
 		}
 
 		// save images if group param was passed or currGroup exists
-		group = group || currGroup;
+		group = group || currGroup
 		if(group) {
-			currImages = getByGroup(group);
+			currImages = getByGroup(group)
 			if(that.opt.controls && currImages.length > 1) {
-				initControls();
-				repositionControls();
+				initControls()
+				repositionControls()
 			}
 		}
 		// show wrapper when image is loaded
 		currImage.img.onload = function(){
 			// store original width here
-			currImage.originalWidth = this.width;
-			currImage.originalHeight = this.height;	
+			currImage.originalWidth = this.width
+			currImage.originalHeight = this.height	
 			// use dummyimage for correct dimension calculating in older IE
 			if(isIE8 || isIE9) {
-				var dummyImg = new Image();
-				dummyImg.setAttribute('src',src);
-				currImage.originalWidth = dummyImg.width;
-				currImage.originalHeight = dummyImg.height;	
+				var dummyImg = new Image()
+				dummyImg.setAttribute('src',src)
+				currImage.originalWidth = dummyImg.width
+				currImage.originalHeight = dummyImg.height	
 			}
 			var checkClassInt = setInterval(function(){
 				if(hasClass(that.box,'jslghtbx-active'))
 				{
-					addClass(that.wrapper,'jslghtbx-wrapper-active');
+					addClass(that.wrapper,'jslghtbx-wrapper-active')
 					// set animation
 					if(typeof that.opt.animation === 'number') {
-						addClass(currImage.img,'jslghtbx-animate-transition');
+						addClass(currImage.img,'jslghtbx-animate-transition')
 					}
-					if(cb) cb();
+					if(cb) cb()
 					// remove loading-gif
-					removeClass(that.box,'jslghtbx-loading');
+					removeClass(that.box,'jslghtbx-loading')
 					// preload previous and next image
 					if(that.opt.preload) {
-						preload();
+						preload()
 					}
 					// execute onload callback
-					if(that.opt.onload) that.opt.onload();
-					clearInterval(checkClassInt);
-					that.resize();
+					if(that.opt.onload) that.opt.onload()
+					clearInterval(checkClassInt)
+					that.resize()
 				}
-			},10);				
+			},10)				
 
-		};
+		}
 
 		// set src 
-		currImage.img.setAttribute('src',src);
+		currImage.img.setAttribute('src',src)
 
 		// add loading-gif if set and if not IE8
 		if(this.opt.loadingImg && !isIE8) {
-			addClass(this.box,'jslghtbx-loading');
+			addClass(this.box,'jslghtbx-loading')
 		}
-	};
+	}
 
 	this.close = function() {
 		// restore Defaults
-		currGroup = false;
-		currThumbnail = false;
-		currImage = {};
-		currImages = [];
-		isOpen = false;
-		removeClass(that.box,'jslghtbx-active');
-		removeClass(that.wrapper,'jslghtbx-wrapper-active');
-		removeClass(nextBtn,'jslghtbx-active');
-		removeClass(prevBtn,'jslghtbx-active');
-		that.box.setAttribute('style','padding-top: 0px;');
+		currGroup = false
+		currThumbnail = false
+		currImage = {}
+		currImages = []
+		isOpen = false
+		removeClass(that.box,'jslghtbx-active')
+		removeClass(that.wrapper,'jslghtbx-wrapper-active')
+		removeClass(nextBtn,'jslghtbx-active')
+		removeClass(prevBtn,'jslghtbx-active')
+		that.box.setAttribute('style','padding-top: 0px')
 
 		// Hide Lightbox if iE8
 		if(isIE8) {
-			that.box.setAttribute('style','display: none;');
+			that.box.setAttribute('style','display: none')
 		}
 
 		// show overflow by default / if set
 		if(!this.opt ||  !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
-			body.setAttribute('style','overflow: auto');
+			body.setAttribute('style','overflow: auto')
 		}
 
 		// execute close callback
-		if(this.opt.onclose) this.opt.onclose();
-	};
+		if(this.opt.onclose) this.opt.onclose()
+	}
 }
 
