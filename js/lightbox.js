@@ -292,20 +292,6 @@ function Lightbox () {
 			that.opt['captions'] = true
 		}
 
-		// add clickhandlers for custom next-button
-		if(opt && opt.nextId) {
-			addEvent(document.getElementById(opt.nextId),'click',function(){
-				that.next()
-			})
-		}
-
-		// add clickhandlers for custom prev-button
-		if(opt && opt.prevId) {
-		addEvent(document.getElementById(opt.prevId),'click',function(){
-				that.prev()
-			})
-		}
-
 		// close lightbox on click on given element
 		if(opt && opt.closeId) {
 			addEvent(document.getElementById(opt.closeId),'click',function(){
