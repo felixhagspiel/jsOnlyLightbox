@@ -159,18 +159,36 @@ $darkblue: #3F658B;
 	max-width: 6%;
 	max-height: 250px;
 	cursor: pointer;	
-	@include prefixr(transition, all .3s ease-in-out);
+	@include prefixr(transition, all .2s ease-in-out);
 	&.jslghtbx-active {
 		display: block;
 	}
 	&> img {
 		width: 100%;
 	}
+
 }
 .jslghtbx-next {
 	right: .6em;
+	&.jslghtbx-no-img:hover {
+		border-left-color: #787878;
+	}
 	@media screen and(min-width: 451px) {
 		right: .6em;
+		&.jslghtbx-no-img {
+			border-top: 110px solid transparent;
+			border-bottom: 110px solid transparent;
+			border-left: 40px solid #FFF;
+		}
+	}
+	@media screen and(max-width: 600px) {
+		&.jslghtbx-no-img {
+			right: 5px;
+			padding-left: 0;
+			border-top: 60px solid transparent;
+			border-bottom: 60px solid transparent;
+			border-left: 20px solid #FFF;
+		}
 	}
 	@media screen and(max-width: 450px) {
 		right: .2em;
@@ -179,8 +197,25 @@ $darkblue: #3F658B;
 }
 .jslghtbx-prev {
 	left: .6em;
+	&.jslghtbx-no-img:hover {
+		border-right-color: #787878;
+	}
 	@media screen and(min-width: 451px) {
 		left: .6em;
+		&.jslghtbx-no-img {
+			border-top: 110px solid transparent;
+			border-bottom: 110px solid transparent;
+			border-right: 40px solid #FFF;
+		}
+	}
+	@media screen and(max-width: 600px) {
+		&.jslghtbx-no-img {
+			left: 5px;
+			padding-right: 0;
+			border-top: 60px solid transparent;
+			border-bottom: 60px solid transparent;
+			border-right: 20px solid #FFF;
+		}
 	}
 	@media screen and(max-width: 450px) {
 		left: .2em;

@@ -196,9 +196,15 @@ function Lightbox () {
 			// create & append next-btn
 			nextBtn = document.createElement('span')
 			addClass(nextBtn,'jslghtbx-next')
-			var nextBtnImg = document.createElement('img')
-			nextBtnImg.setAttribute('src', 'img/jslghtbx-next.png')
-			nextBtn.appendChild(nextBtnImg)
+
+			// add custom images
+			if(that.opt['nextImg']) {
+				var nextBtnImg = document.createElement('img')
+				nextBtnImg.setAttribute('src', that.opt['nextImg'])
+				nextBtn.appendChild(nextBtnImg)
+			} else {
+				addClass(nextBtn,'jslghtbx-no-img')
+			}
 			addEvent(nextBtn,'click',function(e){
 				stopPropagation(e) // prevent closing of lightbox
 				that.next()
@@ -208,11 +214,17 @@ function Lightbox () {
 		addClass(nextBtn,'jslghtbx-active')
 		if(!prevBtn) {
 			// create & append next-btn
-			prevBtn = document.createElement('span')
+			prevBtn = document.createElement('span')	
 			addClass(prevBtn,'jslghtbx-prev')
-			var prevBtnImg = document.createElement('img')
-			prevBtnImg.setAttribute('src', 'img/jslghtbx-prev.png')
-			prevBtn.appendChild(prevBtnImg)
+
+			// add custom images
+			if(that.opt['prevImg']) {
+				var prevBtnImg = document.createElement('img')
+				prevBtnImg.setAttribute('src', that.opt['prevImg'])
+				prevBtn.appendChild(prevBtnImg)
+			} else {
+				addClass(prevBtn,'jslghtbx-no-img')
+			}
 			addEvent(prevBtn,'click',function(e){
 				stopPropagation(e) // prevent closing of lightbox
 				that.prev()
@@ -290,6 +302,14 @@ function Lightbox () {
 		// show captions
 		if(chckOpt(opt,'captions') || opt && !isset(opt.captions)) {
 			that.opt['captions'] = true
+		}
+
+		// use custom loading images
+		if(opt && opt['nextImg']) {
+			that.opt['nextImg'] = opt['nextImg']
+		}
+		if(opt && opt['prevImg']) {
+			that.opt['prevImg'] = opt['prevImg']
 		}
 
 		// init regular closebutton
