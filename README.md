@@ -122,9 +122,6 @@ _Default: true_
 
 Show or hide the default next- & prev-buttons.
 
-###	`{closeId: 'elementId'}`
-Here you can pass your own closebutton-ID if you want to use your own element for closing the box. The regular close-button won't be displayed then.
-
 ###	`{boxId: 'elementId'}`
 Here you can pass an ID if you want to use your own box-element. Images will be appended to that element then. The element will receive a class "jslghtbx-active" when opened, so style this class properly (you need at least to remove visibility by default and add it on active). If you want it to look like the default-box, just add the class "jslghtbx" to the box-element.
 

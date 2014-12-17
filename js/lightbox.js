@@ -292,13 +292,6 @@ function Lightbox () {
 			that.opt['captions'] = true
 		}
 
-		// close lightbox on click on given element
-		if(opt && opt.closeId) {
-			addEvent(document.getElementById(opt.closeId),'click',function(){
-				that.close()
-			})
-		}
-
 		// init regular closebutton
 		if(!opt || opt && !opt.hideCloseBtn) {
 			var closeBtn = document.createElement('span')
