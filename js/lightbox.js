@@ -25,7 +25,7 @@ function Lightbox () {
 	var isIE9 = false
 	var body = document.getElementsByTagName('body')[0]
 	var template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>'
-	var captionTemplate = '<p class="jslghtbx-caption">TEEEEST</p>'
+	var captionTemplate = '<p class="jslghtbx-caption"></p>'
 	var imgRatio = false // ratio of current image
 	var currGroup = false // current group
 	var currThumbnail = false // first clicked thumbnail
