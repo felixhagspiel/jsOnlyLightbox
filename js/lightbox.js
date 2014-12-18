@@ -437,7 +437,7 @@ function Lightbox () {
 		currImage.img.setAttribute('height',newImgHeight)
 		currImage.img.setAttribute('style','margin-top:'+((getHeight() - newImgHeight) /2)+'px')
 
-		repositionControls()
+		setTimeout(repositionControls,200)
 
 		// execute resize callback
 		if(this.opt.onresize) this.opt.onresize()
