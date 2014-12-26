@@ -133,7 +133,9 @@ $darkblue: #3F658B;
 	opacity: 1;
 	-ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=100)";
 }
-
+.jslghtbx-contentwrapper > img.jslghtbx-animate-transition {
+	cursor: pointer;
+}
 /* Controls */
 .jslghtbx-close {
 	position: fixed;

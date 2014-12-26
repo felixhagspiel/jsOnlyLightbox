@@ -102,6 +102,11 @@ _Default: true_
 
 If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button. Note: May not work in IE8.
 
+###	`{nextOnClick: bool}`
+_Default: true_
+
+If set to true, a click on the current image shows the next image.
+
 ###	`{hideOverflow: bool}`
 _Default: true_
 

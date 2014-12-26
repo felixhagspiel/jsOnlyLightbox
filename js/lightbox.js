@@ -381,6 +381,11 @@ function Lightbox () {
 			that.opt['animation'] = 400 // set default animation time
 		}
 
+		// show next image at click on image
+		if(chckOpt(opt,'nextOnClick') || opt && !isset(opt.nextOnClick)) {
+			this.opt['nextOnClick'] = true
+		}
+
 		// add resize-eventhandlers by default / if true
 		if(chckOpt(opt,'responsive')  || !isset(opt.responsive)) {
 			this.opt['responsive'] = true
@@ -601,13 +606,21 @@ function Lightbox () {
 					if(that.opt.preload) {
 						preload()
 					}
+					// set clickhandler to show next image
+					if(that.opt.nextOnClick) {
+						// add cursor pointer
+						addClass(currImage.img,'jslghtbx-next-on-click')
+						addEvent(currImage.img,'click',function(e){
+							e.stopPropagation()
+							that.next()
+						},false)
+					}
 					// execute onload callback
 					if(that.opt.onload) that.opt.onload()
 					clearInterval(checkClassInt)
 					that.resize()
 				}
 			},10)				
-
 		}
 
 		// set src 
