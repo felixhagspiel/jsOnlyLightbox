@@ -82,7 +82,7 @@ _Default: true_
 
 If set to true, an animation will be rendered until the image is loaded. The animation is using CSS3, so it will not work in IE8/9. Alternatively you can pass milliseconds as number, which defines the interval the `span`-elements inside the `jslghtbx-loading-animation`-container get the class `jslghtbx-active` (the default interval is 200ms). You can use this to apply your own styling via CSS. You can also pass a link to an GIF-image, which then replaces the animation. This is disabled for IE8 due to bugs with transparent backgrounds and performance issues. If set to false, no animation is shown.
 
-Note: The animations get an 500ms delay, so they won`t pop up on fast connections.
+Note: The animations get an 500ms delay, so they won`t pop up on fast connections. Also, you should check for CSS3-support and set the animation-option accordingly.
 
 ###	`{carousel: bool}`
 _Default: true_
