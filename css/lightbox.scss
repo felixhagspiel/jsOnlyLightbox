@@ -62,8 +62,8 @@ $darkblue: #3F658B;
 		background-color: rgba(0,0,0,0.85);
 	}
 }
-/* loading-image */
-.jslghtbx-loading-img {
+/* loading-animation */
+.jslghtbx-loading-animation {
 	margin-top: -60px;
 	margin-left: -60px;	
 	width: 120px;
@@ -73,8 +73,20 @@ $darkblue: #3F658B;
 	display: none;
 	position: absolute;
 	z-index: -1;
+	& > span {
+		display: inline-block;
+		width: 20px;
+		height: 20px;
+		border-radius: 20px;
+		margin: 5px;
+		background-color: #fff;
+		@include prefixr(transition, all .3s ease-in-out);
+		&.jslghtbx-active {
+			margin-bottom: 60px;
+		}
+	}
 }
-.jslghtbx.jslghtbx-loading .jslghtbx-loading-img {
+.jslghtbx.jslghtbx-loading .jslghtbx-loading-animation {
 	display: block;
 }
 .jslghtbx-nooverflow {

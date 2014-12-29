@@ -34,6 +34,10 @@ function Lightbox () {
 	var thumbnails = [] // thumbnails
 	var isOpen = false // check if box is open
 	var loadingImgSrc // path to loading image
+	var animationEl // reference to animation-element
+	var animationInt // animation-interval
+	var animationChildren // childs to animate
+	var animationTimeout // timeout until animation starts
 	// controls
 	var nextBtn = false
 	var prevBtn = false
@@ -114,11 +118,6 @@ function Lightbox () {
 		return false
 	}
 
-	// check option
-	function optIsSet(opt){
-
-	}
-
 	// lookup element in browser
 	function exists(id){
 		if(document.getElementById(id)) {return true}
@@ -188,6 +187,43 @@ function Lightbox () {
 	// check if callback is set
 	function chckCb(opt,name) {
 		return opt && opt[name] && typeof opt[name] === 'function'
+	}
+
+	// start animation
+	function startAnimation() {
+		if(isIE8) return
+		// stop any already running animations
+		stopAnimation()
+		var fnc = function() {
+			addClass(that.box,'jslghtbx-loading')
+			if(!isIE9 && typeof that.opt.loadingAnimation === 'number'){
+				var index = 0
+				animationInt = setInterval(function(){
+					addClass(animationChildren[index],'jslghtbx-active')
+					setTimeout(function(){
+						removeClass(animationChildren[index],'jslghtbx-active')
+					},that.opt.loadingAnimation)
+					index = index >= animationChildren.length ? 0 : index += 1
+				},that.opt.loadingAnimation)
+			}			
+		}
+		// set timeout to not show loading animation on fast connections
+		animationTimeout = setTimeout(fnc,500)
+	}
+
+	// stop animation
+	function stopAnimation() {
+		if(isIE8) return
+		// hide animation-element
+		removeClass(that.box,'jslghtbx-loading')
+		// stop animation
+		if(!isIE9 && typeof that.opt.loadingAnimation !== 'string' && that.opt.loadingAnimation){
+			clearInterval(animationInt)
+			// do not use animationChildren.length here due to IE8/9 bugs
+			for(var i = 0; i < 4; i++) {
+				removeClass(animationChildren[i],'jslghtbx-active')
+			}
+		}
 	}
 
 	// init controls
@@ -332,20 +368,39 @@ function Lightbox () {
 			})
 		}
 
-		// set loading-image
-		if(!opt || opt && !isset(opt.loadingImgSrc)) {
-			loadingImgSrc = 'img/jslghtbx-loading.gif'
-		} else {
-			loadingImgSrc = opt.loadingImgSrc
+		// set default for loading animation if none given
+		if(!opt || opt && !isset(opt['loadingAnimation'])) {
+			opt['loadingAnimation'] = true
 		}
-		if(chckOpt(opt,'loadingImg') || opt && !isset(opt.loadingImg)) {
-			this.opt['loadingImg'] = true
-			var el = document.createElement('img')
-			el.setAttribute('src',loadingImgSrc)
-			addClass(el,'jslghtbx-loading-img')
-			this.box.appendChild(el)
-		}
+		// set loading animation
+		if(isset(opt['loadingAnimation'])) {
+			this.opt['loadingAnimation'] = opt['loadingAnimation']
+			if(typeof this.opt['loadingAnimation'] === 'string') {
+				// set loading GIF
+				animationEl = document.createElement('img')
+				animationEl.setAttribute('src',this.opt['loadingAnimation'])
+				addClass(animationEl,'jslghtbx-loading-animation')
+				this.box.appendChild(animationEl)
+			} else if(this.opt['loadingAnimation']) {
+				// set default animation time
+				console.log(typeof this.opt['loadingAnimation'])
+				if(typeof this.opt['loadingAnimation'] === 'boolean') this.opt['loadingAnimation'] = 200
+				// animate via JS
+				animationEl = document.createElement('div')
 
+				addClass(animationEl,'jslghtbx-loading-animation')
+
+				animationEl.appendChild(document.createElement('span'))
+				animationEl.appendChild(document.createElement('span'))
+				animationEl.appendChild(document.createElement('span'))
+				animationEl.appendChild(document.createElement('span'))
+
+				// save children
+				animationChildren = animationEl.children
+
+				this.box.appendChild(animationEl)
+			}
+		}
 		// set preload-option
 		if(chckOpt(opt,'preload') || opt && !isset(opt.preload)) {
 			this.opt['preload'] = true
@@ -600,8 +655,10 @@ function Lightbox () {
 						addClass(currImage.img,'jslghtbx-animate-transition')
 					}
 					if(cb) cb()
-					// remove loading-gif
-					removeClass(that.box,'jslghtbx-loading')
+					// stop Animation
+					stopAnimation()
+					// clear animation timeout
+					clearTimeout(animationTimeout)
 					// preload previous and next image
 					if(that.opt.preload) {
 						preload()
@@ -626,10 +683,8 @@ function Lightbox () {
 		// set src 
 		currImage.img.setAttribute('src',src)
 
-		// add loading-gif if set and if not IE8
-		if(this.opt.loadingImg && !isIE8) {
-			addClass(this.box,'jslghtbx-loading')
-		}
+		// start loading animation
+		startAnimation()
 	}
 
 	this.close = function() {
