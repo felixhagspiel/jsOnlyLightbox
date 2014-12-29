@@ -7,8 +7,6 @@ $font-size-huge: 2.8em;
 $font-size-big: 2em;
 $font-size-medium: 1.4em;
 
-// colors929DC7  66A0C4
-
 $def-color-1: #FFFFFF;
 $def-color-2: #B9CED2;
 
@@ -189,7 +187,7 @@ $darkblue: #3F658B;
 			padding-left: 0;
 			border-top: 60px solid transparent;
 			border-bottom: 60px solid transparent;
-			border-left: 20px solid #FFF;
+			border-left: 15px solid #FFF;
 		}
 	}
 	@media screen and(max-width: 450px) {
@@ -216,7 +214,7 @@ $darkblue: #3F658B;
 			padding-right: 0;
 			border-top: 60px solid transparent;
 			border-bottom: 60px solid transparent;
-			border-right: 20px solid #FFF;
+			border-right: 15px solid #FFF;
 		}
 	}
 	@media screen and(max-width: 450px) {
