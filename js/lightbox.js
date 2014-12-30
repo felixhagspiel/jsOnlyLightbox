@@ -36,7 +36,7 @@ function Lightbox () {
 	var loadingImgSrc // path to loading image
 	var animationEl // reference to animation-element
 	var animationInt // animation-interval
-	var animationChildren // childs to animate
+	var animationChildren = [] // childs to animate
 	var animationTimeout // timeout until animation starts
 	// controls
 	var nextBtn = false
@@ -203,7 +203,7 @@ function Lightbox () {
 					setTimeout(function(){
 						removeClass(animationChildren[index],'jslghtbx-active')
 					},that.opt.loadingAnimation)
-					index = index > 3 ? 0 : index += 1
+					index = index >= animationChildren.length ? 0 : index += 1
 				},that.opt.loadingAnimation)
 			}			
 		}
@@ -220,7 +220,7 @@ function Lightbox () {
 		if(!isIE9 && typeof that.opt.loadingAnimation !== 'string' && that.opt.loadingAnimation){
 			clearInterval(animationInt)
 			// do not use animationChildren.length here due to IE8/9 bugs
-			for(var i = 0; i < 4; i++) {
+			for(var i = 0; i < animationChildren.length; i++) {
 				removeClass(animationChildren[i],'jslghtbx-active')
 			}
 		}
@@ -288,6 +288,7 @@ function Lightbox () {
 
 		// set options
 		if(opt){this.opt = opt}
+		else opt = {}
 
 		// check for IE8
 		if(navigator.appVersion.indexOf("MSIE 8") > 0) {
@@ -362,37 +363,36 @@ function Lightbox () {
 		}
 
 		// set default for loading animation if none given
-		if(!opt || opt && !isset(opt['loadingAnimation'])) {
-			opt['loadingAnimation'] = true
-		}
+		this.opt['loadingAnimation'] = opt['loadingAnimation'] || true
+
 		// set loading animation
-		if(isset(opt['loadingAnimation'])) {
-			this.opt['loadingAnimation'] = opt['loadingAnimation']
-			if(typeof this.opt['loadingAnimation'] === 'string') {
-				// set loading GIF
-				animationEl = document.createElement('img')
-				animationEl.setAttribute('src',this.opt['loadingAnimation'])
-				addClass(animationEl,'jslghtbx-loading-animation')
-				this.box.appendChild(animationEl)
-			} else if(this.opt['loadingAnimation']) {
-				// set default animation time
-				if(typeof this.opt['loadingAnimation'] === 'boolean') this.opt['loadingAnimation'] = 200
-				// animate via JS
-				animationEl = document.createElement('div')
+		if(typeof this.opt['loadingAnimation'] === 'string') {
+			// set loading GIF
+			animationEl = document.createElement('img')
+			animationEl.setAttribute('src',this.opt['loadingAnimation'])
+			addClass(animationEl,'jslghtbx-loading-animation')
+			this.box.appendChild(animationEl)
+		} else if(this.opt['loadingAnimation']) {
 
-				addClass(animationEl,'jslghtbx-loading-animation')
+			// set number of elements to animate
+			this.opt['animElCount'] = opt['animElCount'] || 4
+			// set default animation time
+			if(typeof this.opt['loadingAnimation'] === 'boolean') this.opt['loadingAnimation'] = 200
 
-				animationEl.appendChild(document.createElement('span'))
-				animationEl.appendChild(document.createElement('span'))
-				animationEl.appendChild(document.createElement('span'))
-				animationEl.appendChild(document.createElement('span'))
+			// animate via JS
+			animationEl = document.createElement('div')
 
-				// save children
-				animationChildren = animationEl.children
-
-				this.box.appendChild(animationEl)
+			addClass(animationEl,'jslghtbx-loading-animation')
+			var i = 0
+			while(i < this.opt['animElCount'] ) {
+				animationChildren.push(animationEl.appendChild(document.createElement('span')))
+				i++
 			}
+			this.box.appendChild(animationEl)
 		}
+
+
+
 		// set preload-option
 		if(chckOpt(opt,'preload') || opt && !isset(opt.preload)) {
 			this.opt['preload'] = true
