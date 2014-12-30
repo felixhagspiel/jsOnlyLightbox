@@ -203,7 +203,7 @@ function Lightbox () {
 					setTimeout(function(){
 						removeClass(animationChildren[index],'jslghtbx-active')
 					},that.opt.loadingAnimation)
-					index = index >= animationChildren.length ? 0 : index += 1
+					index = index > 3 ? 0 : index += 1
 				},that.opt.loadingAnimation)
 			}			
 		}
@@ -274,15 +274,8 @@ function Lightbox () {
 	function repositionControls() {
 		if(that.opt.responsive && nextBtn && prevBtn) {
 			var btnTop = (getHeight() / 2) - (nextBtn.offsetHeight / 2)
-			if(isIE8) {
-				var cssString = "top: "+btnTop+"px"
-				nextBtn.cssText = cssString
-				prevBtn.cssText= cssString
-			}
-			else {
-				nextBtn.style.top = btnTop+"px"
-				prevBtn.style.top = btnTop+"px"
-			}				
+			nextBtn.style.top = btnTop+"px"
+			prevBtn.style.top = btnTop+"px"
 		}
 	}
 
@@ -383,7 +376,6 @@ function Lightbox () {
 				this.box.appendChild(animationEl)
 			} else if(this.opt['loadingAnimation']) {
 				// set default animation time
-				console.log(typeof this.opt['loadingAnimation'])
 				if(typeof this.opt['loadingAnimation'] === 'boolean') this.opt['loadingAnimation'] = 200
 				// animate via JS
 				animationEl = document.createElement('div')
@@ -486,7 +478,7 @@ function Lightbox () {
 		}
 		newImgWidth = Math.floor(newImgWidth)
 		newImgHeight = Math.floor(newImgHeight)
-
+		
 		// check if image exceeds maximum size
 		if( this.opt.dimensions && newImgHeight > currImage.originalHeight ||
 			this.opt.dimensions && newImgWidth > currImage.originalWidth) {
@@ -497,6 +489,7 @@ function Lightbox () {
 		currImage.img.setAttribute('height',newImgHeight)
 		currImage.img.setAttribute('style','margin-top:'+((getHeight() - newImgHeight) /2)+'px')
 
+		// reposition controls after timeout
 		setTimeout(repositionControls,200)
 
 		// execute resize callback
@@ -637,8 +630,8 @@ function Lightbox () {
 		// show wrapper when image is loaded
 		currImage.img.onload = function(){
 			// store original width here
-			currImage.originalWidth = this.width
-			currImage.originalHeight = this.height	
+			currImage.originalWidth = this.naturalWidth || this.width
+			currImage.originalHeight = this.naturalHeight || this.height	
 			// use dummyimage for correct dimension calculating in older IE
 			if(isIE8 || isIE9) {
 				var dummyImg = new Image()
