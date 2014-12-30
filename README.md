@@ -77,12 +77,17 @@ _Default: true_
 
 If set to true, the previous and the next image of the currently shown image will be preloaded if not already in cache.
 
-###	`{loadingAnimation: bool || string || number}`
-_Default: true_
+###	`{loadingAnimation: string || number || boolean}`
+_Default: 200_
 
 If set to true, an animation will be rendered until the image is loaded. The animation is using CSS3, so it will not work in IE8/9. Alternatively you can pass milliseconds as number, which defines the interval the `span`-elements inside the `jslghtbx-loading-animation`-container get the class `jslghtbx-active` (the default interval is 200ms). You can use this to apply your own styling via CSS. You can also pass a link to an GIF-image, which then replaces the animation. This is disabled for IE8 due to bugs with transparent backgrounds and performance issues. If set to false, no animation is shown.
 
-Note: The animations get an 500ms delay, so they won`t pop up on fast connections. Also, you should check for CSS3-support and set the animation-option accordingly.
+Note: The animations get an 500ms delay until they start, so they won`t pop up on fast connections. Also, you should check for CSS3-support and set the animation-option accordingly.
+
+###	`{animElCount: number}`
+_Default: 4_
+
+This sets the number of `spans` which are appended to the `jslghtbx-loading-animation`-container. Must be higher than 1.
 
 ###	`{carousel: bool}`
 _Default: true_
@@ -97,7 +102,9 @@ If set to true, the caption text inside the `data-jslghtbx-caption` attribute wi
 ###	`{closeOnClick: bool}`
 _Default: true_
 
-If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button. Note: May not work in IE8.
+If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button. 
+
+Note: May not work in IE8.
 
 ###	`{nextOnClick: bool}`
 _Default: true_
@@ -117,7 +124,7 @@ Hides the closebutton inside the lightbox.
 ###	`{dimensions: bool}`
 _Default: true_
 
-Only resize image to original dimensions. If set to false, images are always scaled to fullscreen.
+Images will be resized to a maximum of the original dimensions. If set to false, images are always scaled to fullscreen.
 
 ###	`{controls: bool}`
 _Default: true_
@@ -160,12 +167,33 @@ Example:
 
 	/* Default options */
 	var options = {
-		responsive: true, 		// add handlers for resize-event
-		closeOnClick: true, 	// close lightbox on background-click
-		hideOverflow: true,		// hide scrolling-bar when lightbox is open
-		hideCloseBtn: false,	// hide the close-button inside the lightbox
-		closeId: false, 		// use your own close-button
-		boxId: false 			// use own box-element
+		boxId: 				'testID',
+		dimensions: 		true,
+		captions: 			true,
+		prevImg: 			false,
+		nextImg: 			false,
+		hideCloseBtn: 		false,
+		closeOnClick: 		true,
+		loadingAnimation: 	200,
+		animElCount: 		4,
+		preload: 			true,
+		carousel: 			true,
+		animation: 			400,
+		nextOnClick: 		true,
+		responsive: 		true,
+		// callbacks
+		onopen: function(){
+			// ...
+		},
+		onclose: function(){
+			// ...
+		},
+		onload: function(){
+			// ...
+		},
+		onresize: function(){
+			// ...
+		}
 	};
 	var lightbox = new Lightbox();
 	lightbox.load(options);

@@ -20,7 +20,7 @@ function Lightbox () {
 	this.wrapper = false
 
 	// private
-	var that = this
+	var CTX = this
 	var isIE8 = false
 	var isIE9 = false
 	var body = document.getElementsByTagName('body')[0]
@@ -147,7 +147,7 @@ function Lightbox () {
 		addEvent(i,'click',function(e) {
 			currGroup = getAttr(i, 'data-jslghtbx-group') || false
 			currThumbnail = i
-			that.open(i)
+			CTX.open(i)
 		})
 	}
 
@@ -195,16 +195,16 @@ function Lightbox () {
 		// stop any already running animations
 		stopAnimation()
 		var fnc = function() {
-			addClass(that.box,'jslghtbx-loading')
-			if(!isIE9 && typeof that.opt.loadingAnimation === 'number'){
+			addClass(CTX.box,'jslghtbx-loading')
+			if(!isIE9 && typeof CTX.opt.loadingAnimation === 'number'){
 				var index = 0
 				animationInt = setInterval(function(){
 					addClass(animationChildren[index],'jslghtbx-active')
 					setTimeout(function(){
 						removeClass(animationChildren[index],'jslghtbx-active')
-					},that.opt.loadingAnimation)
+					},CTX.opt.loadingAnimation)
 					index = index >= animationChildren.length ? 0 : index += 1
-				},that.opt.loadingAnimation)
+				},CTX.opt.loadingAnimation)
 			}			
 		}
 		// set timeout to not show loading animation on fast connections
@@ -215,9 +215,9 @@ function Lightbox () {
 	function stopAnimation() {
 		if(isIE8) return
 		// hide animation-element
-		removeClass(that.box,'jslghtbx-loading')
+		removeClass(CTX.box,'jslghtbx-loading')
 		// stop animation
-		if(!isIE9 && typeof that.opt.loadingAnimation !== 'string' && that.opt.loadingAnimation){
+		if(!isIE9 && typeof CTX.opt.loadingAnimation !== 'string' && CTX.opt.loadingAnimation){
 			clearInterval(animationInt)
 			// do not use animationChildren.length here due to IE8/9 bugs
 			for(var i = 0; i < animationChildren.length; i++) {
@@ -234,18 +234,18 @@ function Lightbox () {
 			addClass(nextBtn,'jslghtbx-next')
 
 			// add custom images
-			if(that.opt['nextImg']) {
+			if(CTX.opt['nextImg']) {
 				var nextBtnImg = document.createElement('img')
-				nextBtnImg.setAttribute('src', that.opt['nextImg'])
+				nextBtnImg.setAttribute('src', CTX.opt['nextImg'])
 				nextBtn.appendChild(nextBtnImg)
 			} else {
 				addClass(nextBtn,'jslghtbx-no-img')
 			}
 			addEvent(nextBtn,'click',function(e){
 				stopPropagation(e) // prevent closing of lightbox
-				that.next()
+				CTX.next()
 			})
-			that.box.appendChild(nextBtn)
+			CTX.box.appendChild(nextBtn)
 		}
 		addClass(nextBtn,'jslghtbx-active')
 		if(!prevBtn) {
@@ -254,28 +254,129 @@ function Lightbox () {
 			addClass(prevBtn,'jslghtbx-prev')
 
 			// add custom images
-			if(that.opt['prevImg']) {
+			if(CTX.opt['prevImg']) {
 				var prevBtnImg = document.createElement('img')
-				prevBtnImg.setAttribute('src', that.opt['prevImg'])
+				prevBtnImg.setAttribute('src', CTX.opt['prevImg'])
 				prevBtn.appendChild(prevBtnImg)
 			} else {
 				addClass(prevBtn,'jslghtbx-no-img')
 			}
 			addEvent(prevBtn,'click',function(e){
 				stopPropagation(e) // prevent closing of lightbox
-				that.prev()
+				CTX.prev()
 			})
-			that.box.appendChild(prevBtn)			
+			CTX.box.appendChild(prevBtn)			
 		}
 		addClass(prevBtn,'jslghtbx-active')
 	}
 
 	// move controls to correct position
 	function repositionControls() {
-		if(that.opt.responsive && nextBtn && prevBtn) {
+		if(CTX.opt.responsive && nextBtn && prevBtn) {
 			var btnTop = (getHeight() / 2) - (nextBtn.offsetHeight / 2)
 			nextBtn.style.top = btnTop+"px"
 			prevBtn.style.top = btnTop+"px"
+		}
+	}
+	function setOpt(opt){
+		// set options
+		if(!opt) opt = {}
+		// 	sets the value per default to true if not given
+		function setTrueDef(val){
+			return typeof val === 'boolean' ? val : true
+		}
+		CTX.opt = {
+			// options
+			boxId: 				opt['boxId'] || false,
+			controls: 			setTrueDef(opt['controls']),
+			dimensions: 		setTrueDef(opt['dimensions']),
+			captions: 			setTrueDef(opt['captions']),
+			prevImg: 			typeof opt['prevImg'] === 'string' ? opt['prevImg'] : false,
+			nextImg: 			typeof opt['nextImg'] === 'string' ? opt['nextImg'] : false,
+			hideCloseBtn: 		opt['hideCloseBtn'] || false,
+			closeOnClick: 		typeof opt['closeOnClick'] === 'boolean' ? opt['closeOnClick'] : true,
+			loadingAnimation: 	opt['loadingAnimation'] === undefined ? true : opt['loadingAnimation'],
+			animElCount: 		opt['animElCount'] || 4,
+			preload: 			setTrueDef(opt['preload']),
+			carousel: 			setTrueDef(opt['carousel']),
+			animation: 			opt['animation'] || 400,
+			nextOnClick: 		setTrueDef(opt['nextOnClick']),
+			responsive: 		setTrueDef(opt['responsive']),
+			// callbacks
+			onopen: 			opt['onopen'] || false,
+			onclose: 			opt['onclose'] || false,
+			onload: 			opt['onload'] || false,
+			onresize: 			opt['onresize'] || false,
+		}
+
+		// load box in custom element
+		if(CTX.opt['boxId']) {
+			CTX.box = document.getElementById(CTX.opt['boxId'])
+		}
+		// create box element if no ID is given
+		else if(!CTX.box && !exists('jslghtbx')) {
+			var newEl = document.createElement('div')
+			newEl.setAttribute('id','jslghtbx')
+			newEl.setAttribute('class','jslghtbx')
+			CTX.box = newEl
+			body.appendChild(CTX.box)
+		}
+		CTX.box.innerHTML = template
+		if(isIE8) {
+			addClass(CTX.box,'jslghtbx-ie8')
+		}
+		CTX.wrapper = document.getElementById('jslghtbx-contentwrapper')
+
+		// init regular closebutton
+		if(!CTX.opt['hideCloseBtn']) {
+			var closeBtn = document.createElement('span')
+			closeBtn.setAttribute('id','jslghtbx-close')
+			closeBtn.setAttribute('class','jslghtbx-close')
+			closeBtn.innerHTML = 'X'
+			CTX.box.appendChild(closeBtn)
+			addEvent(closeBtn,'click',function(e){
+				stopPropagation(e)
+				CTX.close()
+			})
+		}
+
+		// close lightbox on background-click by default / if true
+		if(!isIE8 && CTX.opt['closeOnClick']) {
+			addEvent(CTX.box,'click',function(e){
+				CTX.close()
+			})
+		}
+
+		// set loading animation
+		if(typeof CTX.opt['loadingAnimation'] === 'string') {
+			// set loading GIF
+			animationEl = document.createElement('img')
+			animationEl.setAttribute('src',CTX.opt['loadingAnimation'])
+			addClass(animationEl,'jslghtbx-loading-animation')
+			CTX.box.appendChild(animationEl)
+		} else if(CTX.opt['loadingAnimation']) {
+			// set default animation time
+			CTX.opt['loadingAnimation'] = typeof CTX.opt['loadingAnimation'] === 'number' ? CTX.opt['loadingAnimation'] : 200
+			// create animation elements
+			animationEl = document.createElement('div')
+			addClass(animationEl,'jslghtbx-loading-animation')
+			var i = 0
+			while(i < CTX.opt['animElCount'] ) {
+				animationChildren.push(animationEl.appendChild(document.createElement('span')))
+				i++
+			}
+			CTX.box.appendChild(animationEl)
+		}
+
+		// add resize-eventhandlers
+		if(CTX.opt['responsive']) {
+			addEvent(window,'resize',function(e){
+				CTX.resize()
+			})
+			addClass(CTX.box,'jslghtbx-nooverflow') // hide scrollbars on prev/next
+		} 
+		else {
+			removeClass(CTX.box,'jslghtbx-nooverflow')
 		}
 	}
 
@@ -285,11 +386,6 @@ function Lightbox () {
 
 	// init-function
 	this.load = function(opt) {
-
-		// set options
-		if(opt){this.opt = opt}
-		else opt = {}
-
 		// check for IE8
 		if(navigator.appVersion.indexOf("MSIE 8") > 0) {
 			isIE8 = true
@@ -300,150 +396,8 @@ function Lightbox () {
 			isIE9 = true
 		}
 
-		// load box in custom element
-		if(opt && opt.boxId) {
-			this.box = document.getElementById(opt.boxId)
-		}
-
-		// load box in default element if no ID is given
-		else if(!this.box && !exists('jslghtbx')) {
-			var newEl = document.createElement('div')
-			newEl.setAttribute('id','jslghtbx')
-			newEl.setAttribute('class','jslghtbx')
-			this.box = newEl
-			body.appendChild(this.box)
-		}
-		this.box.innerHTML = template
-		if(isIE8) {
-			addClass(that.box,'jslghtbx-ie8')
-		}
-		this.wrapper = document.getElementById('jslghtbx-contentwrapper')
-
-		// initiate default controls
-		if(chckOpt(opt,'controls') || opt && !isset(opt.controls)) {
-			that.opt['controls'] = true
-		}
-
-		// keep dimensions
-		if(chckOpt(opt,'dimensions') || opt && !isset(opt.dimensions)) {
-			that.opt['dimensions'] = true
-		}	
-
-		// show captions
-		if(chckOpt(opt,'captions') || opt && !isset(opt.captions)) {
-			that.opt['captions'] = true
-		}
-
-		// use custom loading images
-		if(opt && opt['nextImg']) {
-			that.opt['nextImg'] = opt['nextImg']
-		}
-		if(opt && opt['prevImg']) {
-			that.opt['prevImg'] = opt['prevImg']
-		}
-
-		// init regular closebutton
-		if(!opt || opt && !opt.hideCloseBtn) {
-			var closeBtn = document.createElement('span')
-			closeBtn.setAttribute('id','jslghtbx-close')
-			closeBtn.setAttribute('class','jslghtbx-close')
-			closeBtn.innerHTML = 'X'
-			this.box.appendChild(closeBtn)
-			addEvent(closeBtn,'click',function(e){
-				stopPropagation(e)
-				that.close()
-			})
-		}
-
-		// close lightbox on background-click by default / if true
-		if( !isIE8 && (chckOpt(opt,'closeOnClick') || opt && !isset(opt.closeOnClick))) {
-			addEvent(this.box,'click',function(e){
-				that.close()
-			})
-		}
-
-		// set default for loading animation if none given
-		this.opt['loadingAnimation'] = opt['loadingAnimation'] || true
-
-		// set loading animation
-		if(typeof this.opt['loadingAnimation'] === 'string') {
-			// set loading GIF
-			animationEl = document.createElement('img')
-			animationEl.setAttribute('src',this.opt['loadingAnimation'])
-			addClass(animationEl,'jslghtbx-loading-animation')
-			this.box.appendChild(animationEl)
-		} else if(this.opt['loadingAnimation']) {
-
-			// set number of elements to animate
-			this.opt['animElCount'] = opt['animElCount'] || 4
-			// set default animation time
-			if(typeof this.opt['loadingAnimation'] === 'boolean') this.opt['loadingAnimation'] = 200
-
-			// animate via JS
-			animationEl = document.createElement('div')
-
-			addClass(animationEl,'jslghtbx-loading-animation')
-			var i = 0
-			while(i < this.opt['animElCount'] ) {
-				animationChildren.push(animationEl.appendChild(document.createElement('span')))
-				i++
-			}
-			this.box.appendChild(animationEl)
-		}
-
-
-
-		// set preload-option
-		if(chckOpt(opt,'preload') || opt && !isset(opt.preload)) {
-			this.opt['preload'] = true
-		}
-
-		// set onopen-callback
-		if(chckCb(opt,'onopen')) {
-			this.opt['onopen'] = opt.onopen
-		}
-
-		// set onclose-callback
-		if(chckCb(opt,'onclose')) {
-			this.opt['onclose'] = opt.onclose
-		}
-
-		// set onresize-callback
-		if(chckCb(opt,'onresize')) {
-			this.opt['onresize'] = opt.onresize
-		}
-
-		// set onload-callback
-		if(chckCb(opt,'onload')) {
-			this.opt['onload'] = opt.onload
-		}
-
-		// set carousel-function for prev/next
-		if(chckOpt(opt,'carousel') || opt && !isset(opt.carousel)) {
-			this.opt['carousel'] = true
-		}
-
-		// set animation-params
-		if(!opt || opt && !isset(opt.animation) || opt && isset(opt.animation) && opt.animation === true) {
-			that.opt['animation'] = 400 // set default animation time
-		}
-
-		// show next image at click on image
-		if(chckOpt(opt,'nextOnClick') || opt && !isset(opt.nextOnClick)) {
-			this.opt['nextOnClick'] = true
-		}
-
-		// add resize-eventhandlers by default / if true
-		if(chckOpt(opt,'responsive')  || !isset(opt.responsive)) {
-			this.opt['responsive'] = true
-			addEvent(window,'resize',function(e){
-				that.resize()
-			})
-			addClass(this.box,'jslghtbx-nooverflow') // hide scrollbars on prev/next
-		} 
-		else {
-			removeClass(this.box,'jslghtbx-nooverflow')
-		}
+		// set options
+		setOpt(opt)
 
 		// Find all thumbnails & add clickhandlers
 		var arr = document.getElementsByTagName('img')
@@ -454,14 +408,15 @@ function Lightbox () {
 				clckHlpr(arr[i])
 			}
 		}
-	}
 
+	}
+	// resize function
 	this.resize = function() {
 		if(!currImage.img){return}
 		maxWidth = getWidth()
 		maxHeight = getHeight()
-		var boxWidth = that.box.offsetWidth
-		var boxHeight = that.box.offsetHeight
+		var boxWidth = CTX.box.offsetWidth
+		var boxHeight = CTX.box.offsetHeight
 		if(!imgRatio && currImage.img && currImage.img.offsetWidth && currImage.img.offsetHeight) {
 			imgRatio = currImage.img.offsetWidth / currImage.img.offsetHeight
 		}
@@ -504,7 +459,7 @@ function Lightbox () {
 		if(currImages[pos]) {
 			currThumbnail = currImages[pos]	
 		} 
-		else if(that.opt.carousel) {
+		else if(CTX.opt.carousel) {
 			currThumbnail = currImages[0]
 		}
 		else {
@@ -516,13 +471,13 @@ function Lightbox () {
 				var cb = function(){
 					setTimeout(function(){
 						addClass(currImage.img,'jslghtbx-animating-next')
-					},that.opt.animation / 2)					
+					},CTX.opt.animation / 2)					
 				}
-				that.open(currThumbnail,false,cb)
+				CTX.open(currThumbnail,false,cb)
 			},this.opt.animation / 2)
 		}
 		else {
-			that.open(currThumbnail)
+			CTX.open(currThumbnail)
 		}
 	}
 
@@ -534,7 +489,7 @@ function Lightbox () {
 		if(currImages[pos]) {
 			currThumbnail = currImages[pos]	
 		}
-		else if(that.opt.carousel) {
+		else if(CTX.opt.carousel) {
 			currThumbnail = currImages[currImages.length - 1]
 		}
 		else {
@@ -547,13 +502,13 @@ function Lightbox () {
 				var cb = function(){
 					setTimeout(function(){
 						addClass(currImage.img,'jslghtbx-animating-next')
-					},that.opt.animation / 2)					
+					},CTX.opt.animation / 2)					
 				}
-				that.open(currThumbnail,false,cb)
+				CTX.open(currThumbnail,false,cb)
 			},this.opt.animation / 2)
 		}
 		else {
-			that.open(currThumbnail)
+			CTX.open(currThumbnail)
 		}
 	}
 
@@ -582,7 +537,7 @@ function Lightbox () {
 
 		// add init-class on opening, but not at prev/next
 		if(!isOpen) {
-			if(typeof that.opt.animation === 'number') {
+			if(typeof CTX.opt.animation === 'number') {
 				addClass(currImage.img,'jslghtbx-animate-transition jslghtbx-animate-init')
 			}
 			isOpen = true
@@ -615,14 +570,14 @@ function Lightbox () {
 		// show wrapper early to avoid bug where dimensions are not
 		// correct in IE8
 		if(isIE8) {
-			addClass(that.wrapper,'jslghtbx-active')
+			addClass(CTX.wrapper,'jslghtbx-active')
 		}
 
 		// save images if group param was passed or currGroup exists
 		group = group || currGroup
 		if(group) {
 			currImages = getByGroup(group)
-			if(that.opt.controls && currImages.length > 1) {
+			if(CTX.opt.controls && currImages.length > 1) {
 				initControls()
 				repositionControls()
 			}
@@ -640,11 +595,11 @@ function Lightbox () {
 				currImage.originalHeight = dummyImg.height	
 			}
 			var checkClassInt = setInterval(function(){
-				if(hasClass(that.box,'jslghtbx-active'))
+				if(hasClass(CTX.box,'jslghtbx-active'))
 				{
-					addClass(that.wrapper,'jslghtbx-wrapper-active')
+					addClass(CTX.wrapper,'jslghtbx-wrapper-active')
 					// set animation
-					if(typeof that.opt.animation === 'number') {
+					if(typeof CTX.opt.animation === 'number') {
 						addClass(currImage.img,'jslghtbx-animate-transition')
 					}
 					if(cb) cb()
@@ -653,22 +608,22 @@ function Lightbox () {
 					// clear animation timeout
 					clearTimeout(animationTimeout)
 					// preload previous and next image
-					if(that.opt.preload) {
+					if(CTX.opt.preload) {
 						preload()
 					}
 					// set clickhandler to show next image
-					if(that.opt.nextOnClick) {
+					if(CTX.opt.nextOnClick) {
 						// add cursor pointer
 						addClass(currImage.img,'jslghtbx-next-on-click')
 						addEvent(currImage.img,'click',function(e){
-							e.stopPropagation()
-							that.next()
+							stopPropagation(e)
+							CTX.next()
 						},false)
 					}
 					// execute onload callback
-					if(that.opt.onload) that.opt.onload()
+					if(CTX.opt.onload) CTX.opt.onload()
 					clearInterval(checkClassInt)
-					that.resize()
+					CTX.resize()
 				}
 			},10)				
 		}
@@ -687,15 +642,18 @@ function Lightbox () {
 		currImage = {}
 		currImages = []
 		isOpen = false
-		removeClass(that.box,'jslghtbx-active')
-		removeClass(that.wrapper,'jslghtbx-wrapper-active')
+		removeClass(CTX.box,'jslghtbx-active')
+		removeClass(CTX.wrapper,'jslghtbx-wrapper-active')
 		removeClass(nextBtn,'jslghtbx-active')
 		removeClass(prevBtn,'jslghtbx-active')
-		that.box.setAttribute('style','padding-top: 0px')
+		CTX.box.setAttribute('style','padding-top: 0px')
+
+		// stop animtation
+		stopAnimation()
 
 		// Hide Lightbox if iE8
 		if(isIE8) {
-			that.box.setAttribute('style','display: none')
+			CTX.box.setAttribute('style','display: none')
 		}
 
 		// show overflow by default / if set

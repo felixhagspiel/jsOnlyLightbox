@@ -127,6 +127,7 @@
 		<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx data-jslghtbx-group="mygroup">
 		<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx data-jslghtbx-group="mygroup">
 	</div>
+	<div id="testID" class="jslghtbx"></div>
 	<div class="section">
 		<h2>Usage</h2>
 		<p>Add the link to the CSS-File to the head of your html-file:</p>
@@ -202,28 +203,32 @@
 	<script>
 		var lightbox = new Lightbox();
 		lightbox.load({
-			responsive: true,
-			preload: true,
-			loadingAnimation: true,
-			carousel: true,
-			closeOnClick: true,
-			hideOverflow: true,
-			dimensions: true,
-			controls: true,
-			animation: 400,
-			captions: true,
-			nextOnClick: true,
-			onopen: function(){
-				console.log('opened')
+			boxId: 				'testID',
+			dimensions: 		true,
+			captions: 			true,
+			prevImg: 			false,
+			nextImg: 			false,
+			hideCloseBtn: 		false,
+			closeOnClick: 		true,
+			loadingAnimation: 	200,
+			animElCount: 		4,
+			preload: 			true,
+			carousel: 			true,
+			animation: 			400,
+			nextOnClick: 		true,
+			responsive: 		true,
+			// callbacks
+			onopen: 			function(){
+				// your code goes here
 			},
-			onresize: function(){
-				console.log('resized')
+			onclose: 			function(){
+				// your code goes here
 			},
-			onclose: function(){
-				console.log('closed')
+			onload: 			function(){
+				// your code goes here
 			},
-			onload: function(){
-				console.log('loaded')
+			onresize: 			function(){
+				// your code goes here
 			}
 		});
 	</script>
