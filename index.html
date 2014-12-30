@@ -12,6 +12,16 @@
 	<!--[if lt IE 9]>
 	    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" type="text/javascript"></script>
 	<![endif]-->
+	<script>
+	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+	  ga('create', 'UA-45207399-2', 'auto');
+	  ga('send', 'pageview');
+
+	</script>
 	<style>
 		body {
 			font-family: 'Open Sans', sans-serif;
@@ -93,6 +103,7 @@
 			<li>No jQuery needed</li>
 			<li>Fully responsive</li>
 			<li>Customizable</li>
+			<li>CSS3-Animations &amp; controls, however, loading GIFs and arrow images can be used</li>
 			<li>Lightweight (&lt;10Kb)</li>
 			<li>Licensed under MIT, code is free for commercial &amp; personal use. However, it would be great if you send me an link of your websites using my lightbox so I can see it live in action and post some real-word examples here. I am also happy about backlinks &amp; github-stars :) <b>The pictures included are NOT free to use!</b> Please <a href="http://felixhagspiel.de/contact">contact me first</a> if you want to use the them!</li>
 			<li>IE8+ supported. Dont`t forget to add those lines inside your <code>&lt;head&gt;&lt;/head&gt;</code> - tag if you need IE8-Support:</li><br/> 
@@ -101,31 +112,6 @@
 				</code>
 			</li>
 		</ul>
-	</div>
-	<div class="section">
-		<h2>Use bigsized pictures for both thumbnail and lightbox</h2>
-		<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx data-jslghtbx-group="group1">
-	</div>
-	<div class="section">
-		<h2>Using smallsized pictures for thumbnails and bigsized pictures for lightbox to reduce traffic</h2>
-		<img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/lightbox/3-big.jpg" data-jslghtbx-group="group2">
-	</div>
-	<div class="section">
-		<h2>Use captions</h2>
-		<img class="jslghtbx-thmb" src="img/lightbox/7-small.jpg" alt="" data-jslghtbx="img/lightbox/7-big.jpg" data-jslghtbx-group="group3" data-jslghtbx-caption="This picture was taken at Bodensee, Germany.">
-		<img class="jslghtbx-thmb" src="img/lightbox/9-small.jpg" alt="" data-jslghtbx="img/lightbox/9-big.jpg" data-jslghtbx-group="group3" data-jslghtbx-caption="This picture was taken in Miami.">
-	</div>
-	<div class="section">
-		<h2>Use groups to show multiple images</h2>
-		<img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/lightbox/3-big.jpg" data-jslghtbx-group="mygroup">
-		<img class="jslghtbx-thmb" src="img/lightbox/4-small.jpg" alt="" data-jslghtbx="img/lightbox/4-big.jpg" data-jslghtbx-group="mygroup">
-		<img class="jslghtbx-thmb" src="img/lightbox/6-small.jpg" alt="" data-jslghtbx="img/lightbox/6-big.jpg" data-jslghtbx-group="mygroup">
-		<img class="jslghtbx-thmb" src="img/lightbox/7-small.jpg" alt="" data-jslghtbx="img/lightbox/7-big.jpg" data-jslghtbx-group="mygroup">
-		<img class="jslghtbx-thmb" src="img/lightbox/8-small.jpg" alt="" data-jslghtbx="img/lightbox/8-big.jpg" data-jslghtbx-group="mygroup">
-		<img class="jslghtbx-thmb" src="img/lightbox/9-small.jpg" alt="" data-jslghtbx="img/lightbox/9-big.jpg" data-jslghtbx-group="mygroup">
-		<img class="jslghtbx-thmb" src="img/lightbox/10-small.jpg" alt="" data-jslghtbx="img/lightbox/10-big.jpg" data-jslghtbx-group="mygroup">
-		<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx data-jslghtbx-group="mygroup">
-		<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx data-jslghtbx-group="mygroup">
 	</div>
 	<div class="section">
 		<h2>Usage</h2>
@@ -176,20 +162,45 @@
 		<code class="block">
 			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx&gt;
 		</code>
-		<p>If you want to use captions add the <code>data-jslghtbx-caption</code> attribute:</p>
-		<code class="block">
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot;  data-jslghtbx-caption=&quot;This is my caption text.&quot; alt=&quot;&quot; data-jslghtbx&gt;
-		</code>
-		<p>You can also pass an link to another image, i.e. <code>data-jslghtbx='img/lightbox/apple.jpg'</code>:</p>
+		<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx data-jslghtbx-group="group1">
+		<p>Note: The CSS-class <code>jslghtbx-thmb</code> is optional. You can use your own styling if you want.</p>
+		<h3>Load a different image on click</h3>
+		<p>You can pass a link of a different image via the <code>data-jslghtbx</code> attribute, which then will be loaded on click. Use this if you want to use small sized pictures for the thumbnails to reduce traffic:</p>
 		<code class="block">
 			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot;&gt;
 		</code>
-		<p>If you want to group images, set the <code>data-jslghtbx-group</code>-attribute:</p>
+		<img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/lightbox/3-big.jpg" data-jslghtbx-group="group2">
+
+		<h3>Use captions</h3>
+		<p>If you want to use captions add the <code>data-jslghtbx-caption</code> attribute. You can also pass HTML:</p>
 		<code class="block">
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot; data-jslghtbx-group=&quot;group1&quot;&gt;<br/>
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/2.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot; data-jslghtbx-group=&quot;group1&quot;&gt;
+			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot;  data-jslghtbx-caption=&quot;This is my &lt;a href='http://yourURL.com'&gt;caption text&lt;/a&gt;.&quot; alt=&quot;&quot; data-jslghtbx&gt;
 		</code>
-		<p>Note: The CSS-class <code>jslghtbx-thmb</code> is optional. You can use your own styling if you want.</p>
+		<img class="jslghtbx-thmb" src="img/lightbox/7-small.jpg" alt="" data-jslghtbx="img/lightbox/7-big.jpg" data-jslghtbx-group="group3" data-jslghtbx-caption="This picture was taken at <a href='http://en.wikipedia.org/wiki/Lake_Constance'>Bodensee, Germany</a>.">
+		<img class="jslghtbx-thmb" src="img/lightbox/9-small.jpg" alt="" data-jslghtbx="img/lightbox/9-big.jpg" data-jslghtbx-group="group3" data-jslghtbx-caption="This picture was taken in Miami.">
+		<h3>Use groups to show multiple images</h3>
+		<p>If you want to group images to structure your content, use the <code>data-jslghtbx-group</code> attribute. You can have multiple groups on one page:</p>
+		<code class="block">
+			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/3-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/3-big.jpg&quot; data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/>
+			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/4-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/4-big.jpg&quot; data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/>
+			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/6-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/6-big.jpg&quot; data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/>
+			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/7-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/7-big.jpg&quot; data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/><br/><br/>
+
+
+			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/8-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot; data-jslghtbx-group=&quot;mygroup2&quot;&gt;<br/>
+			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/9-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot; data-jslghtbx-group=&quot;mygroup2&quot;&gt;<br/>
+			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/10-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot; data-jslghtbx-group=&quot;mygroup2&quot;&gt;<br/>
+		</code>
+		<h3>Group 1</h3>
+		<img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/lightbox/3-big.jpg" data-jslghtbx-group="mygroup1">
+		<img class="jslghtbx-thmb" src="img/lightbox/4-small.jpg" alt="" data-jslghtbx="img/lightbox/4-big.jpg" data-jslghtbx-group="mygroup1">
+		<img class="jslghtbx-thmb" src="img/lightbox/6-small.jpg" alt="" data-jslghtbx="img/lightbox/6-big.jpg" data-jslghtbx-group="mygroup1">
+		<img class="jslghtbx-thmb" src="img/lightbox/7-small.jpg" alt="" data-jslghtbx="img/lightbox/7-big.jpg" data-jslghtbx-group="mygroup1">
+		<h3>Group 2</h3>
+		<img class="jslghtbx-thmb" src="img/lightbox/8-small.jpg" alt="" data-jslghtbx="img/lightbox/8-big.jpg" data-jslghtbx-group="mygroup2">
+		<img class="jslghtbx-thmb" src="img/lightbox/9-small.jpg" alt="" data-jslghtbx="img/lightbox/9-big.jpg" data-jslghtbx-group="mygroup2">
+		<img class="jslghtbx-thmb" src="img/lightbox/10-small.jpg" alt="" data-jslghtbx="img/lightbox/10-big.jpg" data-jslghtbx-group="mygroup2">
+
 		<h2>For full documentation of options &amp; API please visit my <a href="https://github.com/felixhagspiel/jsOnlyLightbox" class="btn">Github-Profile</a> </h2>
 	</div>
 	<div class="section">

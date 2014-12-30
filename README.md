@@ -1,12 +1,13 @@
-# Responsive Lightbox written in  plain JavaScript
+# jsOnlyLightbox v0.5 
+#### Responsive Lightbox written in  plain JavaScript
 
 ## Features
 
 - no jQuery needed, plain JavaScript
 - Fully responsive
-- Customizable Theme, SASS-files included
+- Customizable Theme, SCSS-files included
 - Small in Size (< 10Kb)
-- CSS3-Animations
+- CSS3-Animations & controls, however, loading GIFs and arrow images can be used
 - Licensed under MIT, code is free for commercial &amp; personal use. However, it would be great if you send me an link of your websites using my lightbox so I can see it live in action and post some real-word examples here. I am also happy about backlinks & github-stars :) **The pictures included are NOT free to use!** Please  [contact me first](http://felixhagspiel.de/contact) if you want to use the them!
 - IE8+ support:
 
@@ -42,20 +43,27 @@ You just need to add the attribute `data-jslghtbx` to all the images you want to
 
 	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx>
 
-You can also pass an link to another image:
+Note: The CSS-class `jslghtbx-thmb` is optional. You can use your own styling if you want.
+
+You can pass a link of a different image via the `data-jslghtbx` attribute, which then will be loaded on click. Use this if you want to use small sized pictures for the thumbnails to reduce traffic:
 
 	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx="img/1-big.jpg">
 
-Note: The CSS-class `jslghtbx-thmb` is optional. You can use your own styling if you want.
+If you want to group images to structure your content, use the `data-jslghtbx-group` attribute. You can have multiple groups on one page. This is also helpful when you dont want to use thumbnails, just hide the thumbnails via CSS:
 
-If you want to use multiple images, set the `data-jslghtbx-group`-attribute:
+	<img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/3-big.jpg" data-jslghtbx-group="mygroup1">
+	<img class="jslghtbx-thmb" src="img/lightbox/4-small.jpg" alt="" data-jslghtbx="img/4-big.jpg" data-jslghtbx-group="mygroup1">
+	<img class="jslghtbx-thmb" src="img/lightbox/6-small.jpg" alt="" data-jslghtbx="img/6-big.jpg" data-jslghtbx-group="mygroup1">
+	<img class="jslghtbx-thmb" src="img/lightbox/7-small.jpg" alt="" data-jslghtbx="img/7-big.jpg" data-jslghtbx-group="mygroup1">
 
-	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx data-jslghtbx-group="group1">
-	<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx data-jslghtbx-group="group1">
 
-You can use different groups on one website. The default control-arrows will be loaded when using groups. You can also use your own control-buttons by providing an ID via the options (see options-reference).
+	<img class="jslghtbx-thmb" src="img/lightbox/8-small.jpg" alt="" data-jslghtbx="img/1-big.jpg" data-jslghtbx-group="mygroup2">
+	<img class="jslghtbx-thmb" src="img/lightbox/9-small.jpg" alt="" data-jslghtbx="img/1-big.jpg" data-jslghtbx-group="mygroup2">
+	<img class="jslghtbx-thmb" src="img/lightbox/10-small.jpg" alt="" data-jslghtbx="img/1-big.jpg" data-jslghtbx-group="mygroup2">
 
-For captions, put text or HTML inside the `data-jslghtbx-caption`-attribute:
+The default control-arrows will be loaded when using groups. You can also use your own control-buttons by providing an ID via the options. For more detail look into the options section below.
+
+If you want to use captions add the `data-jslghtbx-caption` attribute. You can also pass HTML:
 	
 	<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx data-jslghtbx-caption="This is my <a href='http://abc.de'>caption.</a>">
 
@@ -80,14 +88,14 @@ If set to true, the previous and the next image of the currently shown image wil
 ###	`{loadingAnimation: string || number || boolean}`
 _Default: 200_
 
-If set to true, an animation will be rendered until the image is loaded. The animation is using CSS3, so it will not work in IE8/9. Alternatively you can pass milliseconds as number, which defines the interval the `span`-elements inside the `jslghtbx-loading-animation`-container get the class `jslghtbx-active` (the default interval is 200ms). You can use this to apply your own styling via CSS. You can also pass a link to an GIF-image, which then replaces the animation. This is disabled for IE8 due to bugs with transparent backgrounds and performance issues. If set to false, no animation is shown.
+If set to true, an animation will be rendered until the image is loaded. Alternatively you can pass milliseconds as number, which defines the interval the `span`-elements inside the `jslghtbx-loading-animation`-container get the class `jslghtbx-active` (the default interval is 200ms). You can use this to apply your own styling via CSS. The animation is using CSS3, so it will not work in IE8/9. You can also pass a link to an GIF-image, which then replaces the animation. This is disabled for IE8 due to bugs with transparent backgrounds and performance issues. If set to false, no animation is shown.
 
 Note: The animations get an 500ms delay until they start, so they won`t pop up on fast connections. Also, you should check for CSS3-support and set the animation-option accordingly.
 
 ###	`{animElCount: number}`
 _Default: 4_
 
-This sets the number of `spans` which are appended to the `jslghtbx-loading-animation`-container. Must be higher than 1.
+This sets the number of animated `span` tags which are appended to the `jslghtbx-loading-animation` container. Must be higher than 1.
 
 ###	`{carousel: bool}`
 _Default: true_
@@ -132,7 +140,7 @@ _Default: true_
 Show or hide the default next- & prev-buttons.
 
 ###	`{nextImg: 'path/to/image'}`
-Here you can pass the path to an alternative next-button image. By default the arrows are rendered via CSS. If you want to use images make sure to apply custom styling for smaller viewports via the CSS-Class `jslghtbx-prev`.
+Here you can pass the path to an alternative next-button image. By default the arrows are rendered via CSS. If you want to use images make sure to apply custom styling for smaller viewports via the CSS-Class `jslghtbx-next`.
 
 ###	`{prevImg: 'path/to/image'}`
 Here you can pass the path to an alternative prev-button image. By default the arrows are rendered via CSS. If you want to use images make sure to apply custom styling for smaller viewports via the CSS-Class `jslghtbx-prev`.
@@ -161,7 +169,7 @@ Function that is executed once the current image is loaded.
 
 ### `lightbox.load(options)`
 
-The init-function. Here you can pass your option-object. Has to be called once on the box-object.
+The init-function. Here you can pass your option-object. Has to be called once on the box-object. If you dont pass options, the defaults are loaded. A full call may look like this:
 
 Example:
 
