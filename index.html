@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>jsOnlyLightbox</title>
+	<title>jsOnlyLightbox v0.5</title>
 	<meta name="keywords" content="lightbox showbox picture box javascript js only gallery slim lightweight responsive">
 	<meta name="description" content="jsonlylightbox is written in plain JavaScript. No jQuery needed, responsive, customizable, lightweight, supports IE8+ and is free for personal and commercial use">
 	<meta name="author" content="Felix Hagspiel">
@@ -87,7 +87,7 @@
 <body id="body">
 <a href="https://github.com/felixhagspiel/jsOnlyLightbox"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
 	<div class="section">
-		<h1>jsOnlyLightbox v0.4</h1>
+		<h1>jsOnlyLightbox v0.5</h1>
 		<h2>Responsive Lightbox written in plain JavaScript</h2>
 		<ul class="u-list">
 			<li>No jQuery needed</li>
@@ -127,7 +127,6 @@
 		<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx data-jslghtbx-group="mygroup">
 		<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx data-jslghtbx-group="mygroup">
 	</div>
-	<div id="testID" class="jslghtbx"></div>
 	<div class="section">
 		<h2>Usage</h2>
 		<p>Add the link to the CSS-File to the head of your html-file:</p>
@@ -142,29 +141,34 @@
 		<code class="block">
 		var lightbox = new Lightbox();<br/><br/>
 		var lightBoxOptions = {<br/>
-			&nbsp;responsive: true,<br/>
-			&nbsp;preload: true,<br/>
-			&nbsp;loadingImg: true,<br/>
-			&nbsp;loadingImgSrc: &#39;img/jslghtbx-loading.gif&#39;,<br/>
-			&nbsp;carousel: true,<br/>
-			&nbsp;closeOnClick: true,<br/>
-			&nbsp;hideOverflow: true,<br/>
-			&nbsp;dimensions: true,<br/>
-			&nbsp;controls: true,<br/>
-			&nbsp;animation: 400,<br/>
-			&nbsp;captions: true,<br/>
-			&nbsp;onopen: function(){<br/>
-				&nbsp;&nbsp;console.log(&#39;opened&#39;)<br/>
+			&nbsp;// options<br/>
+			&nbsp;boxId: 				false,<br/>
+			&nbsp;dimensions: 		true,<br/>
+			&nbsp;captions: 			true,<br/>
+			&nbsp;prevImg: 			false,<br/>
+			&nbsp;nextImg: 			false,<br/>
+			&nbsp;hideCloseBtn: 		false,<br/>
+			&nbsp;closeOnClick: 		true,<br/>
+			&nbsp;loadingAnimation: 	200,<br/>
+			&nbsp;animElCount: 		4,<br/>
+			&nbsp;preload: 			true,<br/>
+			&nbsp;carousel: 			true,<br/>
+			&nbsp;animation: 			400,<br/>
+			&nbsp;nextOnClick: 		true,<br/>
+			&nbsp;responsive: 		true,<br/>
+			&nbsp;// callbacks<br/>
+			&nbsp;onopen: 			function(){<br/>
+				&nbsp;&nbsp;// ...<br/>
 			&nbsp;},<br/>
-			&nbsp;onresize: function(){<br/>
-				&nbsp;&nbsp;console.log(&#39;resized&#39;)<br/>
+			&nbsp;onclose: 			function(){<br/>
+				&nbsp;&nbsp;// ...<br/>
 			&nbsp;},<br/>
-			&nbsp;onclose: function(){<br/>
-				&nbsp;&nbsp;console.log(&#39;closed&#39;)<br/>
+			&nbsp;onload: 			function(){<br/>
+				&nbsp;&nbsp;// ...<br/>
 			&nbsp;},<br/>
-			&nbsp;onload: function(){<br/>
-				&nbsp;&nbsp;console.log(&#39;loaded&#39;)<br/>
-			&nbsp;}<br/>		
+			&nbsp;onresize: 			function(){<br/>
+				&nbsp;&nbsp;// ...<br/>
+			&nbsp;}<br/>	
 		}<br/><br/>
 		lightbox.load(lightBoxOptions);
 		</code>
@@ -172,7 +176,7 @@
 		<code class="block">
 			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx&gt;
 		</code>
-		<p>If you want to use captions add the <code>data-jslghtbx-caption</code> attribute</p>
+		<p>If you want to use captions add the <code>data-jslghtbx-caption</code> attribute:</p>
 		<code class="block">
 			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot;  data-jslghtbx-caption=&quot;This is my caption text.&quot; alt=&quot;&quot; data-jslghtbx&gt;
 		</code>
@@ -180,7 +184,7 @@
 		<code class="block">
 			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot;&gt;
 		</code>
-		<p>If you want to use multiple images, set the <code>data-jslghtbx-group</code>-attribute:</p>
+		<p>If you want to group images, set the <code>data-jslghtbx-group</code>-attribute:</p>
 		<code class="block">
 			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot; data-jslghtbx-group=&quot;group1&quot;&gt;<br/>
 			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/2.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot; data-jslghtbx-group=&quot;group1&quot;&gt;
@@ -191,9 +195,8 @@
 	<div class="section">
 		<h2>Download latest version</h2>
 		<ul class="u-list nostyle">
-			<li>Last update 21.10.2014</li>
-			<li><a href="http://jslightbox.felixhagspiel.de/jsonlylightbox-v0.4.zip" class="btn">Download latest version v0.4</a></li>
-			<li><a href="http://jslightbox.felixhagspiel.de/jsonlylightbox-demo-v0.4.zip" class="btn">Download the demo version with examples</a></li>
+			<li>Last update 30.12.2014</li>
+			<li><a href="http://jslightbox.felixhagspiel.de/jsonlylightbox-v0.5.zip" class="btn">Download jsOnlyLightbox v0.5</a></li>
 		</ul>
 	</div>
 	<div class="section">
@@ -203,7 +206,7 @@
 	<script>
 		var lightbox = new Lightbox();
 		lightbox.load({
-			boxId: 				'testID',
+			boxId: 				false,
 			dimensions: 		true,
 			captions: 			true,
 			prevImg: 			false,

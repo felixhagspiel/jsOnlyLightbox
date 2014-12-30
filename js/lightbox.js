@@ -1,12 +1,11 @@
 "use strict"
 
 /**
- * Lightbox v0.4
+ * jsOnlyLightbox v0.5
  * Copyright © 2014 Felix Hagspiel - http://jslightbox.felixhagspiel.de
  *
  * @license MIT
  * - Free for use in both personal and commercial projects
- * - Attribution requires leaving author name, author link, and the license info intact
  */
 
 function Lightbox () {
