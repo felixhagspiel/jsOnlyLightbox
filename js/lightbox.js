@@ -389,13 +389,13 @@ function Lightbox () {
 		currGroup = group || currGroup
 		if(currGroup) {
 			currImages = getByGroup(currGroup)
+			if(typeof el === 'boolean' && !el) {
+				// el is set to false, load first image of group
+				currThumbnail = currImages[0]
+				el = currImages[0]				
+			}
 		}
-		if(typeof el === 'boolean' && !el && currGroup) {
-			// el is set to false but group is set
-			console.log(currImages[0])
-			currThumbnail = currImages[0]
-			el = currImages[0]
-		}
+
 		// create new img-element
 		currImage.img = new Image()
 
