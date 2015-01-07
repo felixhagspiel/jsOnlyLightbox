@@ -207,7 +207,7 @@ Example:
 	var lightbox = new Lightbox();
 	lightbox.load(options);
 
-### `lightbox.open('src-link')`
+### `lightbox.open(src-link, groupName)`
 If you want you can open the box by click on any element on your page.
 Example:
 
@@ -221,6 +221,12 @@ Example:
 	var myImg = document.getElementById('myImg');
 	document.getElementById('open-lightbox-button').addEventListener('click',function(){
 		lightbox.open(myImg);
+	});
+
+In addition you can pass a groupname, which then shows the first element of that group. Be sure to set first param to false:
+
+	document.getElementById('open-lightbox').addEventListener('click',function(){
+		lightbox.open(false,'myGroup');
 	});
 
 ### `lightbox.next()`

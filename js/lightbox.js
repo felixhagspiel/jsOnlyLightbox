@@ -146,7 +146,7 @@ function Lightbox () {
 		addEvent(i,'click',function(e) {
 			currGroup = getAttr(i, 'data-jslghtbx-group') || false
 			currThumbnail = i
-			CTX.open(i)
+			openBox(i,false,false)
 		})
 	}
 
@@ -277,6 +277,8 @@ function Lightbox () {
 			prevBtn.style.top = btnTop+"px"
 		}
 	}
+
+	// set options
 	function setOpt(opt){
 		// set options
 		if(!opt) opt = {}
@@ -379,142 +381,21 @@ function Lightbox () {
 		}
 	}
 
-	/*
-	* 	Public methods
-	*/
-
-	// init-function
-	this.load = function(opt) {
-		// check for IE8
-		if(navigator.appVersion.indexOf("MSIE 8") > 0) {
-			isIE8 = true
-		}
-
-		// check for IE9
-		if(navigator.appVersion.indexOf("MSIE 9") > 0) {
-			isIE9 = true
-		}
-
-		// set options
-		setOpt(opt)
-
-		// Find all thumbnails & add clickhandlers
-		var arr = document.getElementsByTagName('img')
-		for(var i = 0; i < arr.length; i++)
-		{
-			if(hasAttr(arr[i],'data-jslghtbx')) {
-				thumbnails.push(arr[i])
-				clckHlpr(arr[i])
-			}
-		}
-
-	}
-	// resize function
-	this.resize = function() {
-		if(!currImage.img){return}
-		maxWidth = getWidth()
-		maxHeight = getHeight()
-		var boxWidth = CTX.box.offsetWidth
-		var boxHeight = CTX.box.offsetHeight
-		if(!imgRatio && currImage.img && currImage.img.offsetWidth && currImage.img.offsetHeight) {
-			imgRatio = currImage.img.offsetWidth / currImage.img.offsetHeight
-		}
-
-		// Height of image is too big to fit in viewport
-		if( Math.floor(boxWidth/imgRatio) > boxHeight ) {
-			newImgWidth = boxHeight*imgRatio*0.8
-			newImgHeight = boxHeight*0.8
-		}
-		// Width of image is too big to fit in viewport
-		else {
-			newImgWidth = boxWidth*0.8
-			newImgHeight = boxWidth/imgRatio*0.8
-		}
-		newImgWidth = Math.floor(newImgWidth)
-		newImgHeight = Math.floor(newImgHeight)
-		
-		// check if image exceeds maximum size
-		if( this.opt.dimensions && newImgHeight > currImage.originalHeight ||
-			this.opt.dimensions && newImgWidth > currImage.originalWidth) {
-			newImgHeight = currImage.originalHeight
-			newImgWidth = currImage.originalWidth
-		}
-		currImage.img.setAttribute('width',newImgWidth)
-		currImage.img.setAttribute('height',newImgHeight)
-		currImage.img.setAttribute('style','margin-top:'+((getHeight() - newImgHeight) /2)+'px')
-
-		// reposition controls after timeout
-		setTimeout(repositionControls,200)
-
-		// execute resize callback
-		if(this.opt.onresize) this.opt.onresize()
-	}
-
-	// show next image
-	this.next = function() {
-		if(!currGroup){return}
-		// get position of next image
-		var pos = getPos(currThumbnail,currGroup) + 1  
-		if(currImages[pos]) {
-			currThumbnail = currImages[pos]	
-		} 
-		else if(CTX.opt.carousel) {
-			currThumbnail = currImages[0]
-		}
-		else {
-			return
-		}
-		if(typeof this.opt.animation === 'number') {
-			removeClass(currImage.img,'jslghtbx-animating-next')
-			setTimeout(function(){
-				var cb = function(){
-					setTimeout(function(){
-						addClass(currImage.img,'jslghtbx-animating-next')
-					},CTX.opt.animation / 2)					
-				}
-				CTX.open(currThumbnail,false,cb)
-			},this.opt.animation / 2)
-		}
-		else {
-			CTX.open(currThumbnail)
-		}
-	}
-
-	// show prev image
-	this.prev = function() {
-		if(!currGroup){return}
-		// get position of prev image
-		var pos = getPos(currThumbnail,currGroup) - 1 
-		if(currImages[pos]) {
-			currThumbnail = currImages[pos]	
-		}
-		else if(CTX.opt.carousel) {
-			currThumbnail = currImages[currImages.length - 1]
-		}
-		else {
-			return
-		}
-		// animation stuff
-		if(typeof this.opt.animation === 'number') {
-			removeClass(currImage.img,'jslghtbx-animating-prev')
-			setTimeout(function(){
-				var cb = function(){
-					setTimeout(function(){
-						addClass(currImage.img,'jslghtbx-animating-next')
-					},CTX.opt.animation / 2)					
-				}
-				CTX.open(currThumbnail,false,cb)
-			},this.opt.animation / 2)
-		}
-		else {
-			CTX.open(currThumbnail)
-		}
-	}
-
 	// open the lightbox and show image
-	this.open = function(el,group,cb) {
-		if(!el){return false}
+	function openBox(el,group,cb) {
+		if(!el && !group){return false}
 
+		// save images if group param was passed or currGroup exists
+		currGroup = group || currGroup
+		if(currGroup) {
+			currImages = getByGroup(currGroup)
+		}
+		if(typeof el === 'boolean' && !el && currGroup) {
+			// el is set to false but group is set
+			console.log(currImages[0])
+			currThumbnail = currImages[0]
+			el = currImages[0]
+		}
 		// create new img-element
 		currImage.img = new Image()
 
@@ -542,45 +423,40 @@ function Lightbox () {
 			isOpen = true
 			
 			// execute open callback
-			if(this.opt.onopen) this.opt.onopen()
+			if(CTX.opt.onopen) CTX.opt.onopen()
 		}
 		
 		// hide overflow by default / if set
-		if(!this.opt || !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
+		if(!CTX.opt || !isset(CTX.opt.hideOverflow) || CTX.opt.hideOverflow ) {
 			body.setAttribute('style','overflow: hidden')
 		}
 
-		this.box.setAttribute('style','padding-top: 0')
-		this.wrapper.innerHTML = ''
-		this.wrapper.appendChild(currImage.img)
+		CTX.box.setAttribute('style','padding-top: 0')
+		CTX.wrapper.innerHTML = ''
+		CTX.wrapper.appendChild(currImage.img)
 		// set animation class
-		if(this.opt['animation']) addClass(this.wrapper,'jslghtbx-animate')
+		if(CTX.opt['animation']) addClass(CTX.wrapper,'jslghtbx-animate')
 		// set caption
 		var captionText = getAttr(el,'data-jslghtbx-caption')
-		if(captionText && this.opt.captions) {
+		if(captionText && CTX.opt.captions) {
 			var caption = document.createElement('p')
 			caption.setAttribute('class','jslghtbx-caption')
 			caption.innerHTML = captionText
-			this.wrapper.appendChild(caption)			
+			CTX.wrapper.appendChild(caption)			
 		}
 
-		addClass(this.box,'jslghtbx-active')
+		addClass(CTX.box,'jslghtbx-active')
 
 		// show wrapper early to avoid bug where dimensions are not
 		// correct in IE8
 		if(isIE8) {
 			addClass(CTX.wrapper,'jslghtbx-active')
 		}
-
-		// save images if group param was passed or currGroup exists
-		group = group || currGroup
-		if(group) {
-			currImages = getByGroup(group)
-			if(CTX.opt.controls && currImages.length > 1) {
-				initControls()
-				repositionControls()
-			}
+		if(CTX.opt.controls && currImages.length > 1) {
+			initControls()
+			repositionControls()
 		}
+
 		// show wrapper when image is loaded
 		currImage.img.onload = function(){
 			// store original width here
@@ -634,7 +510,143 @@ function Lightbox () {
 		startAnimation()
 	}
 
-	this.close = function() {
+	/*
+	* 	Public methods
+	*/
+
+	// init-function
+	CTX.load = function(opt) {
+		// check for IE8
+		if(navigator.appVersion.indexOf("MSIE 8") > 0) {
+			isIE8 = true
+		}
+
+		// check for IE9
+		if(navigator.appVersion.indexOf("MSIE 9") > 0) {
+			isIE9 = true
+		}
+
+		// set options
+		setOpt(opt)
+
+		// Find all thumbnails & add clickhandlers
+		var arr = document.getElementsByTagName('img')
+		for(var i = 0; i < arr.length; i++)
+		{
+			if(hasAttr(arr[i],'data-jslghtbx')) {
+				thumbnails.push(arr[i])
+				clckHlpr(arr[i])
+			}
+		}
+
+	}
+	// public function for openBox()
+	CTX.open = function(el,group){
+		openBox(el,group,false)
+	}
+	// resize function
+	CTX.resize = function() {
+		if(!currImage.img){return}
+		maxWidth = getWidth()
+		maxHeight = getHeight()
+		var boxWidth = CTX.box.offsetWidth
+		var boxHeight = CTX.box.offsetHeight
+		if(!imgRatio && currImage.img && currImage.img.offsetWidth && currImage.img.offsetHeight) {
+			imgRatio = currImage.img.offsetWidth / currImage.img.offsetHeight
+		}
+
+		// Height of image is too big to fit in viewport
+		if( Math.floor(boxWidth/imgRatio) > boxHeight ) {
+			newImgWidth = boxHeight*imgRatio*0.8
+			newImgHeight = boxHeight*0.8
+		}
+		// Width of image is too big to fit in viewport
+		else {
+			newImgWidth = boxWidth*0.8
+			newImgHeight = boxWidth/imgRatio*0.8
+		}
+		newImgWidth = Math.floor(newImgWidth)
+		newImgHeight = Math.floor(newImgHeight)
+		
+		// check if image exceeds maximum size
+		if( CTX.opt.dimensions && newImgHeight > currImage.originalHeight ||
+			CTX.opt.dimensions && newImgWidth > currImage.originalWidth) {
+			newImgHeight = currImage.originalHeight
+			newImgWidth = currImage.originalWidth
+		}
+		currImage.img.setAttribute('width',newImgWidth)
+		currImage.img.setAttribute('height',newImgHeight)
+		currImage.img.setAttribute('style','margin-top:'+((getHeight() - newImgHeight) /2)+'px')
+
+		// reposition controls after timeout
+		setTimeout(repositionControls,200)
+
+		// execute resize callback
+		if(CTX.opt.onresize) CTX.opt.onresize()
+	}
+
+	// show next image
+	CTX.next = function() {
+		if(!currGroup){return}
+		// get position of next image
+		var pos = getPos(currThumbnail,currGroup) + 1  
+		if(currImages[pos]) {
+			currThumbnail = currImages[pos]	
+		} 
+		else if(CTX.opt.carousel) {
+			currThumbnail = currImages[0]
+		}
+		else {
+			return
+		}
+		if(typeof CTX.opt.animation === 'number') {
+			removeClass(currImage.img,'jslghtbx-animating-next')
+			setTimeout(function(){
+				var cb = function(){
+					setTimeout(function(){
+						addClass(currImage.img,'jslghtbx-animating-next')
+					},CTX.opt.animation / 2)					
+				}
+				openBox(currThumbnail,false,cb)
+			},CTX.opt.animation / 2)
+		}
+		else {
+			openBox(currThumbnail,false,false)
+		}
+	}
+
+	// show prev image
+	CTX.prev = function() {
+		if(!currGroup){return}
+		// get position of prev image
+		var pos = getPos(currThumbnail,currGroup) - 1 
+		if(currImages[pos]) {
+			currThumbnail = currImages[pos]	
+		}
+		else if(CTX.opt.carousel) {
+			currThumbnail = currImages[currImages.length - 1]
+		}
+		else {
+			return
+		}
+		// animation stuff
+		if(typeof CTX.opt.animation === 'number') {
+			removeClass(currImage.img,'jslghtbx-animating-prev')
+			setTimeout(function(){
+				var cb = function(){
+					setTimeout(function(){
+						addClass(currImage.img,'jslghtbx-animating-next')
+					},CTX.opt.animation / 2)					
+				}
+				openBox(currThumbnail,false,cb)
+			},CTX.opt.animation / 2)
+		}
+		else {
+			openBox(currThumbnail,false,false)
+		}
+	}
+	// closes the box
+	CTX.close = function() {
 		// restore Defaults
 		currGroup = false
 		currThumbnail = false
@@ -656,12 +668,12 @@ function Lightbox () {
 		}
 
 		// show overflow by default / if set
-		if(!this.opt ||  !isset(this.opt.hideOverflow) || this.opt.hideOverflow ) {
+		if(!CTX.opt ||  !isset(CTX.opt.hideOverflow) || CTX.opt.hideOverflow ) {
 			body.setAttribute('style','overflow: auto')
 		}
 
 		// execute close callback
-		if(this.opt.onclose) this.opt.onclose()
+		if(CTX.opt.onclose) CTX.opt.onclose()
 	}
 }
 
