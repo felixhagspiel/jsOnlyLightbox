@@ -573,9 +573,10 @@ function Lightbox () {
 		}
 
 		// save images if group param was passed or currGroup exists
-		group = group || currGroup
-		if(group) {
-			currImages = getByGroup(group)
+		currGroup = group || currGroup
+		if(currGroup) {
+			currThumbnail = el
+			currImages = getByGroup(currGroup)
 			if(CTX.opt.controls && currImages.length > 1) {
 				initControls()
 				repositionControls()
