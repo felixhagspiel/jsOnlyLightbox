@@ -381,23 +381,31 @@ function Lightbox () {
 		}
 	}
 
-	// open the lightbox and show image
+	/**
+	 * Opens the lightbox. Either @param el and @param group must be given,
+	 * but not both together!
+	 * @param  {Object || String}   el    	an image element or a link to an image
+	 * @param  {String}   group 			the name of an image group
+	 * @param  {Function} cb    			A private callback
+	 */
 	function openBox(el,group,cb) {
 		if(!el && !group){return false}
 
-		// save images if group param was passed or currGroup exists
-		currGroup = group || currGroup
+		// save images from group
+		currGroup = group || currGroup || getAttr(el,'data-jslghtbx-group')
 		if(currGroup) {
 			currImages = getByGroup(currGroup)
 			if(typeof el === 'boolean' && !el) {
 				// el is set to false, load first image of group
-				currThumbnail = currImages[0]
 				el = currImages[0]				
 			}
 		}
 
 		// create new img-element
 		currImage.img = new Image()
+
+		// set el as current thumbnail
+		currThumbnail = el
 
 		// get correct image-source
 		var src
@@ -413,7 +421,8 @@ function Lightbox () {
 			// no image-source given
 			src =  getAttr(el,'src')
 		}
-		imgRatio = false // clear old image ratio for proper resize-values
+		// clear old image ratio for proper resize-values
+		imgRatio = false 
 
 		// add init-class on opening, but not at prev/next
 		if(!isOpen) {
@@ -540,8 +549,11 @@ function Lightbox () {
 		}
 
 	}
-	// public function for openBox()
+	// public caller for openBox()
 	CTX.open = function(el,group){
+		// if image and group are given, set group to false
+		// to prevent errors
+		if(el && group) group = false
 		openBox(el,group,false)
 	}
 	// resize function

@@ -154,6 +154,8 @@ _Default: 400_
 
 This options defines wether the next/prev-switch should be animated. If you pass an integer-value, it defines the milliseconds for the animation. Passing `false` disables the animation. Note that all animations are done via CSS3-transitions, so if you want to alter them you have to do it via the CSS-file. 
 
+#### Callbacks
+
 ###	`{onopen: function}`
 Function that is executed when the lightbox is opened.
 
@@ -207,27 +209,27 @@ Example:
 	var lightbox = new Lightbox();
 	lightbox.load(options);
 
-### `lightbox.open(src-link, groupName)`
-If you want you can open the box by click on any element on your page.
-Example:
+### `lightbox.open(src-link || image, groupName)`
+You can open the box manually via JS. There are multiple ways to tell the box which image to load. 
 
-	document.getElementById('open-lightbox').addEventListener('click',function(){
-		lightbox.open('../img/lightbox/1.jpg');
-	});
+1. Via link:
 
-You can also just pass a reference to an image rather than a src-URL.
-Example:
+		document.getElementById('open-lightbox').addEventListener('click',function(){
+			lightbox.open('../img/lightbox/1.jpg');
+		});
 
-	var myImg = document.getElementById('myImg');
-	document.getElementById('open-lightbox-button').addEventListener('click',function(){
-		lightbox.open(myImg);
-	});
+2. Via image object:
 
-In addition you can pass a groupname, which then shows the first element of that group. Be sure to set first param to false:
+		var myImg = document.getElementById('myImg');
+		document.getElementById('open-lightbox').addEventListener('click',function(){
+			lightbox.open(myImg);
+		});
 
-	document.getElementById('open-lightbox').addEventListener('click',function(){
-		lightbox.open(false,'myGroup');
-	});
+3. Via group name, which shows the first image of the group. The first parameter must be false:
+
+		document.getElementById('open-lightbox').addEventListener('click',function(){
+			lightbox.open(false,'myGroup');
+		});
 
 ### `lightbox.next()`
 Shows the next image of current group
