@@ -137,11 +137,11 @@ function Lightbox () {
 	 * @return {boolean || string}      
 	 */
 	function getAttr(obj,attr) {
-		if(!obj || typeof obj == undefined){return false}
+		if(!obj || !isset(obj)){return false}
 		var ret
 		if(obj.getAttribute){ret=obj.getAttribute(attr)}
 		else if(obj.getAttributeNode){ret=obj.getAttributeNode(attr).value}
-		if(typeof ret != undefined && ret != ''){return ret}
+		if(isset(ret) && ret != ''){return ret}
 		return false
 	}
 
@@ -152,42 +152,12 @@ function Lightbox () {
 	 * @return {boolean}      
 	 */
 	function hasAttr(obj,attr) {
-		if(!obj || typeof obj == undefined){return false}
+		if(!obj || !isset(obj)){return false}
 		var ret
 		if(obj.getAttribute){ret=obj.getAttribute(attr)}
 		else if(obj.getAttributeNode){ret=obj.getAttributeNode(attr).value}
 		if(typeof ret === 'string'){return true}
 		return false
-	}
-
-	/**
-	 * Find element in browser
-	 * @param  {string} id 
-	 * @return {boolean}    
-	 */
-	function exists(id){
-		if(document.getElementById(id)) {return true}
-		return false
-	}
-
-	/**
-	 * Preloads next and prev images
-	 */
-	function preload(){
-		if(!currGroup){return}
-		var prev = new Image()
-		var next = new Image()
-		var pos = getPos(currThumbnail,currGroup)
-		if(pos === (currImages.length - 1)) {
-			prev.src = currImages[currImages.length - 1].src
-			next.src = currImages[0].src
-		} else if(pos === 0) {
-			prev.src = currImages[currImages.length - 1].src
-			next.src = currImages[1].src
-		} else {
-			prev.src = currImages[pos - 1].src
-			next.src = currImages[pos + 1].src
-		}
 	}
 
 	/**
@@ -200,6 +170,15 @@ function Lightbox () {
 			currThumbnail = i
 			openBox(i,false,false)
 		},false)
+	}
+
+	/**
+	 * Stop event propagation cross browser
+	 * @param  {object} e 
+	 */
+	function stopPropagation(e) {
+		if(e.stopPropagation) {e.stopPropagation()}
+		else {e.returnValue=false}	
 	}
 
 	/**
@@ -235,32 +214,23 @@ function Lightbox () {
 	}
 
 	/**
-	 * Stop event propagation cross browser
-	 * @param  {object} e 
+	 * Preloads next and prev images
 	 */
-	function stopPropagation(e) {
-		if(e.stopPropagation) {e.stopPropagation()}
-		else {e.returnValue=false}	
-	}
-
-	/**
-	 * Checks if option is set
-	 * @param  {object} opt  The object containing the options
-	 * @param  {string} name The name of the option to check for
-	 * @return {boolean}      
-	 */
-	function chckOpt(opt,name) {
-		return !opt || opt && opt[name]
-	}
-
-	/**
-	 * Checks if callback is set
-	 * @param  {object} opt  The object containing the options
-	 * @param  {string} name The name of the callback to check for
-	 * @return {boolean}      
-	 */
-	function chckCb(opt,name) {
-		return opt && opt[name] && typeof opt[name] === 'function'
+	function preload(){
+		if(!currGroup){return}
+		var prev = new Image()
+		var next = new Image()
+		var pos = getPos(currThumbnail,currGroup)
+		if(pos === (currImages.length - 1)) {
+			prev.src = currImages[currImages.length - 1].src
+			next.src = currImages[0].src
+		} else if(pos === 0) {
+			prev.src = currImages[currImages.length - 1].src
+			next.src = currImages[1].src
+		} else {
+			prev.src = currImages[pos - 1].src
+			next.src = currImages[pos + 1].src
+		}
 	}
 
 	/**
@@ -406,7 +376,7 @@ function Lightbox () {
 			CTX.box = document.getElementById(CTX.opt['boxId'])
 		}
 		// create box element if no ID is given
-		else if(!CTX.box && !exists('jslghtbx')) {
+		else if(!CTX.box && !document.getElementById('jslghtbx')) {
 			var newEl = document.createElement('div')
 			newEl.setAttribute('id','jslghtbx')
 			newEl.setAttribute('class','jslghtbx')
@@ -768,7 +738,7 @@ function Lightbox () {
 			openBox(currThumbnail,false,false)
 		}
 	}
-	
+
 	/**
 	 * Closes the box
 	 */
