@@ -55,7 +55,7 @@ function Lightbox () {
 
 	/**
 	 * Get correct height in IE8
-	 * @return {Number}
+	 * @return {number}
 	 */
 	function getHeight(){
 		return window.innerHeight || document.documentElement.offsetHeight
@@ -63,7 +63,7 @@ function Lightbox () {
 
 	/**
 	 * Get correct width in IE8
-	 * @return {Number}
+	 * @return {number}
 	 */
 	function getWidth(){
 		return window.innerWidth || document.documentElement.offsetWidth
@@ -71,10 +71,10 @@ function Lightbox () {
 
 	/**
 	 * Adds eventlisteners cross browser
-	 * @param {Object}   el       The element which gets the listener
-	 * @param {[type]}   e        The event type
-	 * @param {Function} callback The action to execute on event
-	 * @param {[type]}   val      The capture mode
+	 * @param {object}   el       The element which gets the listener
+	 * @param {string}   e        The event type
+	 * @param {function} callback The action to execute on event
+	 * @param {boolean}   val      The capture mode
 	 */
 	function addEvent(el,e,callback,capture){
 	    if (el.addEventListener) {
@@ -84,33 +84,58 @@ function Lightbox () {
 	    }
 	}
 
-	// check if element has a specific class
+	/**
+	 * Checks if element has a specific class
+	 * @param  {[type]}  el        [description]
+	 * @param  {[type]}  className [description]
+	 * @return {Boolean}           [description]
+	 */
 	function hasClass(el,className) {
 		if(!el || !className){return}
 	    return (new RegExp("(^|\\s)" + className + "(\\s|$)").test(el.className))
 	}
 
-	// remove class from element
+	/**
+	 * Removes class from element
+	 * @param  {object} el        
+	 * @param  {string} className 
+	 * @return {object}           
+	 */
 	function removeClass(el,className) {
 		if(!el || !className){return}
 	    el.className = el.className.replace(new RegExp('(?:^|\\s)'+className+'(?!\\S)'),'' )
 	    return el
 	}
 
-	// add class to element
+	/**
+	 * Adds class to element
+	 * @param  {object} el        
+	 * @param  {string} className 
+	 * @return {object}
+	 */
 	function addClass(el,className) {
 		if(!el || !className){return}
 	    if(!hasClass(el,className)) { el.className += ' '+className }
 	    return el
 	}
 
-	// check if obj is set
+	/**
+	 * Checks if obj is set
+	 * @param  {object} obj 
+	 * @return {boolean}     
+	 */
 	function isset(obj) {
 		if(typeof obj != 'undefined'){return true}
 		return false
 	}
 
-	// get attributes, cross-browser
+	/**
+	 * Get attribute value cross-browser. Returns the attribute as string if found,
+	 * otherwise returns false
+	 * @param  {object} obj  
+	 * @param  {string} attr 
+	 * @return {boolean || string}      
+	 */
 	function getAttr(obj,attr) {
 		if(!obj || typeof obj == undefined){return false}
 		var ret
@@ -120,7 +145,12 @@ function Lightbox () {
 		return false
 	}
 
-	// check attribute, cross-browser
+	/**
+	 * Checks if element has attribute cross-browser
+	 * @param  {object}  obj  
+	 * @param  {string}  attr 	
+	 * @return {boolean}      
+	 */
 	function hasAttr(obj,attr) {
 		if(!obj || typeof obj == undefined){return false}
 		var ret
@@ -130,13 +160,19 @@ function Lightbox () {
 		return false
 	}
 
-	// lookup element in browser
+	/**
+	 * Find element in browser
+	 * @param  {string} id 
+	 * @return {boolean}    
+	 */
 	function exists(id){
 		if(document.getElementById(id)) {return true}
 		return false
 	}
 
-	// preload next and prev images
+	/**
+	 * Preloads next and prev images
+	 */
 	function preload(){
 		if(!currGroup){return}
 		var prev = new Image()
@@ -154,7 +190,10 @@ function Lightbox () {
 		}
 	}
 
-	// add clickhandlers to thumbnails
+	/**
+	 * Adds clickhandlers to thumbnails
+	 * @param  {object} i 
+	 */
 	function clckHlpr(i) {
 		addEvent(i,'click',function(e) {
 			currGroup = getAttr(i, 'data-jslghtbx-group') || false
@@ -163,7 +202,11 @@ function Lightbox () {
 		},false)
 	}
 
-	// get thumbnails by group
+	/**
+	 * Get thumbnails by group
+	 * @param  {string} group 
+	 * @return {object}       Array containing the thumbnails
+	 */
 	function getByGroup(group) {
 		var arr = []
 		for (var i = 0; i < thumbnails.length; i++) {
@@ -174,34 +217,55 @@ function Lightbox () {
 		return arr
 	}
 
-	// get position of thumbnail in group-array
+	/**
+	 * Get the position of thumbnail in group-array
+	 * @param  {object} thumbnail 
+	 * @param  {string} group     
+	 * @return {number}           
+	 */
 	function getPos(thumbnail, group) {
 		var arr = getByGroup(group)
 		for (var i = 0; i < arr.length; i++) {
 			if(getAttr(thumbnail,'src') === getAttr(arr[i],'src') &&
 				getAttr(thumbnail,'data-jslghtbx') === getAttr(arr[i],'data-jslghtbx') ){
+				
 				return i
 			}
 		}
 	}
 
-	// cross-browser stoppropagation
+	/**
+	 * Stop event propagation cross browser
+	 * @param  {object} e 
+	 */
 	function stopPropagation(e) {
 		if(e.stopPropagation) {e.stopPropagation()}
 		else {e.returnValue=false}	
 	}
 
-	// check if option is set
+	/**
+	 * Checks if option is set
+	 * @param  {object} opt  The object containing the options
+	 * @param  {string} name The name of the option to check for
+	 * @return {boolean}      
+	 */
 	function chckOpt(opt,name) {
 		return !opt || opt && opt[name]
 	}
 
-	// check if callback is set
+	/**
+	 * Checks if callback is set
+	 * @param  {object} opt  The object containing the options
+	 * @param  {string} name The name of the callback to check for
+	 * @return {boolean}      
+	 */
 	function chckCb(opt,name) {
 		return opt && opt[name] && typeof opt[name] === 'function'
 	}
 
-	// start animation
+	/**
+	 * Starts the animation
+	 */
 	function startAnimation() {
 		if(isIE8) return
 		// stop any already running animations
@@ -223,7 +287,9 @@ function Lightbox () {
 		animationTimeout = setTimeout(fnc,500)
 	}
 
-	// stop animation
+	/**
+	 * Stops the animation
+	 */
 	function stopAnimation() {
 		if(isIE8) return
 		// hide animation-element
@@ -238,7 +304,9 @@ function Lightbox () {
 		}
 	}
 
-	// init controls
+	/**
+	 * Initializes the control arrows
+	 */
 	function initControls() {
 		if(!nextBtn) {
 			// create & append next-btn
@@ -282,7 +350,9 @@ function Lightbox () {
 		addClass(prevBtn,'jslghtbx-active')
 	}
 
-	// move controls to correct position
+	/**
+	 * Moves controls to correct position
+	 */
 	function repositionControls() {
 		if(CTX.opt.responsive && nextBtn && prevBtn) {
 			var btnTop = (getHeight() / 2) - (nextBtn.offsetHeight / 2)
@@ -291,11 +361,19 @@ function Lightbox () {
 		}
 	}
 
-	// set options
+	/**
+	 * Sets options and defaults
+	 * @param {object} opt 
+	 */
 	function setOpt(opt){
 		// set options
 		if(!opt) opt = {}
-		// 	sets the value per default to true if not given
+
+		/**
+		 * Sets the passed value per default to true if not given
+		 * @param {object || string || number || boolean || ...} val
+		 * @returns {boolean}
+		 */
 		function setTrueDef(val){
 			return typeof val === 'boolean' ? val : true
 		}
@@ -479,7 +557,9 @@ function Lightbox () {
 			repositionControls()
 		}
 
-		// show wrapper when image is loaded
+		/**
+		 * Onload-handler for the image
+		 */
 		currImage.img.onload = function(){
 			// store original width here
 			currImage.originalWidth = this.naturalWidth || this.width
@@ -491,6 +571,7 @@ function Lightbox () {
 				currImage.originalWidth = dummyImg.width
 				currImage.originalHeight = dummyImg.height	
 			}
+			// interval to check if image is ready to show
 			var checkClassInt = setInterval(function(){
 				if(hasClass(CTX.box,'jslghtbx-active'))
 				{
@@ -508,7 +589,7 @@ function Lightbox () {
 					if(CTX.opt.preload) {
 						preload()
 					}
-					// set clickhandler to show next image
+					// set clickhandler on image to show next image
 					if(CTX.opt.nextOnClick) {
 						// add cursor pointer
 						addClass(currImage.img,'jslghtbx-next-on-click')
@@ -519,7 +600,9 @@ function Lightbox () {
 					}
 					// execute onload callback
 					if(CTX.opt.onload) CTX.opt.onload()
+					// stop current interval
 					clearInterval(checkClassInt)
+					// resize the image
 					CTX.resize()
 				}
 			},10)				
@@ -536,7 +619,10 @@ function Lightbox () {
 	* 	Public methods
 	*/
 
-	// init-function
+	/**
+	 * Init-function, must be called once
+	 * @param  {object} opt Custom options
+	 */
 	CTX.load = function(opt) {
 		// check for IE8
 		if(navigator.appVersion.indexOf("MSIE 8") > 0) {
@@ -562,14 +648,22 @@ function Lightbox () {
 		}
 
 	}
-	// public caller for openBox()
+
+	/**
+	 * Public caller for openBox() 
+	 * @param  {object || string} el  Image element or a link
+	 * @param  {string} group 
+	 */
 	CTX.open = function(el,group){
 		// if image and group are given, set group to false
 		// to prevent errors
 		if(el && group) group = false
 		openBox(el,group,false)
 	}
-	// resize function
+
+	/**
+	 * Calculates the new image size and resizes it
+	 */
 	CTX.resize = function() {
 		if(!currImage.img){return}
 		maxWidth = getWidth()
@@ -610,7 +704,9 @@ function Lightbox () {
 		if(CTX.opt.onresize) CTX.opt.onresize()
 	}
 
-	// show next image
+	/**
+	 * Loads the next image
+	 */
 	CTX.next = function() {
 		if(!currGroup){return}
 		// get position of next image
@@ -640,7 +736,9 @@ function Lightbox () {
 		}
 	}
 
-	// show prev image
+	/**
+	 * Loads the prev image
+	 */
 	CTX.prev = function() {
 		if(!currGroup){return}
 		// get position of prev image
@@ -670,7 +768,10 @@ function Lightbox () {
 			openBox(currThumbnail,false,false)
 		}
 	}
-	// closes the box
+	
+	/**
+	 * Closes the box
+	 */
 	CTX.close = function() {
 		// restore Defaults
 		currGroup = false
