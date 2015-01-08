@@ -9,63 +9,76 @@
  */
 
 function Lightbox () {
-	/*
-	* 	Attributes
-	*/
 
-	// public
-	this.opt = {}
-	this.box = false
-	this.wrapper = false
+	/**
+	 * Private vars
+	 */
+	var CTX = this,
+		isIE8 = false,
+		isIE9 = false,
+		body = document.getElementsByTagName('body')[0],
+		template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>',
+		captionTemplate = '<p class="jslghtbx-caption"></p>',
+		imgRatio = false, // ratio of current image
+		currGroup = false, // current group
+		currThumbnail = false, // first clicked thumbnail
+		currImage = {}, // currently shown image
+		currImages = [], // images belonging to current group
+		thumbnails = [], // thumbnails
+		isOpen = false, // check if box is open
+		loadingImgSrc, // path to loading image
+		animationEl, // reference to animation-element
+		animationInt, // animation-interval
+		animationChildren = [], // childs to animate
+		animationTimeout, // timeout until animation starts
+		// controls
+		nextBtn = false,
+		prevBtn = false,
+		// resize-vars
+		maxWidth,
+		maxHeight,
+		wrapperWidth,
+		wrapperHeight,
+		newImgWidth,
+		newImgHeight
 
-	// private
-	var CTX = this
-	var isIE8 = false
-	var isIE9 = false
-	var body = document.getElementsByTagName('body')[0]
-	var template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>'
-	var captionTemplate = '<p class="jslghtbx-caption"></p>'
-	var imgRatio = false // ratio of current image
-	var currGroup = false // current group
-	var currThumbnail = false // first clicked thumbnail
-	var currImage = {} // currently shown image
-	var currImages = [] // images belonging to current group
-	var thumbnails = [] // thumbnails
-	var isOpen = false // check if box is open
-	var loadingImgSrc // path to loading image
-	var animationEl // reference to animation-element
-	var animationInt // animation-interval
-	var animationChildren = [] // childs to animate
-	var animationTimeout // timeout until animation starts
-	// controls
-	var nextBtn = false
-	var prevBtn = false
-	// resize-vars
-	var maxWidth
-	var maxHeight
-	var wrapperWidth
-	var wrapperHeight
-	var newImgWidth
-	var newImgHeight
+	/**
+	 * Public vars
+	 */
+	CTX.opt = {}
+	CTX.box = false
+	CTX.wrapper = false
 
-	/*
-	* 	Private methods
-	*/
+	/**
+	 * Private methods
+	 */
 
-	// get correct height in IE8
+	/**
+	 * Get correct height in IE8
+	 * @return {Number}
+	 */
 	function getHeight(){
 		return window.innerHeight || document.documentElement.offsetHeight
 	}
 
-	// get correct width in IE8
+	/**
+	 * Get correct width in IE8
+	 * @return {Number}
+	 */
 	function getWidth(){
 		return window.innerWidth || document.documentElement.offsetWidth
 	}
 
-	// cross browser eventhandler
-	function addEvent(el,e,callback,val){
+	/**
+	 * Adds eventlisteners cross browser
+	 * @param {Object}   el       The element which gets the listener
+	 * @param {[type]}   e        The event type
+	 * @param {Function} callback The action to execute on event
+	 * @param {[type]}   val      The capture mode
+	 */
+	function addEvent(el,e,callback,capture){
 	    if (el.addEventListener) {
-	        el.addEventListener(e,callback, false)
+	        el.addEventListener(e,callback, capture || false)
 	    } else if (el.attachEvent) {
 	        el.attachEvent("on" + e, callback)
 	    }
@@ -147,7 +160,7 @@ function Lightbox () {
 			currGroup = getAttr(i, 'data-jslghtbx-group') || false
 			currThumbnail = i
 			openBox(i,false,false)
-		})
+		},false)
 	}
 
 	// get thumbnails by group
@@ -243,7 +256,7 @@ function Lightbox () {
 			addEvent(nextBtn,'click',function(e){
 				stopPropagation(e) // prevent closing of lightbox
 				CTX.next()
-			})
+			},false)
 			CTX.box.appendChild(nextBtn)
 		}
 		addClass(nextBtn,'jslghtbx-active')
@@ -263,7 +276,7 @@ function Lightbox () {
 			addEvent(prevBtn,'click',function(e){
 				stopPropagation(e) // prevent closing of lightbox
 				CTX.prev()
-			})
+			},false)
 			CTX.box.appendChild(prevBtn)			
 		}
 		addClass(prevBtn,'jslghtbx-active')
@@ -338,14 +351,14 @@ function Lightbox () {
 			addEvent(closeBtn,'click',function(e){
 				stopPropagation(e)
 				CTX.close()
-			})
+			},false)
 		}
 
 		// close lightbox on background-click by default / if true
 		if(!isIE8 && CTX.opt['closeOnClick']) {
 			addEvent(CTX.box,'click',function(e){
 				CTX.close()
-			})
+			},false)
 		}
 
 		// set loading animation
@@ -373,7 +386,7 @@ function Lightbox () {
 		if(CTX.opt['responsive']) {
 			addEvent(window,'resize',function(e){
 				CTX.resize()
-			})
+			},false)
 			addClass(CTX.box,'jslghtbx-nooverflow') // hide scrollbars on prev/next
 		} 
 		else {
