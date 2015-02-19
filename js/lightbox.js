@@ -295,6 +295,11 @@ function Lightbox () {
 				stopPropagation(e) // prevent closing of lightbox
 				CTX.next()
 			},false)
+			addEvent(document,'keydown',function(e){
+				stopPropagation(e) // prevent closing of lightbox
+				if(e.keyCode == 39)
+					CTX.next()
+		        },false)
 			CTX.box.appendChild(nextBtn)
 		}
 		addClass(nextBtn,'jslghtbx-active')
@@ -315,6 +320,11 @@ function Lightbox () {
 				stopPropagation(e) // prevent closing of lightbox
 				CTX.prev()
 			},false)
+			addEvent(document,'keydown',function(e){
+				stopPropagation(e) // prevent closing of lightbox
+				if(e.keyCode == 37)
+					CTX.prev()
+		        },false)
 			CTX.box.appendChild(prevBtn)			
 		}
 		addClass(prevBtn,'jslghtbx-active')
