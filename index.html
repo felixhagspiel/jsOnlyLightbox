@@ -156,6 +156,9 @@
 			&nbsp;},<br/>
 			&nbsp;onresize: 			function(){<br/>
 				&nbsp;&nbsp;// ...<br/>
+			&nbsp;}<br/>
+			&nbsp;onloaderror: 			function(event){<br/>
+				&nbsp;&nbsp;// ...<br/>
 			&nbsp;}<br/>	
 		}<br/><br/>
 		lightbox.load(lightBoxOptions);
@@ -208,7 +211,7 @@
 	<div class="section">
 		<h2>Download latest version</h2>
 		<ul class="u-list nostyle">
-			<li>Last update 30.12.2014</li>
+			<li>Last update 02.03.2015</li>
 			<li><a href="http://jslightbox.felixhagspiel.de/jsonlylightbox-v0.5.zip" class="btn">Download jsOnlyLightbox v0.5</a></li>
 		</ul>
 	</div>
@@ -244,8 +247,11 @@
 			onload: 			function(){
 				// your code goes here
 			},
-			onresize: 			function(){
+			onresize: 		function(){
 				// your code goes here
+			},
+			onloaderror: 	function(event){
+				// your code goes here		
 			}
 		});
 	</script>

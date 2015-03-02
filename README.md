@@ -173,6 +173,14 @@ Function that is executed when the lightbox is resized.
 ###	`{onload: function}`
 Function that is executed once the current image is loaded.
 
+###	`{onloaderror: function(event)}`
+Function that is executed when the current image fails to load. You can add your handlers here to display a warning or call other functions. The callback receives an event which is `"prev"` if the prev button was clicked, `"next"` if the next button was clicked or `false` for all other ways of opening the lightbox. This allows you to handle errors like this:
+
+		if(event === 'prev')
+			lightbox.prev()
+		else
+			lightbox.next()	
+
 ## Methods
 
 ### `lightbox.load(options)`

@@ -168,7 +168,7 @@ function Lightbox () {
     addEvent(i,'click',function(e) {
       currGroup = getAttr(i, 'data-jslghtbx-group') || false
       currThumbnail = i
-      openBox(i,false,false)
+      openBox(i,false,false,false)
     },false)
   }
 
@@ -370,6 +370,7 @@ function Lightbox () {
       onclose:            opt['onclose'] || false,
       onload:             opt['onload'] || false,
       onresize:           opt['onresize'] || false,
+      onloaderror:        opt['onloaderror'] || false,
     }
 
     // load box in custom element
@@ -450,7 +451,7 @@ function Lightbox () {
    * @param  {String}   group       the name of an image group
    * @param  {Function} cb          A private callback
    */
-  function openBox(el,group,cb) {
+  function openBox(el,group,cb,event) {
     if(!el && !group){return false}
 
     // save images from group
@@ -528,6 +529,13 @@ function Lightbox () {
       repositionControls()
     }
 
+    /**
+     * Onerror-handler for the image
+     */
+    currImage.img.onerror = function(){
+      if(CTX.opt.onloaderror)
+        CTX.opt.onloaderror(event)
+    }
     /**
      * Onload-handler for the image
      */
@@ -629,7 +637,7 @@ function Lightbox () {
     // if image and group are given, set group to false
     // to prevent errors
     if(el && group) group = false
-    openBox(el,group,false)
+    openBox(el,group,false,false)
   }
 
   /**
@@ -700,11 +708,11 @@ function Lightbox () {
             addClass(currImage.img,'jslghtbx-animating-next')
           },CTX.opt.animation / 2)          
         }
-        openBox(currThumbnail,false,cb)
+        openBox(currThumbnail,false,cb,'next')
       },CTX.opt.animation / 2)
     }
     else {
-      openBox(currThumbnail,false,false)
+      openBox(currThumbnail,false,false,'next')
     }
   }
 
@@ -733,11 +741,11 @@ function Lightbox () {
             addClass(currImage.img,'jslghtbx-animating-next')
           },CTX.opt.animation / 2)          
         }
-        openBox(currThumbnail,false,cb)
+        openBox(currThumbnail,false,cb,'prev')
       },CTX.opt.animation / 2)
     }
     else {
-      openBox(currThumbnail,false,false)
+      openBox(currThumbnail,false,false,'prev')
     }
   }
 
