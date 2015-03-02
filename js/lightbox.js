@@ -234,7 +234,7 @@ function Lightbox () {
   }
 
   /**
-   * Starts the animation
+   * Starts the loading animation
    */
   function startAnimation() {
     if(isIE8) return
