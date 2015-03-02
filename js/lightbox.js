@@ -453,7 +453,6 @@ function Lightbox () {
    */
   function openBox(el,group,cb,event) {
     if(!el && !group){return false}
-
     // save images from group
     currGroup = group || currGroup || getAttr(el,'data-jslghtbx-group')
     if(currGroup) {
@@ -578,7 +577,7 @@ function Lightbox () {
             },false)
           }
           // execute onload callback
-          if(CTX.opt.onload) CTX.opt.onload()
+          if(CTX.opt.onload) CTX.opt.onload(event)
           // stop current interval
           clearInterval(checkClassInt)
           // resize the image
