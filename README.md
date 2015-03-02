@@ -154,6 +154,11 @@ _Default: 400_
 
 This options defines wether the next/prev-switch should be animated. If you pass an integer-value, it defines the milliseconds for the animation. Passing `false` disables the animation. Note that all animations are done via CSS3-transitions, so if you want to alter them you have to do it via the CSS-file. 
 
+###	`{maxImgSize: float}`
+_Default: 0.8_
+
+This is the modifier which is used to reduce the images size when it's full size won't fit in the viewport. Maximum value is 1 for 100%.
+
 #### Callbacks
 
 ###	`{onopen: function}`

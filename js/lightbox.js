@@ -364,6 +364,7 @@ function Lightbox () {
       animation:          opt['animation'] || 400,
       nextOnClick:        setTrueDef(opt['nextOnClick']),
       responsive:         setTrueDef(opt['responsive']),
+      maxImgSize:         opt['maxImgSize'] || 0.8,
       // callbacks
       onopen:             opt['onopen'] || false,
       onclose:            opt['onclose'] || false,
@@ -646,16 +647,17 @@ function Lightbox () {
 
     // Height of image is too big to fit in viewport
     if( Math.floor(boxWidth/imgRatio) > boxHeight ) {
-      newImgWidth = boxHeight*imgRatio*0.8
-      newImgHeight = boxHeight*0.8
+      newImgWidth = boxHeight*imgRatio
+      newImgHeight = boxHeight
     }
     // Width of image is too big to fit in viewport
     else {
-      newImgWidth = boxWidth*0.8
-      newImgHeight = boxWidth/imgRatio*0.8
+      newImgWidth = boxWidth
+      newImgHeight = boxWidth/imgRatio
     }
-    newImgWidth = Math.floor(newImgWidth)
-    newImgHeight = Math.floor(newImgHeight)
+    // decrease size with modifier
+    newImgWidth = Math.floor(newImgWidth * CTX.opt.maxImgSize) 
+    newImgHeight = Math.floor(newImgHeight * CTX.opt.maxImgSize)
     
     // check if image exceeds maximum size
     if( CTX.opt.dimensions && newImgHeight > currImage.originalHeight ||
