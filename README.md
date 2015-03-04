@@ -205,6 +205,7 @@ Example:
 		animation: 			400,
 		nextOnClick: 		true,
 		responsive: 		true,
+		maxImgSize:			0.8,
 		// callbacks
 		onopen: function(){
 			// ...
@@ -216,6 +217,9 @@ Example:
 			// ...
 		},
 		onresize: function(){
+			// ...
+		},
+		onloaderror: function(){
 			// ...
 		}
 	};
