@@ -27,7 +27,7 @@
     "bower_components",
     "test",
     "tests",
-    "img",
+    "img/lightbox",
     "index.html",
     "README.md"
   ]
