@@ -6,7 +6,11 @@
     "Felix Hagspiel <info@felixhagspiel.de> (http://felixhagspiel.de)"
   ],
   "description": "Responsive image gallery written in plain JavaScript",
-  "main": ["css/lightbox.css","css/lightbox.min.css","js/lightbox.js","js/lightbox.min.js","img/trans-bck.png"],
+  "main": [
+    "css/lightbox.css",
+    "js/lightbox.js",
+    "img/trans-bck.png"
+  ],
   "keywords": [
     "responsive",
     "lightbox",
@@ -23,6 +27,6 @@
     "bower_components",
     "test",
     "tests",
-    "img/lightbox"
+    "img"
   ]
 }
