@@ -27,6 +27,8 @@
     "bower_components",
     "test",
     "tests",
-    "img"
+    "img",
+    "index.html",
+    "README.md"
   ]
 }
