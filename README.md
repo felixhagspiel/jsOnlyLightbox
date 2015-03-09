@@ -70,6 +70,10 @@ If you want to use captions add the `data-jslghtbx-caption` attribute. You can a
 	
 	<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx data-jslghtbx-caption="This is my <a href='http://abc.de'>caption.</a>">
 
+To allow e.g. "Open in background"-actions and non-JavaScript-enabled browsing to work as expected, an image can be wrapped in a link element with the CSS-class `jslghtbx-fallback-link` applied. A "left-click" on the image in a JavaScript-enabled browser will trigger the lightbox and not the `href`-action, though still unobtrusively handling other cases.
+
+	<a class="jslghtbx-fallback-link" href="img/1-big.jpg"><img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx="img/1-big.jpg"></a>
+
 ## CSS Animations
 
 When the lightbox is opened first, the image inside gets the class `jslghtbx-animate-init`. This is useful if you want to animate opacity. 
