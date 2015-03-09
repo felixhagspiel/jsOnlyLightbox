@@ -24,7 +24,6 @@ function Lightbox () {
     currThumbnail = false, // first clicked thumbnail
     currImage = {}, // currently shown image
     currImages = [], // images belonging to current group
-    thumbnails = [], // thumbnails
     isOpen = false, // check if box is open
     loadingImgSrc, // path to loading image
     animationEl, // reference to animation-element
@@ -42,13 +41,14 @@ function Lightbox () {
     newImgWidth,
     newImgHeight
 
-  /**
-   * Public vars
-   */
+  /*
+  *   Public attributes
+  */
   CTX.opt = {}
   CTX.box = false
   CTX.wrapper = false
-
+  CTX.thumbnails = []
+  
   /**
    * Private methods
    */
@@ -188,9 +188,9 @@ function Lightbox () {
    */
   function getByGroup(group) {
     var arr = []
-    for (var i = 0; i < thumbnails.length; i++) {
-      if(getAttr(thumbnails[i],'data-jslghtbx-group') === group) {
-        arr.push(thumbnails[i])
+    for (var i = 0; i < CTX.thumbnails.length; i++) {
+      if(getAttr(CTX.thumbnails[i],'data-jslghtbx-group') === group) {
+        arr.push(CTX.thumbnails[i])
       }
     }
     return arr
@@ -619,7 +619,7 @@ function Lightbox () {
   /*
   *   Public methods
   */
-
+ 
   /**
    * Init-function, must be called once
    * @param  {object} opt Custom options
@@ -643,7 +643,7 @@ function Lightbox () {
     for(var i = 0; i < arr.length; i++)
     {
       if(hasAttr(arr[i],'data-jslghtbx')) {
-        thumbnails.push(arr[i])
+        CTX.thumbnails.push(arr[i])
         clckHlpr(arr[i])
       }
     }

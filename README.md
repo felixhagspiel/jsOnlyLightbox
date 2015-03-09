@@ -188,6 +188,19 @@ Function that is executed when the current image fails to load. You can add your
 		else
 			lightbox.next()	
 
+## Attributes
+
+### `lightbox.thumbnails`
+Type: `Array`
+
+Array holding all thumbnail elements. If you want to dynamically load and push pictures to an existing group be sure to set a groupname on the element via the `data-jslghtbx-group` attribute. If you want to show just one dynamic loaded picture you should use the `open()` method.
+Example:
+
+	var img = new Image()
+	img.src = 'img/lightbox/9-small.jpg'
+	img.setAttribute('data-jslghtbx-group','mygroup')
+	lightbox.thumbnails.push(img)
+
 ## Methods
 
 ### `lightbox.load(options)`
