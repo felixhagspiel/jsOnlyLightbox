@@ -625,6 +625,15 @@ function Lightbox () {
       }
     }
 
+    // Deactivate wrapping "no JS"-fallback links if we reach this point.
+    var noJsHref = document.getElementsByClassName('jslghtbx-fallback-link');
+    for (var i = 0; i < noJsHref.length; i++) {
+      // Using an event listener instead of
+      //     noJsHref[i].href = 'javascript:void(0);';
+      // allows e.g. "Open in background"-actions to function correctly.
+      noJsHref[i].addEventListener('click', function (e) { e.preventDefault(); });
+    }
+
   }
 
   /**
