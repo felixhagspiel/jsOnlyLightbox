@@ -365,6 +365,7 @@ function Lightbox () {
       nextOnClick:        setTrueDef(opt['nextOnClick']),
       responsive:         setTrueDef(opt['responsive']),
       maxImgSize:         opt['maxImgSize'] || 0.8,
+      keyControls:        setTrueDef(opt['keyControls']),
       // callbacks
       onopen:             opt['onopen'] || false,
       onclose:            opt['onclose'] || false,
@@ -441,6 +442,28 @@ function Lightbox () {
     } 
     else {
       removeClass(CTX.box,'jslghtbx-nooverflow')
+    }
+
+    // add keyboard event handlers
+    if(CTX.opt['keyControls']){
+      // show next img on right cursor
+      addEvent(document,'keydown',function(e){
+        stopPropagation(e) // prevent closing of lightbox
+        if(isOpen && e.keyCode == 39)
+          CTX.next()
+      },false)
+      // show prev img on left cursor
+      addEvent(document,'keydown',function(e){
+        stopPropagation(e) // prevent closing of lightbox
+        if(isOpen && e.keyCode == 37)
+          CTX.prev()
+      },false)
+      // close box on escape
+      addEvent(document,'keydown',function(e){
+        stopPropagation(e) // prevent closing of lightbox
+        if(isOpen && e.keyCode == 27)
+          CTX.close()
+      },false)
     }
   }
 

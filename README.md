@@ -142,6 +142,11 @@ _Default: true_
 
 Show or hide the default next- & prev-buttons.
 
+###	`{keyControls: bool}`
+_Default: true_
+
+Use right and left keys on keyboard to navigate through gallery and escape key to close the box.
+
 ###	`{nextImg: 'path/to/image'}`
 Here you can pass the path to an alternative next-button image. By default the arrows are rendered via CSS. If you want to use images make sure to apply custom styling for smaller viewports via the CSS-Class `jslghtbx-next`.
 
@@ -208,6 +213,7 @@ Example:
 		nextOnClick: 		true,
 		responsive: 		true,
 		maxImgSize:			0.8,
+		keyControls: 		true,
 		// callbacks
 		onopen: function(){
 			// ...
