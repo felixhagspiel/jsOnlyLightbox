@@ -80,7 +80,7 @@
 
 /* Caption */
 .jslghtbx-caption {
-  display: block;
+  display: none;
   margin-left: auto;
   margin-right: auto;
   margin-top: 5px;
@@ -89,6 +89,9 @@
   color: #fff;
   text-align: center;
   font-size: .9em; }
+
+.jslghtbx-active .jslghtbx-caption {
+  display: block; }
 
 /* Animation Stuff */
 .jslghtbx-contentwrapper.jslghtbx-animate > img {
