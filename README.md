@@ -26,7 +26,7 @@ Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspie
 
 ## Demo
 
-You can watch it live at [jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/) or on [felixhagspiel.de](http://felixhagspiel.de/)
+You can watch it live at [jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/) or on [felixhagspiel.de](http://felixhagspiel.de/projects)
 
 ## Usage
 
@@ -181,12 +181,14 @@ Function that is executed when the lightbox is resized.
 Function that is executed once the current image is loaded. The callback receives an event which is `"prev"` if the prev button was clicked, `"next"` if the next button was clicked or `false` for all other ways of opening the lightbox.
 
 ###	`{onloaderror: function(event)}`
-Function that is executed when the current image fails to load. You can add your handlers here to display a warning or call other functions. The callback receives an event which is `"prev"` if the prev button was clicked, `"next"` if the next button was clicked or `false` for all other ways of opening the lightbox. This allows you to handle errors like this:
-
-		if(event === 'prev')
-			lightbox.prev()
-		else
-			lightbox.next()	
+Function that is executed when the current image fails to load. You can add your handlers here to display a warning or call other functions. The callback receives an event which is `"prev"` if the prev button was clicked, `"next"` if the next button was clicked or `false` for all other ways of opening the lightbox. This allows you to handle errors. For example you can just show the next or previous picture if the current one is not available:
+		
+		onloaderror: function(event){
+			if(event === 'prev')
+				lightbox.prev()
+			else
+				lightbox.next()	
+		}
 
 ## Attributes
 
@@ -237,10 +239,10 @@ Example:
 		onload: function(){
 			// ...
 		},
-		onresize: function(){
+		onresize: function(event){
 			// ...
 		},
-		onloaderror: function(){
+		onloaderror: function(event){
 			// ...
 		}
 	};
