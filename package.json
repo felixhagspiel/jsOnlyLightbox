@@ -1,0 +1,29 @@
+{
+  "name": "jsonlylightbox",
+  "version": "0.5.1",
+  "description": "Responsive image gallery written in plain JavaScript",
+  "main": [
+    "css/lightbox.css",
+    "js/lightbox.js",
+    "img/trans-bck.png"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://olegshilov@github.com/olegshilov/jsOnlyLightbox.git"
+  },
+  "author": "Felix Hagspiel <info@felixhagspiel.de> (http://felixhagspiel.de)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olegshilov/jsOnlyLightbox/issues"
+  },
+  "homepage": "https://github.com/olegshilov/jsOnlyLightbox#readme",
+  "keywords": [
+    "responsive",
+    "lightbox",
+    "image",
+    "gallery",
+    "no jquery",
+    "vanilla",
+    "javascript"
+  ]
+}
