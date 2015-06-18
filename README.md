@@ -19,10 +19,18 @@ Do not forget to add those lines inside your `<head></head>` if you want to supp
 		<![endif]-->
 
 ## Download
+The lightbox is still in development mode, so please post any issues and bugs here. 
 
-Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/). The lightbox is still in development mode, so please post any issues and bugs here. You can also use bower to install the lightbox:
+Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/).
+
+Install with Bower
+
+	bower install jsonlylightbox --save
+
+Install with npm
 	
-	bower install jsonlylightbox --save-dev
+	npm install jsonlylightbox --save
+
 
 ## Demo
 
