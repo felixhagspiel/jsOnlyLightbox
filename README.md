@@ -19,10 +19,18 @@ Do not forget to add those lines inside your `<head></head>` if you want to supp
 		<![endif]-->
 
 ## Download
+The lightbox is still in development mode, so please post any issues and bugs here. 
 
-Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/). The lightbox is still in development mode, so please post any issues and bugs here. You can also use bower to install the lightbox:
+Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/).
+
+Install with Bower
+
+	bower install jsonlylightbox --save
+
+Install with npm
 	
-	bower install jsonlylightbox --save-dev
+	npm install jsonlylightbox --save
+
 
 ## Demo
 
@@ -152,6 +160,9 @@ Here you can pass the path to an alternative next-button image. By default the a
 
 ###	`{prevImg: 'path/to/image'}`
 Here you can pass the path to an alternative prev-button image. By default the arrows are rendered via CSS. If you want to use images make sure to apply custom styling for smaller viewports via the CSS-Class `jslghtbx-prev`.
+
+###	`{controlClose: string}`
+Replace standard close button with string. You can pass html here.
 
 ###	`{boxId: 'elementId'}`
 Here you can pass an ID if you want to use your own box-element. Images will be appended to that element then. The element will receive a class "jslghtbx-active" when opened, so style this class properly (you need at least to remove visibility by default and add it on active). If you want it to look like the default-box, just add the class "jslghtbx" to the box-element.
