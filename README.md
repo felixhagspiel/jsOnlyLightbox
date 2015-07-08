@@ -6,6 +6,7 @@
 - no jQuery needed, plain JavaScript
 - Fully responsive
 - Customizable Theme, SCSS-files included
+- You can push images loaded via ajax to the lightbox
 - Small in Size (< 10Kb)
 - CSS3-Animations & controls, however, loading GIFs and arrow images can be used
 - Licensed under MIT, code is free for commercial &amp; personal use. However, it would be great if you send me an link of your websites using my lightbox so I can see it live in action and post some real-word examples here. I am also happy about backlinks & github-stars :) **The pictures included are NOT free to use!** Please  [contact me first](http://felixhagspiel.de/contact) if you want to use the them!
@@ -21,7 +22,7 @@ Do not forget to add those lines inside your `<head></head>` if you want to supp
 ## Download
 
 Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/). The lightbox is still in development mode, so please post any issues and bugs here. You can also use bower to install the lightbox:
-	
+
 	bower install jsonlylightbox --save-dev
 
 ## Demo
@@ -31,7 +32,7 @@ You can watch it live at [jslightbox.felixhagspiel.de](http://jslightbox.felixha
 ## Usage
 
 Add the CSS-File to the head of your html-file:
-	
+
 	<link rel="stylesheet" href="css/lightbox.css">
 
 Add this before the closing body tag:
@@ -52,6 +53,8 @@ You can pass a link of a different image via the `data-jslghtbx` attribute, whic
 
 	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx="img/1-big.jpg">
 
+You can also dynamically push images to groups, this is usefull if you load images via ajax. See the [`lightbox.thumbnails`](#lightboxthumbnails) attribute for an example.
+
 If you want to group images to structure your content, use the `data-jslghtbx-group` attribute. You can have multiple groups on one page. This is also helpful when you dont want to use thumbnails, just hide the thumbnails via CSS:
 
 	<img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/3-big.jpg" data-jslghtbx-group="mygroup1">
@@ -67,18 +70,18 @@ If you want to group images to structure your content, use the `data-jslghtbx-gr
 The default control-arrows will be loaded when using groups. You can also use your own control-buttons by providing an ID via the options. For more detail look into the options section below.
 
 If you want to use captions add the `data-jslghtbx-caption` attribute. You can also pass HTML:
-	
+
 	<img class="jslghtbx-thmb" src="img/lightbox/2.jpg" alt="" data-jslghtbx data-jslghtbx-caption="This is my <a href='http://abc.de'>caption.</a>">
 
 ## CSS Animations
 
-When the lightbox is opened first, the image inside gets the class `jslghtbx-animate-init`. This is useful if you want to animate opacity. 
+When the lightbox is opened first, the image inside gets the class `jslghtbx-animate-init`. This is useful if you want to animate opacity.
 If you are showing multiple images inside the box via the group-param, the classes `jslghtbx-animating-next` and `jslghtbx-animating-prev` are added and removed, each for half of the durationtime given by the option `animation` (defaults to 400 milliseconds).
 The box receives the class `jslghtbx-active` when opened, and the wrapper gets `jslghtbx-wrapper-active` when all calculations are done. Feel free to edit those styles.
 
 ## Options
 
-###	`{responsive: bool}` 
+###	`{responsive: bool}`
 _Default: true_
 
 If set to true, the image will be resized according to the viewport on resize-events.
@@ -103,7 +106,7 @@ This sets the number of animated `span` tags which are appended to the `jslghtbx
 ###	`{carousel: bool}`
 _Default: true_
 
-If set to true, you can infinitely loop through all the images by clicking the next/prev button or calling the `next()` / `prev()`-functions.  
+If set to true, you can infinitely loop through all the images by clicking the next/prev button or calling the `next()` / `prev()`-functions.
 
 ###	`{captions: bool}`
 _Default: true_
@@ -113,7 +116,7 @@ If set to true, the caption text inside the `data-jslghtbx-caption` attribute wi
 ###	`{closeOnClick: bool}`
 _Default: true_
 
-If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button. 
+If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button.
 
 Note: May not work in IE8.
 
@@ -159,7 +162,7 @@ Here you can pass an ID if you want to use your own box-element. Images will be 
 ###	`{animation: number | bool}`
 _Default: 400_
 
-This options defines wether the next/prev-switch should be animated. If you pass an integer-value, it defines the milliseconds for the animation. Passing `false` disables the animation. Note that all animations are done via CSS3-transitions, so if you want to alter them you have to do it via the CSS-file. 
+This options defines wether the next/prev-switch should be animated. If you pass an integer-value, it defines the milliseconds for the animation. Passing `false` disables the animation. Note that all animations are done via CSS3-transitions, so if you want to alter them you have to do it via the CSS-file.
 
 ###	`{maxImgSize: float}`
 _Default: 0.8_
@@ -182,12 +185,12 @@ Function that is executed once the current image is loaded. The callback receive
 
 ###	`{onloaderror: function(event)}`
 Function that is executed when the current image fails to load. You can add your handlers here to display a warning or call other functions. The callback receives an event which is `"prev"` if the prev button was clicked, `"next"` if the next button was clicked or `false` for all other ways of opening the lightbox. This allows you to handle errors. For example you can just show the next or previous picture if the current one is not available:
-		
+
 		onloaderror: function(event){
 			if(event === 'prev')
 				lightbox.prev()
 			else
-				lightbox.next()	
+				lightbox.next()
 		}
 
 ## Attributes
@@ -250,7 +253,7 @@ Example:
 	lightbox.load(options);
 
 ### `lightbox.open(src-link || image, groupName)`
-You can open the box manually via JS. There are multiple ways to tell the box which image to load. 
+You can open the box manually via JS. There are multiple ways to tell the box which image to load.
 
 1. Via link:
 
