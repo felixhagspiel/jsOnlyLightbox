@@ -1,260 +1,335 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-	<meta charset="utf-8">
-	<title>jsOnlyLightbox 0.5.1</title>
-	<meta name="keywords" content="lightbox showbox picture box javascript js only gallery slim lightweight responsive">
-	<meta name="description" content="jsonlylightbox is written in plain JavaScript. No jQuery needed, responsive, customizable, lightweight, supports IE8+ and is free for personal and commercial use">
-	<meta name="author" content="Felix Hagspiel http://felixhagspiel.de">
-	<meta name="viewport" content="width=device-width,initial-scale=1.0">
-	<link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="css/lightbox.css">
-	<!--[if lt IE 9]>
-	    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" type="text/javascript"></script>
-	<![endif]-->
-	<script>
-	  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-	  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-	  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-	  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+    <meta charset="utf-8">
+    <title>jsOnlyLightbox 0.5.1</title>
+    <meta name="keywords" content="lightbox showbox picture box javascript js only gallery slim lightweight responsive">
+    <meta name="description"
+          content="jsonlylightbox is written in plain JavaScript. No jQuery needed, responsive, customizable, lightweight, supports IE8+ and is free for personal and commercial use">
+    <meta name="author" content="Felix Hagspiel http://felixhagspiel.de">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/lightbox.css">
+    <!--[if lt IE 9]>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" type="text/javascript"></script>
+    <![endif]-->
+    <script>
+        (function (i, s, o, g, r, a, m) {
+            i['GoogleAnalyticsObject'] = r;
+            i[r] = i[r] || function () {
+                        (i[r].q = i[r].q || []).push(arguments)
+                    }, i[r].l = 1 * new Date();
+            a = s.createElement(o),
+                    m = s.getElementsByTagName(o)[0];
+            a.async = 1;
+            a.src = g;
+            m.parentNode.insertBefore(a, m)
+        })(window, document, 'script', '//www.google-analytics.com/analytics.js', 'ga');
 
-	  ga('create', 'UA-45207399-2', 'auto');
-	  ga('send', 'pageview');
-	</script>
-	<style>
-		body {
-			font-family: 'Open Sans', sans-serif;
-			font-weight: light;
-			color: #6c7176;
-			padding-top: 4em;
-			-webkit-font-smoothing: antialiased;
-		}
-		a {
-			text-decoration: none;
-			color: #D69612;
-		}
-		.section {
-			max-width: 50em;
-			margin: 4em auto;
-			text-align: left;
-		}
-		.u-list {
-			margin: 0;
-		}
-		.u-list.nostyle {
-			list-style-type: none;
-			padding: 0;
-		}
-		.u-list	li {
-			margin: 0.6em 0;
-		}
-		.u-margin-bottom--big {
-			margin-bottom: 2em;
-		}
-		.btn {
-			background-color: #547C85;
-			color: #fff;
-			padding: .15em .4em;
-			display: inline-block;
-			border-radius: 4px;
-			-webkit-transition: all 0.3s ease-in-out;
-			-moz-transition: all 0.3s ease-in-out;
-			-o-transition: all 0.3s ease-in-out;
-			-ms-transition: all 0.3s ease-in-out;
-			transition: all 0.3s ease-in-out;
-		}
-		.btn:hover {
-			color: #F1C15C;
-		}
-	
-		code {
-			padding: 0 .4em;
-			display: inline-block;
-			border: 1px solid #547C85;
-			border-radius: 3px;
-			text-align: left;
-			word-wrap: break-word;
-			white-space: normal;
-			max-width: 100%;
-			color: #000;
-			font-family: monospace;
-			font-size: .88em;
-			background-color: #E1F1F7;
-		}
-		code.block {
-			display: block;
-			padding: 1em;
-		}
+        ga('create', 'UA-45207399-2', 'auto');
+        ga('send', 'pageview');
+    </script>
+    <style>
+        body {
+            font-family: 'Open Sans', sans-serif;
+            font-weight: light;
+            color: #6c7176;
+            padding-top: 4em;
+            -webkit-font-smoothing: antialiased;
+        }
 
-		@media screen and (max-width: 600px) {
-			img.jslghtbx-thmb {
-				margin: 1em auto;
-				display: block !important;
-			}
-		}
-	</style>
+        a {
+            text-decoration: none;
+            color: #D69612;
+        }
+
+        .section {
+            max-width: 50em;
+            margin: 4em auto;
+            text-align: left;
+        }
+
+        .u-list {
+            margin: 0;
+        }
+
+        .u-list.nostyle {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .u-list li {
+            margin: 0.6em 0;
+        }
+
+        .u-margin-bottom--big {
+            margin-bottom: 2em;
+        }
+
+        .btn {
+            background-color: #547C85;
+            color: #fff;
+            padding: .15em .4em;
+            display: inline-block;
+            border-radius: 4px;
+            -webkit-transition: all 0.3s ease-in-out;
+            -moz-transition: all 0.3s ease-in-out;
+            -o-transition: all 0.3s ease-in-out;
+            -ms-transition: all 0.3s ease-in-out;
+            transition: all 0.3s ease-in-out;
+        }
+
+        .btn:hover {
+            color: #F1C15C;
+        }
+
+        code {
+            padding: 0 .4em;
+            display: inline-block;
+            border: 1px solid #547C85;
+            border-radius: 3px;
+            text-align: left;
+            word-wrap: break-word;
+            white-space: normal;
+            max-width: 100%;
+            color: #000;
+            font-family: monospace;
+            font-size: .88em;
+            background-color: #E1F1F7;
+        }
+
+        code.block {
+            display: block;
+            padding: 1em;
+        }
+
+        @media screen and (max-width: 600px) {
+            img.jslghtbx-thmb {
+                margin: 1em auto;
+                display: block !important;
+            }
+        }
+    </style>
 </head>
 <body id="body">
-<a href="https://github.com/felixhagspiel/jsOnlyLightbox"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67" alt="Fork me on GitHub" data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
-	<div class="section">
-		<h1>jsOnlyLightbox 0.5.1</h1>
-		<h2>Responsive Lightbox written in plain JavaScript</h2>
-		<ul class="u-list">
-			<li>No jQuery needed</li>
-			<li>Fully responsive</li>
-			<li>Customizable</li>
-			<li>CSS3-Animations &amp; controls, however, loading GIFs and arrow images can be used</li>
-			<li>Lightweight (&lt;10Kb)</li>
-			<li>Licensed under MIT, code is free for commercial &amp; personal use. However, it would be great if you send me an link of your websites using my lightbox so I can see it live in action and post some real-word examples here. I am also happy about backlinks &amp; github-stars :) <b>The pictures included are NOT free to use!</b> Please <a href="http://felixhagspiel.de/contact">contact me first</a> if you want to use the them!</li>
-			<li>IE8+ supported. Dont`t forget to add those lines inside your <code>&lt;head&gt;&lt;/head&gt;</code> - tag if you need IE8-Support:</li><br/> 
-				<code class="block">
-					&lt;!--[if lt IE 9]&gt;<br/>	    &lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;<br/>	&lt;![endif]--&gt;
-				</code>
-			</li>
-			<li>Visit me on <a href="http://felixhagspiel.de">felixhagspiel.de</a></li>
-		</ul>
-	</div>
-	<div class="section">
-		<h2>Full API documentation</h2>
-		<p>Full API documentation including methods, options &amp; callbacks is on <a href="https://github.com/felixhagspiel/jsOnlyLightbox">Github</a></p>
-		<h2>Download</h2>
-		<p>Get the latest version of the jsOnlyLightbox from <a href="https://github.com/felixhagspiel/jsOnlyLightbox">Github</a>. You can also use bower (<a href="http://bower.io/">bower.io</a>) to install:</p>
-		<code class="block">
-			bower install jsonlylightbox --save-dev<br/>
-		</code>
-		<h2>Usage</h2>
-		<p>Add the link to the CSS-File to the head of your html-file:</p>
-		<code class="block">
-			&lt;link rel=&quot;stylesheet&quot; href=&quot;css/lightbox.css&quot;&gt;<br/>
-		</code>
-		<p>Add this before the closing body tag:</p>
-		<code class="block">
-			&lt;script src=&quot;jslightbox.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;<br/>    &lt;script&gt;<br/>        var lightbox = new Lightbox();<br/>        lightbox.load();<br/>    &lt;/script&gt;
-		</code>
-		<p>A complete init of the lightbox with all options looks like this (<a href="https://github.com/felixhagspiel/jsOnlyLightbox">click here for full API &amp; options</a>):</p>
-		<code class="block">
-		var lightbox = new Lightbox();<br/><br/>
-		var lightBoxOptions = {<br/>
-			&nbsp;// options<br/>
-			&nbsp;boxId: 				false,<br/>
-			&nbsp;dimensions: 		true,<br/>
-			&nbsp;captions: 			true,<br/>
-			&nbsp;prevImg: 			false,<br/>
-			&nbsp;nextImg: 			false,<br/>
-			&nbsp;hideCloseBtn: 		false,<br/>
-			&nbsp;closeOnClick: 		true,<br/>
-			&nbsp;loadingAnimation: 	200,<br/>
-			&nbsp;animElCount: 		4,<br/>
-			&nbsp;preload: 			true,<br/>
-			&nbsp;carousel: 			true,<br/>
-			&nbsp;animation: 			400,<br/>
-			&nbsp;nextOnClick: 		true,<br/>
-			&nbsp;responsive: 		true,<br/>
-			&nbsp;maxImgSize: 		0.8,<br/>
-			&nbsp;keyControl: 		true,<br/>
-			&nbsp;// callbacks<br/>
-			&nbsp;onopen: 			function(){<br/>
-				&nbsp;&nbsp;// ...<br/>
-			&nbsp;},<br/>
-			&nbsp;onclose: 			function(){<br/>
-				&nbsp;&nbsp;// ...<br/>
-			&nbsp;},<br/>
-			&nbsp;onload: 			function(event){<br/>
-				&nbsp;&nbsp;// ...<br/>
-			&nbsp;},<br/>
-			&nbsp;onresize: 			function(){<br/>
-				&nbsp;&nbsp;// ...<br/>
-			&nbsp;}<br/>
-			&nbsp;onloaderror: 			function(event){<br/>
-				&nbsp;&nbsp;// ...<br/>
-			&nbsp;}<br/>	
-		}<br/><br/>
-		lightbox.load(lightBoxOptions);
-		</code>
-		<p>Then you just have to add the attribute <code>data-jslghtbx</code> to all the images you want to show in the lightbox:</p>
-		<code class="block">
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx&gt;
-		</code>
-		<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx data-jslghtbx-group="group1">
-		<p>Note: The CSS-class <code>jslghtbx-thmb</code> is optional. You can use your own styling if you want.</p>
-		<h3>Load a different image on click</h3>
-		<p>You can pass a link of a different image via the <code>data-jslghtbx</code> attribute, which then will be loaded on click. Use this if you want to use small sized pictures for the thumbnails to reduce traffic:</p>
-		<code class="block">
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot;&gt;
-		</code>
-		<img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/lightbox/3-big.jpg" data-jslghtbx-group="group2">
+<a href="https://github.com/felixhagspiel/jsOnlyLightbox"><img style="position: absolute; top: 0; left: 0; border: 0;"
+                                                               src="https://camo.githubusercontent.com/c6625ac1f3ee0a12250227cf83ce904423abf351/68747470733a2f2f73332e616d617a6f6e6177732e636f6d2f6769746875622f726962626f6e732f666f726b6d655f6c6566745f677261795f3664366436642e706e67"
+                                                               alt="Fork me on GitHub"
+                                                               data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
 
-		<h3>Use captions</h3>
-		<p>If you want to use captions add the <code>data-jslghtbx-caption</code> attribute. You can also pass HTML:</p>
-		<code class="block">
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot;  data-jslghtbx-caption=&quot;This is my &lt;a href='http://yourURL.com'&gt;caption text&lt;/a&gt;.&quot; alt=&quot;&quot; data-jslghtbx&gt;
-		</code>
-		<img class="jslghtbx-thmb" src="img/lightbox/7-small.jpg" alt="" data-jslghtbx="img/lightbox/7-big.jpg" data-jslghtbx-group="group3" data-jslghtbx-caption="This picture was taken at <a href='http://en.wikipedia.org/wiki/Lake_Constance'>Bodensee, Germany</a>.">
-		<img class="jslghtbx-thmb" src="img/lightbox/9-small.jpg" alt="" data-jslghtbx="img/lightbox/9-big.jpg" data-jslghtbx-group="group3" data-jslghtbx-caption="This picture was taken in Miami.">
-		<h3>Use groups to show multiple images</h3>
-		<p>If you want to group images to structure your content, use the <code>data-jslghtbx-group</code> attribute. You can have multiple groups on one page:</p>
-		<code class="block">
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/3-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/3-big.jpg&quot; data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/>
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/4-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/4-big.jpg&quot; data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/>
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/6-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/6-big.jpg&quot; data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/>
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/7-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/7-big.jpg&quot; data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/><br/><br/>
+<div class="section">
+    <h1>jsOnlyLightbox 0.5.1</h1>
+
+    <h2>Responsive Lightbox written in plain JavaScript</h2>
+    <ul class="u-list">
+        <li>No jQuery needed</li>
+        <li>Fully responsive</li>
+        <li>Customizable</li>
+        <li>CSS3-Animations &amp; controls, however, loading GIFs and arrow images can be used</li>
+        <li>Lightweight (&lt;10Kb)</li>
+        <li>Licensed under MIT, code is free for commercial &amp; personal use. However, it would be great if you send
+            me an link of your websites using my lightbox so I can see it live in action and post some real-word
+            examples here. I am also happy about backlinks &amp; github-stars :) <b>The pictures included are NOT free
+                to use!</b> Please <a href="http://felixhagspiel.de/contact">contact me first</a> if you want to use the
+            them!
+        </li>
+        <li>IE8+ supported. Dont`t forget to add those lines inside your <code>&lt;head&gt;&lt;/head&gt;</code> - tag if
+            you need IE8-Support:
+        </li>
+        <br/>
+        <code class="block">
+            &lt;!--[if lt IE 9]&gt;<br/> &lt;script src=&quot;//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js&quot;
+            type=&quot;text/javascript&quot;&gt;&lt;/script&gt;<br/> &lt;![endif]--&gt;
+        </code>
+        </li>
+        <li>Visit me on <a href="http://felixhagspiel.de">felixhagspiel.de</a></li>
+    </ul>
+</div>
+<div class="section">
+    <h2>Full API documentation</h2>
+
+    <p>Full API documentation including methods, options &amp; callbacks is on <a
+            href="https://github.com/felixhagspiel/jsOnlyLightbox">Github</a></p>
+
+    <h2>Download</h2>
+
+    <p>Get the latest version of the jsOnlyLightbox from <a href="https://github.com/felixhagspiel/jsOnlyLightbox">Github</a>.
+        You can also use bower (<a href="http://bower.io/">bower.io</a>) to install:</p>
+    <code class="block">
+        bower install jsonlylightbox --save-dev<br/>
+    </code>
+
+    <h2>Usage</h2>
+
+    <p>Add the link to the CSS-File to the head of your html-file:</p>
+    <code class="block">
+        &lt;link rel=&quot;stylesheet&quot; href=&quot;css/lightbox.css&quot;&gt;<br/>
+    </code>
+
+    <p>Add this before the closing body tag:</p>
+    <code class="block">
+        &lt;script src=&quot;jslightbox.js&quot; type=&quot;text/javascript&quot;&gt;&lt;/script&gt;<br/> &lt;script&gt;<br/>
+        var lightbox = new Lightbox();<br/> lightbox.load();<br/> &lt;/script&gt;
+    </code>
+
+    <p>A complete init of the lightbox with all options looks like this (<a
+            href="https://github.com/felixhagspiel/jsOnlyLightbox">click here for full API &amp; options</a>):</p>
+    <code class="block">
+        var lightbox = new Lightbox();<br/><br/>
+        var lightBoxOptions = {<br/>
+        &nbsp;// options<br/>
+        &nbsp;boxId: false,<br/>
+        &nbsp;dimensions: true,<br/>
+        &nbsp;captions: true,<br/>
+        &nbsp;prevImg: false,<br/>
+        &nbsp;nextImg: false,<br/>
+        &nbsp;hideCloseBtn: false,<br/>
+        &nbsp;closeOnClick: true,<br/>
+        &nbsp;loadingAnimation: 200,<br/>
+        &nbsp;animElCount: 4,<br/>
+        &nbsp;preload: true,<br/>
+        &nbsp;carousel: true,<br/>
+        &nbsp;animation: 400,<br/>
+        &nbsp;nextOnClick: true,<br/>
+        &nbsp;responsive: true,<br/>
+        &nbsp;maxImgSize: 0.8,<br/>
+        &nbsp;keyControl: true,<br/>
+        &nbsp;// callbacks<br/>
+        &nbsp;onopen: function(){<br/>
+        &nbsp;&nbsp;// ...<br/>
+        &nbsp;},<br/>
+        &nbsp;onclose: function(){<br/>
+        &nbsp;&nbsp;// ...<br/>
+        &nbsp;},<br/>
+        &nbsp;onload: function(event){<br/>
+        &nbsp;&nbsp;// ...<br/>
+        &nbsp;},<br/>
+        &nbsp;onresize: function(){<br/>
+        &nbsp;&nbsp;// ...<br/>
+        &nbsp;}<br/>
+        &nbsp;onloaderror: function(event){<br/>
+        &nbsp;&nbsp;// ...<br/>
+        &nbsp;}<br/>
+        }<br/><br/>
+        lightbox.load(lightBoxOptions);
+    </code>
+
+    <p>Then you just have to add the attribute <code>data-jslghtbx</code> to all the images you want to show in the
+        lightbox:</p>
+    <code class="block">
+        &lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx&gt;
+    </code>
+    <img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx data-jslghtbx-group="group1">
+
+    <p>Note: The CSS-class <code>jslghtbx-thmb</code> is optional. You can use your own styling if you want.</p>
+
+    <h3>Load a different image on click</h3>
+
+    <p>You can pass a link of a different image via the <code>data-jslghtbx</code> attribute, which then will be loaded
+        on click. Use this if you want to use small sized pictures for the thumbnails to reduce traffic:</p>
+    <code class="block">
+        &lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot;&gt;
+    </code>
+    <img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/lightbox/3-big.jpg"
+         data-jslghtbx-group="group2">
+
+    <h3>Use captions</h3>
+
+    <p>If you want to use captions add the <code>data-jslghtbx-caption</code> attribute. You can also pass HTML:</p>
+    <code class="block">
+        &lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; data-jslghtbx-caption=&quot;This is
+        my &lt;a href='http://yourURL.com'&gt;caption text&lt;/a&gt;.&quot; alt=&quot;&quot; data-jslghtbx&gt;
+    </code>
+    <img class="jslghtbx-thmb" src="img/lightbox/7-small.jpg" alt="" data-jslghtbx="img/lightbox/7-big.jpg"
+         data-jslghtbx-group="group3"
+         data-jslghtbx-caption="This picture was taken at <a href='http://en.wikipedia.org/wiki/Lake_Constance'>Bodensee, Germany</a>.">
+    <img class="jslghtbx-thmb" src="img/lightbox/9-small.jpg" alt="" data-jslghtbx="img/lightbox/9-big.jpg"
+         data-jslghtbx-group="group3" data-jslghtbx-caption="This picture was taken in Miami.">
+
+    <h3>Use groups to show multiple images</h3>
+
+    <p>If you want to group images to structure your content, use the <code>data-jslghtbx-group</code> attribute. You
+        can have multiple groups on one page:</p>
+    <code class="block">
+        &lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/3-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/3-big.jpg&quot;
+        data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/>
+        &lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/4-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/4-big.jpg&quot;
+        data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/>
+        &lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/6-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/6-big.jpg&quot;
+        data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/>
+        &lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/7-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/7-big.jpg&quot;
+        data-jslghtbx-group=&quot;mygroup1&quot;&gt;<br/><br/><br/>
 
 
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/8-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot; data-jslghtbx-group=&quot;mygroup2&quot;&gt;<br/>
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/9-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot; data-jslghtbx-group=&quot;mygroup2&quot;&gt;<br/>
-			&lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/10-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot; data-jslghtbx-group=&quot;mygroup2&quot;&gt;<br/>
-		</code>
-		<h3>Group 1</h3>
-		<img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/lightbox/3-big.jpg" data-jslghtbx-group="mygroup1">
-		<img class="jslghtbx-thmb" src="img/lightbox/4-small.jpg" alt="" data-jslghtbx="img/lightbox/4-big.jpg" data-jslghtbx-group="mygroup1">
-		<img class="jslghtbx-thmb" src="img/lightbox/6-small.jpg" alt="" data-jslghtbx="img/lightbox/6-big.jpg" data-jslghtbx-group="mygroup1">
-		<img class="jslghtbx-thmb" src="img/lightbox/7-small.jpg" alt="" data-jslghtbx="img/lightbox/7-big.jpg" data-jslghtbx-group="mygroup1">
-		<h3>Group 2</h3>
-		<img class="jslghtbx-thmb" src="img/lightbox/8-small.jpg" alt="" data-jslghtbx="img/lightbox/8-big.jpg" data-jslghtbx-group="mygroup2">
-		<img id="test" class="jslghtbx-thmb" src="img/lightbox/9-small.jpg" alt="" data-jslghtbx="img/lightbox/9-big.jpg" data-jslghtbx-group="mygroup2">
-		<img class="jslghtbx-thmb" src="img/lightbox/10-small.jpg" alt="" data-jslghtbx="img/lightbox/10-big.jpg" data-jslghtbx-group="mygroup2">
+        &lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/8-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot;
+        data-jslghtbx-group=&quot;mygroup2&quot;&gt;<br/>
+        &lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/9-small.jpg&quot; alt=&quot;&quot; data-jslghtbx=&quot;img/1-big.jpg&quot;
+        data-jslghtbx-group=&quot;mygroup2&quot;&gt;<br/>
+        &lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/10-small.jpg&quot; alt=&quot;&quot;
+        data-jslghtbx=&quot;img/1-big.jpg&quot; data-jslghtbx-group=&quot;mygroup2&quot;&gt;<br/>
+    </code>
 
-		<h2>To download and see the full documentation of options &amp; API please visit my <a href="https://github.com/felixhagspiel/jsOnlyLightbox" class="btn">Github-Profile</a> </h2>
-	</div>
-	<div class="section">
-		<a href="http://felixhagspiel.de" class="u-margin-bottom--big">Copyright &copy; 2014 Felix Hagspiel www.felixhagspiel.de</a>
-	</div>
-	<script src="js/lightbox.js" type="text/javascript"></script>
-	<script>
-		var lightbox = new Lightbox();
-		lightbox.load({
-			boxId: 				false,
-			dimensions: 		true,
-			captions: 			true,
-			prevImg: 			false,
-			nextImg: 			false,
-			hideCloseBtn: 		false,
-			closeOnClick: 		true,
-			loadingAnimation: 	200,
-			animElCount: 		4,
-			preload: 			true,
-			carousel: 			true,
-			animation: 			400,
-			nextOnClick: 		true,
-			responsive: 		true,
-			maxImgSize: 0.8,
-			// callbacks
-			onopen: 			function(){
-				// your code goes here
-			},
-			onclose: 			function(){
-				// your code goes here
-			},
-			onload: 			function(event){
-				// your code goes here
-			},
-			onresize: 		function(){
-				// your code goes here
-			},
-			onloaderror: 	function(event){
-				// your code goes here		
-			}
-		});
-	</script>
+    <h3>Group 1</h3>
+    <img class="jslghtbx-thmb" src="img/lightbox/3-small.jpg" alt="" data-jslghtbx="img/lightbox/3-big.jpg"
+         data-jslghtbx-group="mygroup1">
+    <img class="jslghtbx-thmb" src="img/lightbox/4-small.jpg" alt="" data-jslghtbx="img/lightbox/4-big.jpg"
+         data-jslghtbx-group="mygroup1">
+    <img class="jslghtbx-thmb" src="img/lightbox/6-small.jpg" alt="" data-jslghtbx="img/lightbox/6-big.jpg"
+         data-jslghtbx-group="mygroup1">
+    <img class="jslghtbx-thmb" src="img/lightbox/7-small.jpg" alt="" data-jslghtbx="img/lightbox/7-big.jpg"
+         data-jslghtbx-group="mygroup1">
+
+    <h3>Group 2</h3>
+    <img class="jslghtbx-thmb" src="img/lightbox/8-small.jpg" alt="" data-jslghtbx="img/lightbox/8-big.jpg"
+         data-jslghtbx-group="mygroup2">
+    <img id="test" class="jslghtbx-thmb" src="img/lightbox/9-small.jpg" alt="" data-jslghtbx="img/lightbox/9-big.jpg"
+         data-jslghtbx-group="mygroup2">
+    <img class="jslghtbx-thmb" src="img/lightbox/10-small.jpg" alt="" data-jslghtbx="img/lightbox/10-big.jpg"
+         data-jslghtbx-group="mygroup2">
+
+    <h2>To download and see the full documentation of options &amp; API please visit my <a
+            href="https://github.com/felixhagspiel/jsOnlyLightbox" class="btn">Github-Profile</a></h2>
+</div>
+<div class="section">
+    <a href="http://felixhagspiel.de" class="u-margin-bottom--big">Copyright &copy; 2014 Felix Hagspiel
+        www.felixhagspiel.de</a>
+</div>
+<script src="js/lightbox.js" type="text/javascript"></script>
+<script>
+    var lightbox = new Lightbox();
+    lightbox.load({
+        boxId: false,
+        dimensions: true,
+        captions: true,
+        prevImg: false,
+        nextImg: false,
+        hideCloseBtn: false,
+        closeOnClick: true,
+        loadingAnimation: 200,
+        animElCount: 4,
+        preload: true,
+        carousel: true,
+        animation: 400,
+        nextOnClick: true,
+        responsive: true,
+        maxImgSize: 0.8,
+        // callbacks
+        onopen: function () {
+            // your code goes here
+        },
+        onclose: function () {
+            // your code goes here
+        },
+        onload: function (event) {
+            // your code goes here
+        },
+        onresize: function () {
+            // your code goes here
+        },
+        onloaderror: function (event) {
+            // your code goes here
+        }
+    });
+</script>
 </body>
 </html>
