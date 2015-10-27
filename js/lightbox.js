@@ -402,7 +402,8 @@ function Lightbox() {
             onclose: opt.onclose || false,
             onload: opt.onload || false,
             onresize: opt.onresize || false,
-            onloaderror: opt.onloaderror || false
+            onloaderror: opt.onloaderror || false,
+            hideOverflow: opt.hideOverflow || false
         };
 
         // load box in custom element
