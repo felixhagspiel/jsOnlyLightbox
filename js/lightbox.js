@@ -397,13 +397,13 @@ function Lightbox() {
             responsive: setTrueDef(opt.responsive),
             maxImgSize: opt.maxImgSize || 0.8,
             keyControls: setTrueDef(opt.keyControls),
+            hideOverflow: opt.hideOverflow || false,
             // callbacks
             onopen: opt.onopen || false,
             onclose: opt.onclose || false,
             onload: opt.onload || false,
             onresize: opt.onresize || false,
-            onloaderror: opt.onloaderror || false,
-            hideOverflow: opt.hideOverflow || false
+            onloaderror: opt.onloaderror || false
         };
 
         // load box in custom element
