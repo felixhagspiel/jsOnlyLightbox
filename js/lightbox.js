@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * jsOnlyLightbox 0.5.1
+ * jsOnlyLightbox 0.5.3
  * Copyright © 2014 Felix Hagspiel - http://jslightbox.felixhagspiel.de
  *
  * @license MIT
