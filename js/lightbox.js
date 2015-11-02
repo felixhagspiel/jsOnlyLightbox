@@ -397,7 +397,7 @@ function Lightbox() {
             responsive: setTrueDef(opt.responsive),
             maxImgSize: opt.maxImgSize || 0.8,
             keyControls: setTrueDef(opt.keyControls),
-            hideOverflow: opt.hideOverflow || false,
+            hideOverflow: opt.hideOverflow || true,
             // callbacks
             onopen: opt.onopen || false,
             onclose: opt.onclose || false,
