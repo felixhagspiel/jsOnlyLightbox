@@ -397,6 +397,7 @@ function Lightbox() {
             responsive: setTrueDef(opt.responsive),
             maxImgSize: opt.maxImgSize || 0.8,
             keyControls: setTrueDef(opt.keyControls),
+            hideOverflow: opt.hideOverflow || false,
             // callbacks
             onopen: opt.onopen || false,
             onclose: opt.onclose || false,
@@ -479,23 +480,29 @@ function Lightbox() {
         if (CTX.opt.keyControls) {
             // show next img on right cursor
             addEvent(document, 'keydown', function (e) {
-                stopPropagation(e); // prevent closing of lightbox
-                if (isOpen && e.keyCode === 39) {
-                    CTX.next();
+                if (isOpen) {
+                    stopPropagation(e); // prevent closing of lightbox
+                    if (e.keyCode === 39) {
+                        CTX.next();
+                    }
                 }
             }, false);
             // show prev img on left cursor
             addEvent(document, 'keydown', function (e) {
-                stopPropagation(e); // prevent closing of lightbox
-                if (isOpen && e.keyCode === 37) {
-                    CTX.prev();
+                if (isOpen) {
+                    stopPropagation(e); // prevent closing of lightbox
+                    if (e.keyCode === 37) {
+                        CTX.next();
+                    }
                 }
             }, false);
             // close box on escape
             addEvent(document, 'keydown', function (e) {
-                stopPropagation(e); // prevent closing of lightbox
-                if (isOpen && e.keyCode === 27) {
-                    CTX.close();
+                if (isOpen) {
+                    stopPropagation(e); // prevent closing of lightbox
+                    if (e.keyCode === 27) {
+                        CTX.next();
+                    }
                 }
             }, false);
         }
