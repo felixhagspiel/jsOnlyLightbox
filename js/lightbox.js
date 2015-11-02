@@ -478,30 +478,18 @@ function Lightbox() {
 
         // add keyboard event handlers
         if (CTX.opt.keyControls) {
-            // show next img on right cursor
             addEvent(document, 'keydown', function (e) {
                 if (isOpen) {
                     stopPropagation(e); // prevent closing of lightbox
                     if (e.keyCode === 39) {
+                        // show next img on right cursor
                         CTX.next();
-                    }
-                }
-            }, false);
-            // show prev img on left cursor
-            addEvent(document, 'keydown', function (e) {
-                if (isOpen) {
-                    stopPropagation(e); // prevent closing of lightbox
-                    if (e.keyCode === 37) {
-                        CTX.next();
-                    }
-                }
-            }, false);
-            // close box on escape
-            addEvent(document, 'keydown', function (e) {
-                if (isOpen) {
-                    stopPropagation(e); // prevent closing of lightbox
-                    if (e.keyCode === 27) {
-                        CTX.next();
+                    } else if (e.keyCode === 37) {
+                        // show prev img on left cursor
+                        CTX.prev();
+                    } else if (e.keyCode === 27) {
+                        // close lightbox on ESC
+                        CTX.close();
                     }
                 }
             }, false);
