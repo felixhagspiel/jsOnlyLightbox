@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>jsOnlyLightbox 0.5.1</title>
+    <title>jsOnlyLightbox 0.5.2</title>
     <meta name="keywords" content="lightbox showbox picture box javascript js only gallery slim lightweight responsive">
     <meta name="description"
           content="jsonlylightbox is written in plain JavaScript. No jQuery needed, responsive, customizable, lightweight, supports IE8+ and is free for personal and commercial use">
@@ -118,8 +118,14 @@
                                                                data-canonical-src="https://s3.amazonaws.com/github/ribbons/forkme_left_gray_6d6d6d.png"></a>
 
 <div class="section">
-    <h1>jsOnlyLightbox 0.5.1</h1>
-
+    <h1>jsOnlyLightbox 0.5.2</h1>
+    <p>Developing tools like this lightbox takes a lot of time. If you like my lightbox and want to support me, buy me a beer via paypal :) Thanks!</p>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+      <input type="hidden" name="cmd" value="_s-xclick">
+      <input type="hidden" name="hosted_button_id" value="WVXWU8XR58VMQ">
+      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+      <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+    </form>
     <h2>Responsive Lightbox written in plain JavaScript</h2>
     <ul class="u-list">
         <li>No jQuery needed</li>
@@ -289,12 +295,19 @@
 
     <h2>To download and see the full documentation of options &amp; API please visit my <a
             href="https://github.com/felixhagspiel/jsOnlyLightbox" class="btn">Github-Profile</a></h2>
+    <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+      <input type="hidden" name="cmd" value="_s-xclick">
+      <input type="hidden" name="hosted_button_id" value="WVXWU8XR58VMQ">
+      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+      <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+    </form>
 </div>
 <div class="section">
+
     <a href="http://felixhagspiel.de" class="u-margin-bottom--big">Copyright &copy; 2014 Felix Hagspiel
         www.felixhagspiel.de</a>
 </div>
-<script src="js/lightbox.js" type="text/javascript"></script>
+<script src="js/lightbox.min.js" type="text/javascript"></script>
 <script>
     var lightbox = new Lightbox();
     lightbox.load({
@@ -330,6 +343,16 @@
             // your code goes here
         }
     });
+
+    var imageLinks = document.getElementsByClassName('custom-img-link');
+    for (var i = 0; i < imageLinks.length; i++){
+      imageLinks[i].onclick = function(e){
+        e.preventDefault();
+        lightbox.open(this.getAttribute('href'));
+      }
+    }
+
+
 </script>
 </body>
 </html>
