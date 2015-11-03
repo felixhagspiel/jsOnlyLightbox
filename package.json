@@ -2,9 +2,6 @@
   "name": "jsonlylightbox",
   "version": "0.5.3",
   "description": "Small responsive vanilla JS lightbox for displaying images.",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "https://github.com/felixhagspiel/jsOnlyLightbox.git"
@@ -29,5 +26,5 @@
   "bugs": {
     "url": "https://github.com/felixhagspiel/jsOnlyLightbox/issues"
   },
-  "homepage": "https://github.com/felixhagspiel/jsOnlyLightbox"
+  "homepage": "http://jslightbox.felixhagspiel.de/"
 }
