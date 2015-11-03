@@ -20,11 +20,13 @@ Do not forget to add those lines inside your `<head></head>` if you want to supp
 		    <script src="//cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" type="text/javascript"></script>
 		<![endif]-->
 
-## Download
+## Install
 
-Fork or [download at jslightbox.felixhagspiel.de](http://jslightbox.felixhagspiel.de/). The lightbox is still in development mode, so please post any issues and bugs here. You can also use bower to install the lightbox:
+The lightbox is still in development mode, so please post any issues and bugs on github. You can also use bower or npm to install the lightbox:
 
 	bower install jsonlylightbox --save-dev
+
+	npm install jsonlylightbox --save-dev
 
 ## Demo
 
