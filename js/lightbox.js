@@ -393,7 +393,6 @@ function Lightbox() {
             preload: setTrueDef(opt.preload),
             carousel: setTrueDef(opt.carousel),
             animation: opt.animation || 400,
-            nextOnClick: setTrueDef(opt.nextOnClick),
             responsive: setTrueDef(opt.responsive),
             maxImgSize: opt.maxImgSize || 0.8,
             keyControls: setTrueDef(opt.keyControls),
@@ -405,6 +404,8 @@ function Lightbox() {
             onresize: opt.onresize || false,
             onloaderror: opt.onloaderror || false
         };
+
+        CTX.opt.onImageClick = opt.onImageClick || (setTrueDef(opt.nextOnClick) ? CTX.next : false);
 
         // load box in custom element
         if (CTX.opt.boxId) {
@@ -628,13 +629,12 @@ function Lightbox() {
                     if (CTX.opt.preload) {
                         preload();
                     }
-                    // set clickhandler on image to show next image
-                    if (CTX.opt.nextOnClick) {
+                    if (CTX.opt.onImageClick) {
                         // add cursor pointer
                         addClass(currImage.img, 'jslghtbx-next-on-click');
                         addEvent(currImage.img, 'click', function (e) {
-                            stopPropagation(e);
-                            CTX.next();
+                          stopPropagation(e);
+                          CTX.opt.onImageClick(e);
                         }, false);
                     }
                     // execute onload callback
@@ -855,4 +855,3 @@ function Lightbox() {
         }
     };
 }
-
