@@ -196,6 +196,13 @@ Function that is executed when the current image fails to load. You can add your
 				lightbox.next()
 		}
 
+###	`{onImageClick: function(event)}`
+Function that is executed when the user clicks on the current image. The callback receives the mouse event. The `nextOnClick` option will be ignored when using this option. For example you can open the current image in a new tab with this callback:
+
+		onImageClick: function(event) {
+                  window.open(event.target.src);
+		}
+
 ## Attributes
 
 ### `lightbox.thumbnails`
