@@ -183,7 +183,7 @@ function Lightbox() {
      * @param  {Object} i
      */
     function clckHlpr(i) {
-        addEvent(i, 'click', function (e) {
+        addEvent(i, 'click', function () {
             currGroup = getAttr(i, 'data-jslghtbx-group') || false;
             currThumbnail = i;
             openBox(i, false, false, false);
@@ -439,7 +439,7 @@ function Lightbox() {
 
         // close lightbox on background-click by default / if true
         if (!isIE8 && CTX.opt.closeOnClick) {
-            addEvent(CTX.box, 'click', function (e) {
+            addEvent(CTX.box, 'click', function () {
                 CTX.close();
             }, false);
         }
@@ -467,7 +467,7 @@ function Lightbox() {
 
         // add resize-eventhandlers
         if (CTX.opt.responsive) {
-            addEvent(window, 'resize', function (e) {
+            addEvent(window, 'resize', function () {
                 CTX.resize();
             }, false);
             addClass(CTX.box, 'jslghtbx-nooverflow'); // hide scrollbars on prev/next
