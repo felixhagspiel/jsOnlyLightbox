@@ -392,7 +392,7 @@ function Lightbox() {
             animElCount: opt.animElCount || 4,
             preload: setTrueDef(opt.preload),
             carousel: setTrueDef(opt.carousel),
-            animation: opt.animation || 400,
+            animation: typeof opt.animation === 'number' || opt.animation === false ? opt.animation : 400,
             nextOnClick: setTrueDef(opt.nextOnClick),
             responsive: setTrueDef(opt.responsive),
             maxImgSize: opt.maxImgSize || 0.8,
