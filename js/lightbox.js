@@ -683,7 +683,6 @@ function Lightbox() {
         for (var i = 0; i < arr.length; i++) {
             if (hasAttr(arr[i], 'data-jslghtbx')) {
                 CTX.thumbnails.push(arr[i]);
-                clckHlpr(arr[i]);
             }
         }
 
@@ -854,5 +853,14 @@ function Lightbox() {
             CTX.opt.onclose();
         }
     };
-}
 
+    /**
+     * Extends thumbnails.push to add click handlers to dynamically loaded thumbs
+     */
+    CTX.thumbnails.push = function (){
+        for( var i = 0, l = arguments.length; i < l; i++ ) {
+            clckHlpr(arguments[i]);
+        }
+        return Array.prototype.push.apply(this,arguments);
+    };
+}
