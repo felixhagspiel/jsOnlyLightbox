@@ -408,7 +408,7 @@ function Lightbox() {
 
         // load box in custom element
         if (CTX.opt.boxId) {
-            CTX.box = document.getElementById(CTX.opt);
+            CTX.box = document.getElementById(CTX.opt.boxId);
         }
         // create box element if no ID is given
         else if (!CTX.box && !document.getElementById('jslghtbx')) {
