@@ -185,6 +185,7 @@ function Lightbox() {
     function clckHlpr(i) {
         addEvent(i, 'click', function (e) {
             stopPropagation(e);
+            preventDefault(e);
             currGroup = getAttr(i, 'data-jslghtbx-group') || false;
             currThumbnail = i;
             openBox(i, false, false, false);
@@ -203,6 +204,20 @@ function Lightbox() {
             e.returnValue = false;
         }
     }
+
+    /**
+     * Prevent default cross browser
+     * @param  {Object} e
+     */
+    function preventDefault(e) {
+        if (e.preventDefault) {
+            e.preventDefault();
+        }
+        else {
+            e.returnValue = false;
+        }
+    }
+
 
     /**
      * Get thumbnails by group
