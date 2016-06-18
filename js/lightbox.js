@@ -247,14 +247,17 @@ function Lightbox() {
         var next = new Image();
         var pos = getPos(currThumbnail, currGroup);
         if (pos === (currImages.length - 1)) {
-            prev.src = currImages[currImages.length - 1].src;
-            next.src = currImages[0].src;
+            // last image in group, preload first image and the one before
+            prev.src = currImages[currImages.length - 1].src || getAttr( currImages[currImages.length - 1], 'data-src');
+            next.src = currImages[0].src || getAttr( currImages[0].src, 'data-src');
         } else if (pos === 0) {
-            prev.src = currImages[currImages.length - 1].src;
-            next.src = currImages[1].src;
+            // first image in group, preload last image and the next one
+            prev.src = currImages[currImages.length - 1].src || getAttr( currImages[currImages.length - 1], 'data-src');
+            next.src = currImages[1].src || getAttr( currImages[1], 'data-src');
         } else {
-            prev.src = currImages[pos - 1].src;
-            next.src = currImages[pos + 1].src;
+            // in between, preload prev & next image
+            prev.src = currImages[pos - 1].src || getAttr( currImages[pos - 1], 'data-src');
+            next.src = currImages[pos + 1].src || getAttr( currImages[pos + 1], 'data-src');
         }
     }
 
@@ -680,8 +683,8 @@ function Lightbox() {
         // set options
         setOpt(opt);
 
-        // Find all thumbnails & add clickhandlers
-        var arr = document.getElementsByTagName('img');
+        // Find all elements with `data-jslghtbx` attribute & add clickhandlers
+        var arr = document.querySelectorAll('[data-jslghtbx]');
         for (var i = 0; i < arr.length; i++) {
             if (hasAttr(arr[i], 'data-jslghtbx')) {
                 CTX.thumbnails.push(arr[i]);

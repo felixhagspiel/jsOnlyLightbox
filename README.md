@@ -46,9 +46,10 @@ Add this before the closing body tag:
 	 	lightbox.load();
 	</script>
 
-You just need to add the attribute `data-jslghtbx` to all the images you want to show in the lightbox:
+You just need to add the attribute `data-jslghtbx` to all the images or elements you want to show in the lightbox:
 
 	<img class="jslghtbx-thmb" src="img/lightbox/1.jpg" alt="" data-jslghtbx>
+    <a href="img/lightbox/1.jpg"  data-jslghtbx="img/lightbox/1.jpg">Opens lightbox with a no-js fallback link</a>
 
 Note: The CSS-class `jslghtbx-thmb` is optional. You can use your own styling if you want.
 
