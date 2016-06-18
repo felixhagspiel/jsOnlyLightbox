@@ -243,7 +243,9 @@ function Lightbox() {
     function getPos(thumbnail, group) {
         var arr = getByGroup(group);
         for (var i = 0; i < arr.length; i++) {
+            // compare elements
             if (getAttr(thumbnail, 'src') === getAttr(arr[i], 'src') &&
+                getAttr(thumbnail, 'data-jslghtbx-index') === getAttr(arr[i], 'data-jslghtbx-index') &&
                 getAttr(thumbnail, 'data-jslghtbx') === getAttr(arr[i], 'data-jslghtbx')) {
 
                 return i;
@@ -702,6 +704,8 @@ function Lightbox() {
         var arr = document.querySelectorAll('[data-jslghtbx]');
         for (var i = 0; i < arr.length; i++) {
             if (hasAttr(arr[i], 'data-jslghtbx')) {
+                // set index to get proper position in getPos()
+                arr[i].setAttribute('data-jslghtbx-index',i);
                 CTX.thumbnails.push(arr[i]);
                 clckHlpr(arr[i]);
             }
