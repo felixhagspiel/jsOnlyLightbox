@@ -183,7 +183,8 @@ function Lightbox() {
      * @param  {Object} i
      */
     function clckHlpr(i) {
-        addEvent(i, 'click', function () {
+        addEvent(i, 'click', function (e) {
+            stopPropagation(e);
             currGroup = getAttr(i, 'data-jslghtbx-group') || false;
             currThumbnail = i;
             openBox(i, false, false, false);
@@ -439,7 +440,8 @@ function Lightbox() {
 
         // close lightbox on background-click by default / if true
         if (!isIE8 && CTX.opt.closeOnClick) {
-            addEvent(CTX.box, 'click', function () {
+            addEvent(CTX.box, 'click', function (e) {
+                stopPropagation(e);
                 CTX.close();
             }, false);
         }
