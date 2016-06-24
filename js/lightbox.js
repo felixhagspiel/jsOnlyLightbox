@@ -707,7 +707,6 @@ function Lightbox() {
                 // set index to get proper position in getPos()
                 arr[i].setAttribute('data-jslghtbx-index',i);
                 CTX.thumbnails.push(arr[i]);
-                clckHlpr(arr[i]);
             }
         }
 
@@ -878,5 +877,14 @@ function Lightbox() {
             CTX.opt.onclose();
         }
     };
-}
 
+    /**
+     * Extends thumbnails.push to add click handlers to dynamically loaded thumbs
+     */
+    CTX.thumbnails.push = function (){
+        for( var i = 0, l = arguments.length; i < l; i++ ) {
+            clckHlpr(arguments[i]);
+        }
+        return Array.prototype.push.apply(this,arguments);
+    };
+}
