@@ -1,6 +1,6 @@
 {
   "name": "jsonlylightbox",
-  "version": "0.5.3",
+  "version": "0.5.4",
   "description": "Small responsive vanilla JS lightbox for displaying images.",
   "repository": {
     "type": "git",
