@@ -1,4 +1,4 @@
-# jsOnlyLightbox 0.5.3
+# jsOnlyLightbox 0.5.4
 #### Responsive Lightbox written in  plain JavaScript
 
 ## Features
@@ -7,7 +7,7 @@
 - Fully responsive
 - Customizable Theme, SCSS-files included
 - You can push images loaded via ajax to the lightbox
-- Small in Size (< 10Kb)
+- Small in Size (< 10Kb, < 3Kb gzipped)
 - CSS3-Animations & controls, however, loading GIFs and arrow images can be used
 - Licensed under MIT, code is free for commercial &amp; personal use. However, it would be great if you send me an link of your websites using my lightbox so I can see it live in action and post some real-word examples here. I am also happy about backlinks & github-stars :) **The pictures included are NOT free to use!** Please  [contact me first](http://felixhagspiel.de/contact) if you want to use the them!
 - IE8+ support:
