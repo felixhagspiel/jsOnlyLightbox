@@ -11,13 +11,20 @@
 function Lightbox() {
 
   /**
+   * Constants
+   */
+  var _const_name = 'jslghtbx';
+  var _const_class_prefix = _const_name;
+  var _const_id_prefix = _const_name;
+  var _const_dataattr = 'data-' + _const_name;
+  /**
    * Private vars
    */
   var CTX = this,
     isIE8 = false,
     isIE9 = false,
     body = document.getElementsByTagName('body')[0],
-    template = '<div class="jslghtbx-contentwrapper" id="jslghtbx-contentwrapper" ></div>',
+    template = '<div class="' + _const_name + '-contentwrapper" id="' + _const_name + '-contentwrapper" ></div>',
     imgRatio = false, // ratio of current image
     currGroup = false, // current group
     currThumbnail = false, // first clicked thumbnail
@@ -186,7 +193,7 @@ function Lightbox() {
     addEvent(i, 'click', function (e) {
       stopPropagation(e);
       preventDefault(e);
-      currGroup = getAttr(i, 'data-jslghtbx-group') || false;
+      currGroup = getAttr(i, _const_dataattr + '-group') || false;
       currThumbnail = i;
       openBox(i, false, false, false);
     }, false);
@@ -227,7 +234,7 @@ function Lightbox() {
   function getByGroup(group) {
     var arr = [];
     for (var i = 0; i < CTX.thumbnails.length; i++) {
-      if (getAttr(CTX.thumbnails[i], 'data-jslghtbx-group') === group) {
+      if (getAttr(CTX.thumbnails[i], _const_dataattr + '-group') === group) {
         arr.push(CTX.thumbnails[i]);
       }
     }
@@ -245,8 +252,8 @@ function Lightbox() {
     for (var i = 0; i < arr.length; i++) {
       // compare elements
       if (getAttr(thumbnail, 'src') === getAttr(arr[i], 'src') &&
-        getAttr(thumbnail, 'data-jslghtbx-index') === getAttr(arr[i], 'data-jslghtbx-index') &&
-        getAttr(thumbnail, 'data-jslghtbx') === getAttr(arr[i], 'data-jslghtbx')) {
+        getAttr(thumbnail, _const_dataattr + '-index') === getAttr(arr[i], _const_dataattr + '-index') &&
+        getAttr(thumbnail, _const_dataattr) === getAttr(arr[i], _const_dataattr)) {
 
         return i;
       }
@@ -265,16 +272,16 @@ function Lightbox() {
     var pos = getPos(currThumbnail, currGroup);
     if (pos === (currImages.length - 1)) {
       // last image in group, preload first image and the one before
-      prev.src = getAttr(currImages[currImages.length - 1], 'data-jslghtbx') || currImages[currImages.length - 1].src;
-      next.src = getAttr(currImages[0].src, 'data-jslghtbx') || currImages[0].src;
+      prev.src = getAttr(currImages[currImages.length - 1], _const_dataattr) || currImages[currImages.length - 1].src;
+      next.src = getAttr(currImages[0].src, _const_dataattr) || currImages[0].src;
     } else if (pos === 0) {
       // first image in group, preload last image and the next one
-      prev.src = getAttr(currImages[currImages.length - 1], 'data-jslghtbx') || currImages[currImages.length - 1].src;
-      next.src = getAttr(currImages[1], 'data-jslghtbx') || currImages[1].src;
+      prev.src = getAttr(currImages[currImages.length - 1], _const_dataattr) || currImages[currImages.length - 1].src;
+      next.src = getAttr(currImages[1], _const_dataattr) || currImages[1].src;
     } else {
       // in between, preload prev & next image
-      prev.src = getAttr(currImages[pos - 1], 'data-jslghtbx') || currImages[pos - 1].src;
-      next.src = getAttr(currImages[pos + 1], 'data-jslghtbx') || currImages[pos + 1].src;
+      prev.src = getAttr(currImages[pos - 1], _const_dataattr) || currImages[pos - 1].src;
+      next.src = getAttr(currImages[pos + 1], _const_dataattr) || currImages[pos + 1].src;
     }
   }
 
@@ -288,13 +295,13 @@ function Lightbox() {
     // stop any already running animations
     stopAnimation();
     var fnc = function () {
-      addClass(CTX.box, 'jslghtbx-loading');
+      addClass(CTX.box, _const_class_prefix + '-loading');
       if (!isIE9 && typeof CTX.opt.loadingAnimation === 'number') {
         var index = 0;
         animationInt = setInterval(function () {
-          addClass(animationChildren[index], 'jslghtbx-active');
+          addClass(animationChildren[index], _const_class_prefix + '-active');
           setTimeout(function () {
-            removeClass(animationChildren[index], 'jslghtbx-active');
+            removeClass(animationChildren[index], _const_class_prefix + '-active');
           }, CTX.opt.loadingAnimation);
           index = index >= animationChildren.length ? 0 : index += 1;
         }, CTX.opt.loadingAnimation);
@@ -312,13 +319,13 @@ function Lightbox() {
       return;
     }
     // hide animation-element
-    removeClass(CTX.box, 'jslghtbx-loading');
+    removeClass(CTX.box, _const_class_prefix + '-loading');
     // stop animation
     if (!isIE9 && typeof CTX.opt.loadingAnimation !== 'string' && CTX.opt.loadingAnimation) {
       clearInterval(animationInt);
       // do not use animationChildren.length here due to IE8/9 bugs
       for (var i = 0; i < animationChildren.length; i++) {
-        removeClass(animationChildren[i], 'jslghtbx-active');
+        removeClass(animationChildren[i], _const_class_prefix + '-active');
       }
     }
   }
@@ -330,7 +337,7 @@ function Lightbox() {
     if (!nextBtn) {
       // create & append next-btn
       nextBtn = document.createElement('span');
-      addClass(nextBtn, 'jslghtbx-next');
+      addClass(nextBtn, _const_class_prefix + '-next');
 
       // add custom images
       if (CTX.opt.nextImg) {
@@ -338,7 +345,7 @@ function Lightbox() {
         nextBtnImg.setAttribute('src', CTX.opt.nextImg);
         nextBtn.appendChild(nextBtnImg);
       } else {
-        addClass(nextBtn, 'jslghtbx-no-img');
+        addClass(nextBtn, _const_class_prefix + '-no-img');
       }
       addEvent(nextBtn, 'click', function (e) {
         stopPropagation(e); // prevent closing of lightbox
@@ -346,11 +353,11 @@ function Lightbox() {
       }, false);
       CTX.box.appendChild(nextBtn);
     }
-    addClass(nextBtn, 'jslghtbx-active');
+    addClass(nextBtn, _const_class_prefix + '-active');
     if (!prevBtn) {
       // create & append next-btn
       prevBtn = document.createElement('span');
-      addClass(prevBtn, 'jslghtbx-prev');
+      addClass(prevBtn, _const_class_prefix + '-prev');
 
       // add custom images
       if (CTX.opt.prevImg) {
@@ -358,7 +365,7 @@ function Lightbox() {
         prevBtnImg.setAttribute('src', CTX.opt.prevImg);
         prevBtn.appendChild(prevBtnImg);
       } else {
-        addClass(prevBtn, 'jslghtbx-no-img');
+        addClass(prevBtn, _const_class_prefix + '-no-img');
       }
       addEvent(prevBtn, 'click', function (e) {
         stopPropagation(e); // prevent closing of lightbox
@@ -366,7 +373,7 @@ function Lightbox() {
       }, false);
       CTX.box.appendChild(prevBtn);
     }
-    addClass(prevBtn, 'jslghtbx-active');
+    addClass(prevBtn, _const_class_prefix + '-active');
   }
 
   /**
@@ -432,33 +439,33 @@ function Lightbox() {
       CTX.box = document.getElementById(CTX.opt.boxId);
       // set class if missing
       var classes = CTX.box.getAttribute('class');
-      if (classes.search('jslghtbx ') < 0) {
-        CTX.box.setAttribute('class', classes + ' jslghtbx');
+      if (classes.search(_const_class_prefix + ' ') < 0) {
+        CTX.box.setAttribute('class', classes + ' ' + _const_class_prefix);
       }
     }
     // create box element if no ID is given and element is not there
     else if (!CTX.box) {
       // check if there already exists a jslghtbx-div
-      var newEl = document.getElementById('jslghtbx');
+      var newEl = document.getElementById(_const_id_prefix);
       if (!newEl) {
         newEl = document.createElement('div');
       }
-      newEl.setAttribute('id', 'jslghtbx');
-      newEl.setAttribute('class', 'jslghtbx');
+      newEl.setAttribute('id', _const_id_prefix);
+      newEl.setAttribute('class', _const_class_prefix);
       CTX.box = newEl;
       body.appendChild(CTX.box);
     }
     CTX.box.innerHTML = template;
     if (isIE8) {
-      addClass(CTX.box, 'jslghtbx-ie8');
+      addClass(CTX.box, _const_class_prefix + '-ie8');
     }
-    CTX.wrapper = document.getElementById('jslghtbx-contentwrapper');
+    CTX.wrapper = document.getElementById(_const_id_prefix + '-contentwrapper');
 
     // init regular closebutton
     if (!CTX.opt.hideCloseBtn) {
       var closeBtn = document.createElement('span');
-      closeBtn.setAttribute('id', 'jslghtbx-close');
-      closeBtn.setAttribute('class', 'jslghtbx-close');
+      closeBtn.setAttribute('id', _const_id_prefix + '-close');
+      closeBtn.setAttribute('class', _const_class_prefix + '-close');
       closeBtn.innerHTML = 'X';
       CTX.box.appendChild(closeBtn);
       addEvent(closeBtn, 'click', function (e) {
@@ -480,14 +487,14 @@ function Lightbox() {
       // set loading GIF
       animationEl = document.createElement('img');
       animationEl.setAttribute('src', CTX.opt.loadingAnimation);
-      addClass(animationEl, 'jslghtbx-loading-animation');
+      addClass(animationEl, _const_class_prefix + '-loading-animation');
       CTX.box.appendChild(animationEl);
     } else if (CTX.opt.loadingAnimation) {
       // set default animation time
       CTX.opt.loadingAnimation = typeof CTX.opt.loadingAnimation === 'number' ? CTX.opt.loadingAnimation : 200;
       // create animation elements
       animationEl = document.createElement('div');
-      addClass(animationEl, 'jslghtbx-loading-animation');
+      addClass(animationEl, _const_class_prefix + '-loading-animation');
       var i = 0;
       while (i < CTX.opt.animElCount) {
         animationChildren.push(animationEl.appendChild(document.createElement('span')));
@@ -501,10 +508,10 @@ function Lightbox() {
       addEvent(window, 'resize', function () {
         CTX.resize();
       }, false);
-      addClass(CTX.box, 'jslghtbx-nooverflow'); // hide scrollbars on prev/next
+      addClass(CTX.box, _const_class_prefix + '-nooverflow'); // hide scrollbars on prev/next
     }
     else {
-      removeClass(CTX.box, 'jslghtbx-nooverflow');
+      removeClass(CTX.box, _const_class_prefix + '-nooverflow');
     }
 
     // add keyboard event handlers
@@ -540,7 +547,7 @@ function Lightbox() {
       return false;
     }
     // save images from group
-    currGroup = group || currGroup || getAttr(el, 'data-jslghtbx-group');
+    currGroup = group || currGroup || getAttr(el, _const_dataattr + '-group');
     if (currGroup) {
       currImages = getByGroup(currGroup);
       if (typeof el === 'boolean' && !el) {
@@ -561,9 +568,9 @@ function Lightbox() {
       // string with img-src given
       src = el;
     }
-    else if (getAttr(el, 'data-jslghtbx')) {
+    else if (getAttr(el, _const_dataattr)) {
       // image-source given
-      src = getAttr(el, 'data-jslghtbx');
+      src = getAttr(el, _const_dataattr);
     }
     else {
       // no image-source given
@@ -575,7 +582,7 @@ function Lightbox() {
     // add init-class on opening, but not at prev/next
     if (!isOpen) {
       if (typeof CTX.opt.animation === 'number') {
-        addClass(currImage.img, 'jslghtbx-animate-transition jslghtbx-animate-init');
+        addClass(currImage.img, _const_class_prefix + '-animate-transition ' + _const_class_prefix + '-animate-init');
       }
       isOpen = true;
 
@@ -595,23 +602,23 @@ function Lightbox() {
     CTX.wrapper.appendChild(currImage.img);
     // set animation class
     if (CTX.opt.animation) {
-      addClass(CTX.wrapper, 'jslghtbx-animate');
+      addClass(CTX.wrapper, _const_class_prefix + '-animate');
     }
     // set caption
-    var captionText = getAttr(el, 'data-jslghtbx-caption');
+    var captionText = getAttr(el, _const_dataattr + '-caption');
     if (captionText && CTX.opt.captions) {
       var caption = document.createElement('p');
-      caption.setAttribute('class', 'jslghtbx-caption');
+      caption.setAttribute('class', _const_class_prefix + '-caption');
       caption.innerHTML = captionText;
       CTX.wrapper.appendChild(caption);
     }
 
-    addClass(CTX.box, 'jslghtbx-active');
+    addClass(CTX.box, _const_class_prefix + '-active');
 
     // show wrapper early to avoid bug where dimensions are not
     // correct in IE8
     if (isIE8) {
-      addClass(CTX.wrapper, 'jslghtbx-active');
+      addClass(CTX.wrapper, _const_class_prefix + '-active');
     }
     if (CTX.opt.controls && currImages.length > 1) {
       initControls();
@@ -644,11 +651,11 @@ function Lightbox() {
       }
       // interval to check if image is ready to show
       var checkClassInt = setInterval(function () {
-        if (hasClass(CTX.box, 'jslghtbx-active')) {
-          addClass(CTX.wrapper, 'jslghtbx-wrapper-active');
+        if (hasClass(CTX.box, _const_class_prefix + '-active')) {
+          addClass(CTX.wrapper, _const_class_prefix + '-wrapper-active');
           // set animation
           if (typeof CTX.opt.animation === 'number') {
-            addClass(currImage.img, 'jslghtbx-animate-transition');
+            addClass(currImage.img, _const_class_prefix + '-animate-transition');
           }
           if (cb) {
             cb();
@@ -664,7 +671,7 @@ function Lightbox() {
           // set clickhandler on image to show next image
           if (CTX.opt.nextOnClick) {
             // add cursor pointer
-            addClass(currImage.img, 'jslghtbx-next-on-click');
+            addClass(currImage.img, _const_class_prefix + '-next-on-click');
             addEvent(currImage.img, 'click', function (e) {
               stopPropagation(e);
               CTX.next();
@@ -712,11 +719,11 @@ function Lightbox() {
     setOpt(opt);
 
     // Find all elements with `data-jslghtbx` attribute & add clickhandlers
-    var arr = document.querySelectorAll('[data-jslghtbx]');
+    var arr = document.querySelectorAll('[' + _const_dataattr + ']');
     for (var i = 0; i < arr.length; i++) {
-      if (hasAttr(arr[i], 'data-jslghtbx')) {
+      if (hasAttr(arr[i], _const_dataattr)) {
         // set index to get proper position in getPos()
-        arr[i].setAttribute('data-jslghtbx-index', i);
+        arr[i].setAttribute(_const_dataattr + '-index', i);
         CTX.thumbnails.push(arr[i]);
         clckHlpr(arr[i]);
       }
@@ -805,11 +812,11 @@ function Lightbox() {
       return;
     }
     if (typeof CTX.opt.animation === 'number') {
-      removeClass(currImage.img, 'jslghtbx-animating-next');
+      removeClass(currImage.img, _const_class_prefix + '-animating-next');
       setTimeout(function () {
         var cb = function () {
           setTimeout(function () {
-            addClass(currImage.img, 'jslghtbx-animating-next');
+            addClass(currImage.img, _const_class_prefix + '-animating-next');
           }, CTX.opt.animation / 2);
         };
         openBox(currThumbnail, false, cb, 'next');
@@ -840,11 +847,11 @@ function Lightbox() {
     }
     // animation stuff
     if (typeof CTX.opt.animation === 'number') {
-      removeClass(currImage.img, 'jslghtbx-animating-prev');
+      removeClass(currImage.img, _const_class_prefix + '-animating-prev');
       setTimeout(function () {
         var cb = function () {
           setTimeout(function () {
-            addClass(currImage.img, 'jslghtbx-animating-next');
+            addClass(currImage.img, _const_class_prefix + '-animating-next');
           }, CTX.opt.animation / 2);
         };
         openBox(currThumbnail, false, cb, 'prev');
@@ -866,10 +873,10 @@ function Lightbox() {
     currImage = {};
     currImages = [];
     isOpen = false;
-    removeClass(CTX.box, 'jslghtbx-active');
-    removeClass(CTX.wrapper, 'jslghtbx-wrapper-active');
-    removeClass(nextBtn, 'jslghtbx-active');
-    removeClass(prevBtn, 'jslghtbx-active');
+    removeClass(CTX.box, _const_class_prefix + '-active');
+    removeClass(CTX.wrapper, _const_class_prefix + '-wrapper-active');
+    removeClass(nextBtn, _const_class_prefix + '-active');
+    removeClass(prevBtn, _const_class_prefix + '-active');
     CTX.box.setAttribute('style', 'padding-top: 0px');
 
     // stop animtation
