@@ -1,7 +1,7 @@
 'use strict';
 
 /**
- * jsOnlyLightbox 0.5.3
+ * jsOnlyLightbox 0.5.5
  * Copyright © 2014 Felix Hagspiel - http://jslightbox.felixhagspiel.de
  *
  * @license MIT
@@ -427,18 +427,27 @@ function Lightbox() {
             onloaderror: opt.onloaderror || false
         };
 
-        // load box in custom element
-        if (CTX.opt.boxId) {
-            CTX.box = document.getElementById(CTX.opt.boxId);
+      // load box in custom element
+      if (CTX.opt.boxId) {
+        CTX.box = document.getElementById(CTX.opt.boxId);
+        // set class if missing
+        var classes = CTX.box.getAttribute('class');
+        if (classes.search('jslghtbx ') < 0) {
+          CTX.box.setAttribute('class', classes + ' jslghtbx');
         }
-        // create box element if no ID is given
-        else if (!CTX.box && !document.getElementById('jslghtbx')) {
-            var newEl = document.createElement('div');
-            newEl.setAttribute('id', 'jslghtbx');
-            newEl.setAttribute('class', 'jslghtbx');
-            CTX.box = newEl;
-            body.appendChild(CTX.box);
+      }
+      // create box element if no ID is given and element is not there
+      else if (!CTX.box) {
+        // check if there already exists a jslghtbx-div
+        var newEl = document.getElementById('jslghtbx');
+        if (!newEl) {
+          newEl = document.createElement('div');
         }
+        newEl.setAttribute('id', 'jslghtbx');
+        newEl.setAttribute('class', 'jslghtbx');
+        CTX.box = newEl;
+        body.appendChild(CTX.box);
+      }
         CTX.box.innerHTML = template;
         if (isIE8) {
             addClass(CTX.box, 'jslghtbx-ie8');
