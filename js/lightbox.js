@@ -621,9 +621,11 @@ function Lightbox() {
         /**
          * Onerror-handler for the image
          */
-        currImage.img.onerror = function () {
+        currImage.img.onerror = function (imageErrorEvent) {
             if (CTX.opt.onloaderror) {
-                CTX.opt.onloaderror(event);
+                // if `event` is false, error happened on opening the box
+                imageErrorEvent._happenedWhile = event ? event : false;
+                CTX.opt.onloaderror(imageErrorEvent);
             }
         };
         /**

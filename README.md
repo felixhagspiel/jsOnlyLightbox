@@ -188,7 +188,7 @@ Function that is executed when the lightbox is resized.
 Function that is executed once the current image is loaded. The callback receives an event which is `"prev"` if the prev button was clicked, `"next"` if the next button was clicked or `false` for all other ways of opening the lightbox.
 
 ###	`{onloaderror: function(event)}`
-Function that is executed when the current image fails to load. You can add your handlers here to display a warning or call other functions. The callback receives an event which is `"prev"` if the prev button was clicked, `"next"` if the next button was clicked or `false` for all other ways of opening the lightbox. This allows you to handle errors. For example you can just show the next or previous picture if the current one is not available:
+Function that is executed when the current image fails to load. You can add your handlers here to display a warning or call other functions. The callback receives an image-event which has a property `_happenedWhile`. That property is `"prev"` if the prev button was clicked, `"next"` if the next button was clicked or `false` for all other ways of opening the lightbox. This allows you to handle errors. For example you can just show the next or previous picture if the current one is not available:
 
 		onloaderror: function(event){
 			if(event === 'prev')
