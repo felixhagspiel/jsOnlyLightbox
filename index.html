@@ -119,12 +119,14 @@
 
 <div class="section">
     <h1>jsOnlyLightbox 0.5.5</h1>
-    <p>Developing tools like this lightbox takes a lot of time. If you like my lightbox and want to support me, buy me a beer via paypal :) Thanks!</p>
+    <p>Developing tools like this lightbox takes a lot of time. If you like my lightbox and want to support me, buy me a
+        beer via paypal :) Thanks!</p>
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-      <input type="hidden" name="cmd" value="_s-xclick">
-      <input type="hidden" name="hosted_button_id" value="WVXWU8XR58VMQ">
-      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-      <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="WVXWU8XR58VMQ">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit"
+               alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
     </form>
     <h2>Responsive Lightbox written in plain JavaScript</h2>
     <ul class="u-list">
@@ -220,7 +222,8 @@
         lightbox.load(lightBoxOptions);
     </code>
 
-    <p>Then you just have to add the attribute <code>data-jslghtbx</code> to all the images or elements you want to show in the
+    <p>Then you just have to add the attribute <code>data-jslghtbx</code> to all the images or elements you want to show
+        in the
         lightbox:</p>
     <code class="block">
         &lt;img class=&quot;jslghtbx-thmb&quot; src=&quot;img/lightbox/1.jpg&quot; alt=&quot;&quot; data-jslghtbx&gt;
@@ -296,10 +299,11 @@
     <h2>To download and see the full documentation of options &amp; API please visit my <a
             href="https://github.com/felixhagspiel/jsOnlyLightbox" class="btn">Github-Profile</a></h2>
     <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
-      <input type="hidden" name="cmd" value="_s-xclick">
-      <input type="hidden" name="hosted_button_id" value="WVXWU8XR58VMQ">
-      <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
-      <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
+        <input type="hidden" name="cmd" value="_s-xclick">
+        <input type="hidden" name="hosted_button_id" value="WVXWU8XR58VMQ">
+        <input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit"
+               alt="PayPal - The safer, easier way to pay online!">
+        <img alt="" border="0" src="https://www.paypalobjects.com/de_DE/i/scr/pixel.gif" width="1" height="1">
     </form>
 </div>
 <div class="section">
@@ -329,28 +333,32 @@
         // callbacks
         onopen: function (image) {
             // your code goes here
-            console.log('onopen',image)
+            console.log('onopen', image)
         },
         onclose: function (image) {
             // your code goes here
-            console.log('onclose',image)
+            console.log('onclose', image)
         },
         onload: function (event) {
             // your code goes here
-            console.log('onload',event)
+            console.log('onload', event)
         },
         onresize: function (image) {
             // your code goes here
-            console.log('onresize',image)
+            console.log('onresize', image)
         },
         onloaderror: function (event) {
             // your code goes here
-            console.log('onloaderror',event)
+            console.log('onloaderror', event)
             // just display next or prev picture on error
-            if(event._happenedWhile === 'prev')
+            if (event._happenedWhile === 'prev')
                 lightbox.prev()
             else
                 lightbox.next()
+        },
+        onimageclick: function (image) {
+            // your code goes here
+            console.log('Image clicked!', image)
         }
     });
 </script>

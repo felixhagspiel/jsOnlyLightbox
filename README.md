@@ -120,14 +120,14 @@ If set to true, the caption text inside the `data-jslghtbx-caption` attribute wi
 ###	`{closeOnClick: bool}`
 _Default: true_
 
-If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button.
+If set to true, the lightbox will close on click anywhere inside the viewport, not just by clicking on the close-button (except when clicking on the image. see `nextOnClick` for this).
 
 Note: May not work in IE8.
 
-###	`{nextOnClick: bool}`
+###	`{nextOnClick: bool || function(image)}`
 _Default: true_
 
-If set to true, a click on the current image shows the next image.
+If set to true, a click on the current image shows the next image. Alternatively you can pass your own function here which will receive the image which is currently displayed including original width and height as param.
 
 ###	`{hideOverflow: bool}`
 _Default: true_
@@ -176,13 +176,13 @@ This is the modifier which is used to reduce the images size when it's full size
 #### Callbacks
 
 ###	`{onopen: function(image)}`
-Function that is executed when the lightbox is opened. Receives the image including original width and height which is currently displayed as param.
+Function that is executed when the lightbox is opened. Receives the image which is currently displayed including original width and height  as param.
 
 ###	`{onclose: function(image)}`
-Function that is executed when the lightbox is closed. Receives the last image including original width and height which was displayed as param.
+Function that is executed when the lightbox is closed. Receives the last image which was displayed including original width and height as param.
 
 ###	`{onresize: function(image)}`
-Function that is executed when the lightbox is resized. Receives the image including original width and height which is currently displayed as param.
+Function that is executed when the lightbox is resized. Receives the image which is currently displayed including original width and height  as param.
 
 ###	`{onload: function(event)}`
 Function that is executed once the current image is loaded. The callback receives an event which is `"prev"` if the prev button was clicked, `"next"` if the next button was clicked or `false` for all other ways of opening the lightbox.
@@ -196,6 +196,9 @@ Function that is executed when the current image fails to load. You can add your
 			else
 				lightbox.next()
 		}
+
+###	`{onimageclick: function(image)}`
+Function that is executed once the current image is clicked. Receives the image which is currently displayed including original width and height as param.
 
 ## Attributes
 

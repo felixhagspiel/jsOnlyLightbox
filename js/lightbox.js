@@ -416,12 +416,12 @@ function Lightbox() {
       nextImg: typeof opt.nextImg === 'string' ? opt.nextImg : false,
       hideCloseBtn: opt.hideCloseBtn || false,
       closeOnClick: typeof opt.closeOnClick === 'boolean' ? opt.closeOnClick : true,
+      nextOnClick: setTrueDef(opt.nextOnClick),
       loadingAnimation: opt.loadingAnimation === undefined ? true : opt.loadingAnimation,
       animElCount: opt.animElCount || 4,
       preload: setTrueDef(opt.preload),
       carousel: setTrueDef(opt.carousel),
       animation: typeof opt.animation === 'number' || opt.animation === false ? opt.animation : 400,
-      nextOnClick: setTrueDef(opt.nextOnClick),
       responsive: setTrueDef(opt.responsive),
       maxImgSize: opt.maxImgSize || 0.8,
       keyControls: setTrueDef(opt.keyControls),
@@ -431,7 +431,8 @@ function Lightbox() {
       onclose: opt.onclose || false,
       onload: opt.onload || false,
       onresize: opt.onresize || false,
-      onloaderror: opt.onloaderror || false
+      onloaderror: opt.onloaderror || false,
+      onimageclick: typeof opt.onimageclick === 'function' ? opt.onimageclick : false
     };
 
     // load box in custom element
@@ -675,6 +676,13 @@ function Lightbox() {
             addEvent(currImage.img, 'click', function (e) {
               stopPropagation(e);
               CTX.next();
+            }, false);
+          }
+          // set custom clickhandler on image
+          if (CTX.opt.onimageclick) {
+            addEvent(currImage.img, 'click', function (e) {
+              stopPropagation(e);
+              CTX.opt.onimageclick(currImage);
             }, false);
           }
           // execute onload callback
