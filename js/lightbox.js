@@ -581,7 +581,7 @@ function Lightbox() {
 
       // execute open callback
       if (CTX.opt.onopen) {
-        CTX.opt.onopen();
+        CTX.opt.onopen(currImage);
       }
     }
 
@@ -782,7 +782,7 @@ function Lightbox() {
 
     // execute resize callback
     if (CTX.opt.onresize) {
-      CTX.opt.onresize();
+      CTX.opt.onresize(currImage);
     }
   };
 
@@ -862,6 +862,7 @@ function Lightbox() {
     // restore Defaults
     currGroup = false;
     currThumbnail = false;
+    var _currImage = currImage;
     currImage = {};
     currImages = [];
     isOpen = false;
@@ -886,7 +887,7 @@ function Lightbox() {
 
     // execute close callback
     if (CTX.opt.onclose) {
-      CTX.opt.onclose();
+      CTX.opt.onclose(_currImage);
     }
   };
 }
