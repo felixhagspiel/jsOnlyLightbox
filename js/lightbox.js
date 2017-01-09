@@ -265,16 +265,16 @@ function Lightbox() {
     var pos = getPos(currThumbnail, currGroup);
     if (pos === (currImages.length - 1)) {
       // last image in group, preload first image and the one before
-      prev.src = currImages[currImages.length - 1].src || getAttr(currImages[currImages.length - 1], 'data-src');
-      next.src = currImages[0].src || getAttr(currImages[0].src, 'data-src');
+      prev.src = getAttr(currImages[currImages.length - 1], 'data-jslghtbx') || currImages[currImages.length - 1].src;
+      next.src = getAttr(currImages[0].src, 'data-jslghtbx') || currImages[0].src;
     } else if (pos === 0) {
       // first image in group, preload last image and the next one
-      prev.src = currImages[currImages.length - 1].src || getAttr(currImages[currImages.length - 1], 'data-src');
-      next.src = currImages[1].src || getAttr(currImages[1], 'data-src');
+      prev.src = getAttr(currImages[currImages.length - 1], 'data-jslghtbx') || currImages[currImages.length - 1].src;
+      next.src = getAttr(currImages[1], 'data-jslghtbx') || currImages[1].src;
     } else {
       // in between, preload prev & next image
-      prev.src = currImages[pos - 1].src || getAttr(currImages[pos - 1], 'data-src');
-      next.src = currImages[pos + 1].src || getAttr(currImages[pos + 1], 'data-src');
+      prev.src = getAttr(currImages[pos - 1], 'data-jslghtbx') || currImages[pos - 1].src;
+      next.src = getAttr(currImages[pos + 1], 'data-jslghtbx') || currImages[pos + 1].src;
     }
   }
 
