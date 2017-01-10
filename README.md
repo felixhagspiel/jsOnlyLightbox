@@ -1,4 +1,4 @@
-# jsOnlyLightbox 0.5.4
+# jsOnlyLightbox 0.5.5
 #### Responsive Lightbox written in  plain JavaScript
 
 ## Features
