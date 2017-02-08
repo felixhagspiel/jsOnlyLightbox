@@ -907,3 +907,10 @@ function Lightbox() {
   };
 }
 
+
+/**
+ * Export the function so it can be included using node like environemnts (e.g. Webpack)
+ */
+if (typeof exports !== 'undefined') {
+   exports.Lightbox = Lightbox
+}
