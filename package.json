@@ -4,7 +4,7 @@
   "description": "Small responsive vanilla JS lightbox for displaying images.",
   "repository": {
     "type": "git",
-    "url": "https://github.com/felixhagspiel/jsOnlyLightbox.git"
+    "url": "git+https://github.com/felixhagspiel/jsOnlyLightbox.git"
   },
   "keywords": [
     "lightbox",
@@ -19,12 +19,13 @@
     "javascript"
   ],
   "author": "Felix Hagspiel",
-  "license":     {
-    "type": "MIT",
-    "url": "https://github.com/felixhagspiel/jsOnlyLightbox/blob/master/License.txt"
-  },
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/felixhagspiel/jsOnlyLightbox/issues"
   },
-  "homepage": "http://jslightbox.felixhagspiel.de/"
+  "homepage": "http://jslightbox.felixhagspiel.de/",
+  "main": "js/lightbox.min.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  }
 }
