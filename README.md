@@ -3,6 +3,7 @@
 
 ## Features
 
+
 - no jQuery needed, plain JavaScript
 - Fully responsive
 - Customizable Theme, SCSS-files included
