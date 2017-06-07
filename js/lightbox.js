@@ -9,7 +9,7 @@
  */
 /* exported Lightbox */
 function Lightbox() {
-
+  
   /**
    * Constants
    */
@@ -35,15 +35,15 @@ function Lightbox() {
     animationInt, // animation-interval
     animationChildren = [], // childs to animate
     animationTimeout, // timeout until animation starts
-  // controls
+    // controls
     nextBtn = false,
     prevBtn = false,
-  // resize-vars
+    // resize-vars
     maxWidth,
     maxHeight,
     newImgWidth,
     newImgHeight;
-
+  
   /*
    *   Public attributes
    */
@@ -55,17 +55,17 @@ function Lightbox() {
   /**
    * Extends thumbnails.push to add click handlers to dynamically loaded thumbs
    */
-  CTX.thumbnails.push = function (){
-    for( var i = 0, l = arguments.length; i < l; i++ ) {
+  CTX.thumbnails.push = function () {
+    for (var i = 0, l = arguments.length; i < l; i++) {
       clckHlpr(arguments[i]);
     }
-    return Array.prototype.push.apply(this,arguments);
+    return Array.prototype.push.apply(this, arguments);
   };
   
   /**
    * Private methods
    */
-
+  
   /**
    * Get correct height in IE8
    * @return {number}
@@ -73,7 +73,7 @@ function Lightbox() {
   function getHeight() {
     return window.innerHeight || document.documentElement.offsetHeight;
   }
-
+  
   /**
    * Get correct width in IE8
    * @return {number}
@@ -81,7 +81,7 @@ function Lightbox() {
   function getWidth() {
     return window.innerWidth || document.documentElement.offsetWidth;
   }
-
+  
   /**
    * Adds eventlisteners cross browser
    * @param {Object}   el       The element which gets the listener
@@ -92,11 +92,13 @@ function Lightbox() {
   function addEvent(el, e, callback, capture) {
     if (el.addEventListener) {
       el.addEventListener(e, callback, capture || false);
-    } else if (el.attachEvent) {
-      el.attachEvent('on' + e, callback);
     }
+    else
+      if (el.attachEvent) {
+        el.attachEvent('on' + e, callback);
+      }
   }
-
+  
   /**
    * Checks if element has a specific class
    * @param  {Object}  el        [description]
@@ -109,7 +111,7 @@ function Lightbox() {
     }
     return (new RegExp('(^|\\s)' + className + '(\\s|$)').test(el.className));
   }
-
+  
   /**
    * Removes class from element
    * @param  {Object} el
@@ -123,7 +125,7 @@ function Lightbox() {
     el.className = el.className.replace(new RegExp('(?:^|\\s)' + className + '(?!\\S)'), '');
     return el;
   }
-
+  
   /**
    * Adds class to element
    * @param  {Object} el
@@ -139,7 +141,7 @@ function Lightbox() {
     }
     return el;
   }
-
+  
   /**
    * Checks if obj is set
    * @param  {Object} obj
@@ -147,9 +149,9 @@ function Lightbox() {
    */
   function isset(obj) {
     return typeof obj !== 'undefined';
-
+    
   }
-
+  
   /**
    * Get attribute value cross-browser. Returns the attribute as string if found,
    * otherwise returns false
@@ -165,15 +167,16 @@ function Lightbox() {
     if (obj.getAttribute) {
       ret = obj.getAttribute(attr);
     }
-    else if (obj.getAttributeNode) {
-      ret = obj.getAttributeNode(attr).value;
-    }
+    else
+      if (obj.getAttributeNode) {
+        ret = obj.getAttributeNode(attr).value;
+      }
     if (isset(ret) && ret !== '') {
       return ret;
     }
     return false;
   }
-
+  
   /**
    * Checks if element has attribute cross-browser
    * @param  {Object}  obj
@@ -188,13 +191,14 @@ function Lightbox() {
     if (obj.getAttribute) {
       ret = obj.getAttribute(attr);
     }
-    else if (obj.getAttributeNode) {
-      ret = obj.getAttributeNode(attr).value;
-    }
+    else
+      if (obj.getAttributeNode) {
+        ret = obj.getAttributeNode(attr).value;
+      }
     return typeof ret === 'string';
-
+    
   }
-
+  
   /**
    * Adds clickhandlers to thumbnails
    * @param  {Object} i
@@ -208,7 +212,7 @@ function Lightbox() {
       openBox(i, false, false, false);
     }, false);
   }
-
+  
   /**
    * Stop event propagation cross browser
    * @param  {Object} e
@@ -221,7 +225,7 @@ function Lightbox() {
       e.returnValue = false;
     }
   }
-
+  
   /**
    * Prevent default cross browser
    * @param  {Object} e
@@ -234,8 +238,8 @@ function Lightbox() {
       e.returnValue = false;
     }
   }
-
-
+  
+  
   /**
    * Get thumbnails by group
    * @param  {String} group
@@ -250,7 +254,7 @@ function Lightbox() {
     }
     return arr;
   }
-
+  
   /**
    * Get the position of thumbnail in group-array
    * @param  {Object} thumbnail
@@ -264,12 +268,12 @@ function Lightbox() {
       if (getAttr(thumbnail, 'src') === getAttr(arr[i], 'src') &&
         getAttr(thumbnail, _const_dataattr + '-index') === getAttr(arr[i], _const_dataattr + '-index') &&
         getAttr(thumbnail, _const_dataattr) === getAttr(arr[i], _const_dataattr)) {
-
+        
         return i;
       }
     }
   }
-
+  
   /**
    * Preloads next and prev images
    */
@@ -284,17 +288,20 @@ function Lightbox() {
       // last image in group, preload first image and the one before
       prev.src = getAttr(currImages[currImages.length - 1], _const_dataattr) || currImages[currImages.length - 1].src;
       next.src = getAttr(currImages[0].src, _const_dataattr) || currImages[0].src;
-    } else if (pos === 0) {
-      // first image in group, preload last image and the next one
-      prev.src = getAttr(currImages[currImages.length - 1], _const_dataattr) || currImages[currImages.length - 1].src;
-      next.src = getAttr(currImages[1], _const_dataattr) || currImages[1].src;
-    } else {
-      // in between, preload prev & next image
-      prev.src = getAttr(currImages[pos - 1], _const_dataattr) || currImages[pos - 1].src;
-      next.src = getAttr(currImages[pos + 1], _const_dataattr) || currImages[pos + 1].src;
     }
+    else
+      if (pos === 0) {
+        // first image in group, preload last image and the next one
+        prev.src = getAttr(currImages[currImages.length - 1], _const_dataattr) || currImages[currImages.length - 1].src;
+        next.src = getAttr(currImages[1], _const_dataattr) || currImages[1].src;
+      }
+      else {
+        // in between, preload prev & next image
+        prev.src = getAttr(currImages[pos - 1], _const_dataattr) || currImages[pos - 1].src;
+        next.src = getAttr(currImages[pos + 1], _const_dataattr) || currImages[pos + 1].src;
+      }
   }
-
+  
   /**
    * Starts the loading animation
    */
@@ -320,7 +327,7 @@ function Lightbox() {
     // set timeout to not show loading animation on fast connections
     animationTimeout = setTimeout(fnc, 500);
   }
-
+  
   /**
    * Stops the animation
    */
@@ -339,7 +346,7 @@ function Lightbox() {
       }
     }
   }
-
+  
   /**
    * Initializes the control arrows
    */
@@ -348,13 +355,14 @@ function Lightbox() {
       // create & append next-btn
       nextBtn = document.createElement('span');
       addClass(nextBtn, _const_class_prefix + '-next');
-
+      
       // add custom images
       if (CTX.opt.nextImg) {
         var nextBtnImg = document.createElement('img');
         nextBtnImg.setAttribute('src', CTX.opt.nextImg);
         nextBtn.appendChild(nextBtnImg);
-      } else {
+      }
+      else {
         addClass(nextBtn, _const_class_prefix + '-no-img');
       }
       addEvent(nextBtn, 'click', function (e) {
@@ -368,13 +376,14 @@ function Lightbox() {
       // create & append next-btn
       prevBtn = document.createElement('span');
       addClass(prevBtn, _const_class_prefix + '-prev');
-
+      
       // add custom images
       if (CTX.opt.prevImg) {
         var prevBtnImg = document.createElement('img');
         prevBtnImg.setAttribute('src', CTX.opt.prevImg);
         prevBtn.appendChild(prevBtnImg);
-      } else {
+      }
+      else {
         addClass(prevBtn, _const_class_prefix + '-no-img');
       }
       addEvent(prevBtn, 'click', function (e) {
@@ -385,7 +394,7 @@ function Lightbox() {
     }
     addClass(prevBtn, _const_class_prefix + '-active');
   }
-
+  
   /**
    * Moves controls to correct position
    */
@@ -396,7 +405,7 @@ function Lightbox() {
       prevBtn.style.top = btnTop + 'px';
     }
   }
-
+  
   /**
    * Sets options and defaults
    * @param {Object} opt
@@ -406,7 +415,7 @@ function Lightbox() {
     if (!opt) {
       opt = {};
     }
-
+    
     /**
      * Sets the passed value per default to true if not given
      * @param {Object || String || Number || Boolean || ...} val
@@ -415,7 +424,7 @@ function Lightbox() {
     function setTrueDef(val) {
       return typeof val === 'boolean' ? val : true;
     }
-
+    
     CTX.opt = {
       // options
       boxId: opt.boxId || false,
@@ -444,7 +453,7 @@ function Lightbox() {
       onloaderror: opt.onloaderror || false,
       onimageclick: typeof opt.onimageclick === 'function' ? opt.onimageclick : false
     };
-
+    
     // load box in custom element
     if (CTX.opt.boxId) {
       CTX.box = document.getElementById(CTX.opt.boxId);
@@ -455,23 +464,24 @@ function Lightbox() {
       }
     }
     // create box element if no ID is given and element is not there
-    else if (!CTX.box) {
-      // check if there already exists a jslghtbx-div
-      var newEl = document.getElementById(_const_id_prefix);
-      if (!newEl) {
-        newEl = document.createElement('div');
+    else
+      if (!CTX.box) {
+        // check if there already exists a jslghtbx-div
+        var newEl = document.getElementById(_const_id_prefix);
+        if (!newEl) {
+          newEl = document.createElement('div');
+        }
+        newEl.setAttribute('id', _const_id_prefix);
+        newEl.setAttribute('class', _const_class_prefix);
+        CTX.box = newEl;
+        body.appendChild(CTX.box);
       }
-      newEl.setAttribute('id', _const_id_prefix);
-      newEl.setAttribute('class', _const_class_prefix);
-      CTX.box = newEl;
-      body.appendChild(CTX.box);
-    }
     CTX.box.innerHTML = template;
     if (isIE8) {
       addClass(CTX.box, _const_class_prefix + '-ie8');
     }
     CTX.wrapper = document.getElementById(_const_id_prefix + '-contentwrapper');
-
+    
     // init regular closebutton
     if (!CTX.opt.hideCloseBtn) {
       var closeBtn = document.createElement('span');
@@ -484,7 +494,7 @@ function Lightbox() {
         CTX.close();
       }, false);
     }
-
+    
     // close lightbox on background-click by default / if true
     if (!isIE8 && CTX.opt.closeOnClick) {
       addEvent(CTX.box, 'click', function (e) {
@@ -492,7 +502,7 @@ function Lightbox() {
         CTX.close();
       }, false);
     }
-
+    
     // set loading animation
     if (typeof CTX.opt.loadingAnimation === 'string') {
       // set loading GIF
@@ -500,20 +510,22 @@ function Lightbox() {
       animationEl.setAttribute('src', CTX.opt.loadingAnimation);
       addClass(animationEl, _const_class_prefix + '-loading-animation');
       CTX.box.appendChild(animationEl);
-    } else if (CTX.opt.loadingAnimation) {
-      // set default animation time
-      CTX.opt.loadingAnimation = typeof CTX.opt.loadingAnimation === 'number' ? CTX.opt.loadingAnimation : 200;
-      // create animation elements
-      animationEl = document.createElement('div');
-      addClass(animationEl, _const_class_prefix + '-loading-animation');
-      var i = 0;
-      while (i < CTX.opt.animElCount) {
-        animationChildren.push(animationEl.appendChild(document.createElement('span')));
-        i++;
-      }
-      CTX.box.appendChild(animationEl);
     }
-
+    else
+      if (CTX.opt.loadingAnimation) {
+        // set default animation time
+        CTX.opt.loadingAnimation = typeof CTX.opt.loadingAnimation === 'number' ? CTX.opt.loadingAnimation : 200;
+        // create animation elements
+        animationEl = document.createElement('div');
+        addClass(animationEl, _const_class_prefix + '-loading-animation');
+        var i = 0;
+        while (i < CTX.opt.animElCount) {
+          animationChildren.push(animationEl.appendChild(document.createElement('span')));
+          i++;
+        }
+        CTX.box.appendChild(animationEl);
+      }
+    
     // add resize-eventhandlers
     if (CTX.opt.responsive) {
       addEvent(window, 'resize', function () {
@@ -524,7 +536,7 @@ function Lightbox() {
     else {
       removeClass(CTX.box, _const_class_prefix + '-nooverflow');
     }
-
+    
     // add keyboard event handlers
     if (CTX.opt.keyControls) {
       addEvent(document, 'keydown', function (e) {
@@ -533,18 +545,22 @@ function Lightbox() {
           if (e.keyCode === 39) {
             // show next img on right cursor
             CTX.next();
-          } else if (e.keyCode === 37) {
-            // show prev img on left cursor
-            CTX.prev();
-          } else if (e.keyCode === 27) {
-            // close lightbox on ESC
-            CTX.close();
           }
+          else
+            if (e.keyCode === 37) {
+              // show prev img on left cursor
+              CTX.prev();
+            }
+            else
+              if (e.keyCode === 27) {
+                // close lightbox on ESC
+                CTX.close();
+              }
         }
       }, false);
     }
   }
-
+  
   /**
    * Opens the lightbox. Either @param el and @param group must be given,
    * but not both together!
@@ -566,48 +582,49 @@ function Lightbox() {
         el = currImages[0];
       }
     }
-
+    
     // create new img-element
     currImage.img = new Image();
-
+    
     // set el as current thumbnail
     currThumbnail = el;
-
+    
     // get correct image-source
     var src;
     if (typeof el === 'string') {
       // string with img-src given
       src = el;
     }
-    else if (getAttr(el, _const_dataattr)) {
-      // image-source given
-      src = getAttr(el, _const_dataattr);
-    }
-    else {
-      // no image-source given
-      src = getAttr(el, 'src');
-    }
+    else
+      if (getAttr(el, _const_dataattr)) {
+        // image-source given
+        src = getAttr(el, _const_dataattr);
+      }
+      else {
+        // no image-source given
+        src = getAttr(el, 'src');
+      }
     // clear old image ratio for proper resize-values
     imgRatio = false;
-
+    
     // add init-class on opening, but not at prev/next
     if (!isOpen) {
       if (typeof CTX.opt.animation === 'number') {
         addClass(currImage.img, _const_class_prefix + '-animate-transition ' + _const_class_prefix + '-animate-init');
       }
       isOpen = true;
-
+      
       // execute open callback
       if (CTX.opt.onopen) {
         CTX.opt.onopen(currImage);
       }
     }
-
+    
     // hide overflow by default / if set
     if (!CTX.opt || !isset(CTX.opt.hideOverflow) || CTX.opt.hideOverflow) {
       body.setAttribute('style', 'overflow: hidden');
     }
-
+    
     CTX.box.setAttribute('style', 'padding-top: 0');
     CTX.wrapper.innerHTML = '';
     CTX.wrapper.appendChild(currImage.img);
@@ -623,9 +640,9 @@ function Lightbox() {
       caption.innerHTML = captionText;
       CTX.wrapper.appendChild(caption);
     }
-
+    
     addClass(CTX.box, _const_class_prefix + '-active');
-
+    
     // show wrapper early to avoid bug where dimensions are not
     // correct in IE8
     if (isIE8) {
@@ -635,7 +652,7 @@ function Lightbox() {
       initControls();
       repositionControls();
     }
-
+    
     /**
      * Onerror-handler for the image
      */
@@ -706,18 +723,18 @@ function Lightbox() {
         }
       }, 10);
     };
-
+    
     // set src
     currImage.img.setAttribute('src', src);
-
+    
     // start loading animation
     startAnimation();
   }
-
+  
   /*
    *   Public methods
    */
-
+  
   /**
    * Init-function, must be called once
    * @param  {Object} opt Custom options
@@ -727,15 +744,15 @@ function Lightbox() {
     if (navigator.appVersion.indexOf('MSIE 8') > 0) {
       isIE8 = true;
     }
-
+    
     // check for IE9
     if (navigator.appVersion.indexOf('MSIE 9') > 0) {
       isIE9 = true;
     }
-
+    
     // set options
     setOpt(opt);
-
+    
     // Find all elements with `data-jslghtbx` attribute & add clickhandlers
     var arr = document.querySelectorAll('[' + _const_dataattr + ']');
     for (var i = 0; i < arr.length; i++) {
@@ -745,9 +762,9 @@ function Lightbox() {
         CTX.thumbnails.push(arr[i]);
       }
     }
-
+    
   };
-
+  
   /**
    * Public caller for openBox()
    * @param  {Object || string} el  Image element or a link
@@ -761,7 +778,7 @@ function Lightbox() {
     }
     openBox(el, group, false, false);
   };
-
+  
   /**
    * Calculates the new image size and resizes it
    */
@@ -776,7 +793,7 @@ function Lightbox() {
     if (!imgRatio && currImage.img && currImage.img.offsetWidth && currImage.img.offsetHeight) {
       imgRatio = currImage.img.offsetWidth / currImage.img.offsetHeight;
     }
-
+    
     // Height of image is too big to fit in viewport
     if (Math.floor(boxWidth / imgRatio) > boxHeight) {
       newImgWidth = boxHeight * imgRatio;
@@ -790,7 +807,7 @@ function Lightbox() {
     // decrease size with modifier
     newImgWidth = Math.floor(newImgWidth * CTX.opt.maxImgSize);
     newImgHeight = Math.floor(newImgHeight * CTX.opt.maxImgSize);
-
+    
     // check if image exceeds maximum size
     if (CTX.opt.dimensions && newImgHeight > currImage.originalHeight ||
       CTX.opt.dimensions && newImgWidth > currImage.originalWidth) {
@@ -800,16 +817,16 @@ function Lightbox() {
     currImage.img.setAttribute('width', newImgWidth);
     currImage.img.setAttribute('height', newImgHeight);
     currImage.img.setAttribute('style', 'margin-top:' + ((getHeight() - newImgHeight) / 2) + 'px');
-
+    
     // reposition controls after timeout
     setTimeout(repositionControls, 200);
-
+    
     // execute resize callback
     if (CTX.opt.onresize) {
       CTX.opt.onresize(currImage);
     }
   };
-
+  
   /**
    * Loads the next image
    */
@@ -822,12 +839,13 @@ function Lightbox() {
     if (currImages[pos]) {
       currThumbnail = currImages[pos];
     }
-    else if (CTX.opt.carousel) {
-      currThumbnail = currImages[0];
-    }
-    else {
-      return;
-    }
+    else
+      if (CTX.opt.carousel) {
+        currThumbnail = currImages[0];
+      }
+      else {
+        return;
+      }
     if (typeof CTX.opt.animation === 'number') {
       removeClass(currImage.img, _const_class_prefix + '-animating-next');
       setTimeout(function () {
@@ -843,7 +861,7 @@ function Lightbox() {
       openBox(currThumbnail, false, false, 'next');
     }
   };
-
+  
   /**
    * Loads the prev image
    */
@@ -856,12 +874,13 @@ function Lightbox() {
     if (currImages[pos]) {
       currThumbnail = currImages[pos];
     }
-    else if (CTX.opt.carousel) {
-      currThumbnail = currImages[currImages.length - 1];
-    }
-    else {
-      return;
-    }
+    else
+      if (CTX.opt.carousel) {
+        currThumbnail = currImages[currImages.length - 1];
+      }
+      else {
+        return;
+      }
     // animation stuff
     if (typeof CTX.opt.animation === 'number') {
       removeClass(currImage.img, _const_class_prefix + '-animating-prev');
@@ -878,7 +897,7 @@ function Lightbox() {
       openBox(currThumbnail, false, false, 'prev');
     }
   };
-
+  
   /**
    * Closes the box
    */
@@ -895,20 +914,20 @@ function Lightbox() {
     removeClass(nextBtn, _const_class_prefix + '-active');
     removeClass(prevBtn, _const_class_prefix + '-active');
     CTX.box.setAttribute('style', 'padding-top: 0px');
-
+    
     // stop animtation
     stopAnimation();
-
+    
     // Hide Lightbox if iE8
     if (isIE8) {
       CTX.box.setAttribute('style', 'display: none');
     }
-
+    
     // show overflow by default / if set
     if (!CTX.opt || !isset(CTX.opt.hideOverflow) || CTX.opt.hideOverflow) {
       body.setAttribute('style', 'overflow: auto');
     }
-
+    
     // execute close callback
     if (CTX.opt.onclose) {
       CTX.opt.onclose(_currImage);
