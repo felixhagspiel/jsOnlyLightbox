@@ -51,7 +51,17 @@ function Lightbox() {
   CTX.box = false;
   CTX.wrapper = false;
   CTX.thumbnails = [];
-
+  
+  /**
+   * Extends thumbnails.push to add click handlers to dynamically loaded thumbs
+   */
+  CTX.thumbnails.push = function (){
+    for( var i = 0, l = arguments.length; i < l; i++ ) {
+      clckHlpr(arguments[i]);
+    }
+    return Array.prototype.push.apply(this,arguments);
+  };
+  
   /**
    * Private methods
    */
@@ -733,7 +743,6 @@ function Lightbox() {
         // set index to get proper position in getPos()
         arr[i].setAttribute(_const_dataattr + '-index', i);
         CTX.thumbnails.push(arr[i]);
-        clckHlpr(arr[i]);
       }
     }
 
