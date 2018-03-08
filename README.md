@@ -24,9 +24,9 @@ Do not forget to add those lines inside your `<head></head>` if you want to supp
 
 The lightbox is still in development mode, so please post any issues and bugs on github. You can also use bower or npm to install the lightbox:
 
-	bower install jsonlylightbox --save-dev
+	bower install jsonlylightbox --save
 
-	npm install jsonlylightbox --save-dev
+	npm install jsonlylightbox --save
 
 ## Demo
 
