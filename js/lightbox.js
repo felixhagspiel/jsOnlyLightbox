@@ -622,10 +622,10 @@ function Lightbox() {
     
     // hide overflow by default / if set
     if (!CTX.opt || !isset(CTX.opt.hideOverflow) || CTX.opt.hideOverflow) {
-      body.setAttribute('style', 'overflow: hidden');
+      body.style['overflow'] = 'hidden';
     }
     
-    CTX.box.setAttribute('style', 'padding-top: 0');
+    CTX.box.style['padding-top'] = '0';
     CTX.wrapper.innerHTML = '';
     CTX.wrapper.appendChild(currImage.img);
     // set animation class
@@ -816,7 +816,7 @@ function Lightbox() {
     }
     currImage.img.setAttribute('width', newImgWidth);
     currImage.img.setAttribute('height', newImgHeight);
-    currImage.img.setAttribute('style', 'margin-top:' + ((getHeight() - newImgHeight) / 2) + 'px');
+    currImage.img.style['margin-top'] = ((getHeight() - newImgHeight) / 2) + 'px';
     
     // reposition controls after timeout
     setTimeout(repositionControls, 200);
@@ -913,19 +913,19 @@ function Lightbox() {
     removeClass(CTX.wrapper, _const_class_prefix + '-wrapper-active');
     removeClass(nextBtn, _const_class_prefix + '-active');
     removeClass(prevBtn, _const_class_prefix + '-active');
-    CTX.box.setAttribute('style', 'padding-top: 0px');
-    
+    CTX.box.style['padding-top'] = '0';
+
     // stop animtation
     stopAnimation();
     
     // Hide Lightbox if iE8
     if (isIE8) {
-      CTX.box.setAttribute('style', 'display: none');
+      CTX.box.style['display'] = 'none';
     }
     
     // show overflow by default / if set
     if (!CTX.opt || !isset(CTX.opt.hideOverflow) || CTX.opt.hideOverflow) {
-      body.setAttribute('style', 'overflow: auto');
+      body.style['overflow'] = 'auto';
     }
     
     // execute close callback
